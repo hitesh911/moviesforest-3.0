@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}contact{% endblock title %}
+{% block contactactive %}active{% endblock contactactive %}
+{% block body %}
+<div class="container my-3">
+    <h3>Contact JUFFLER</h3>
+    <form class = "container" action="/contact" , method = "post">
+    {% csrf_token %}
+        <div class="mb-3">
+        <label for="name" class="form-label mark ">Name *required</label>
+        <input type="text" class="form-control" id="name" placeholder="You'r name" name = "name">
+        </div>
+        <div class="mb-3">
+        <label for="email" class="form-label mark">Email *required</label>
+        <input type="email" class="form-control" id="email" placeholder="name@example.com" name = "email">
+        </div>
+        <div class="mb-3">
+        <label for="number" class="form-label mark">Number </label>
+        <input type="text" class="form-control" id="number" placeholder="76****** " name = "number">
+        </div>
+        <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label mark">Describe you'r query *required</label>
+        <textarea class="form-control" name = "content" id="exampleFormControlTextarea1 " rows="3"></textarea>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+</div>
+{% endblock body %}

@@ -1,0 +1,13 @@
+/* making every thing right as default  */
+body * {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* apllying font in whole site  */
+html * {
+    font-family: 'Baloo Bhai 2', cursive;
+
+}

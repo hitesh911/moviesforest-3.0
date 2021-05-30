@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% comment %} loading social share for share function {% endcomment %}
+{% block title %}Download{% endblock title %}
+{% comment %} loading social share module to make share button {% endcomment %}
+
+{% load static %}
+{% block body %}
+{% comment %} including a javascript file to make copy link function {% endcomment %}
+<script src="{% static 'js/copy_clip.js' %}"></script>
+<div class="d-flex h-100 text-center text-white bg-dark mb-3">
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    {% comment %} making a share logo here {% endcomment %}
+    <div class="container d-flex justify-content-end ">
+      {% comment %} this is for logo {% endcomment %}
+      <a  data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share"
+          viewBox="0 0 16 16">
+          <path
+            d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
+        </svg>
+      </a>
+      {% comment %} logo end {% endcomment %}
+      {% comment %} this is for action canvas {% endcomment %}
+      <div class=" bg-dark offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom"
+        aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+          {% comment %} title for action canvas {% endcomment %}
+          <h5 class="offcanvas-title" id="offcanvasBottomLabel">Share</h5>
+          {% comment %} button to close the canvas {% endcomment %}
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        {% comment %} main content for action canvas {% endcomment %}
+        <div class="offcanvas-body small">
+          {% comment %} making a row for all social media icons {% endcomment %}
+          <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3">
+            {% comment %} making a button to copy link {% endcomment %}
+            <div class="col mb-3">
+              <button class=" clipboard btn btn-link" onclick="copyUrl()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                  class="bi bi-clipboard" viewBox="0 0 16 16">
+                  <path
+                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                  <path
+                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% comment %} canvas end {% endcomment %}
+    </div>
+    {% comment %} ending a share logo here {% endcomment %}
+    {% comment %} making a card for logo and title {% endcomment %}
+    <div class="container d-flex justify-content-center">
+      <div class="card bg-dark shadow-sm" style="width: 18rem;">
+        <img src={{post.logo_link}} class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class=" text-start card-text">{{post.title_caption|safe}}</p>
+          <a href="#download_link_dropdown" class="btn btn-primary">Go to Download buttons</a>
+        </div>
+      </div>
+    </div>
+    {% comment %} end title logo card {% endcomment %}
+
+    <main class="px-3 " id="download">
+    {% comment %} for discreption  {% endcomment %}
+      <h1>About this content.</h1>
+      <p class="lead">{{post.content|safe}}</p>
+      {% comment %} end discreption  {% endcomment %}
+      {% comment %} making a grid to display screenshots  {% endcomment %}
+      <!-- Gallery -->
+          <div class="row">
+            {% for screen_shots in screen_shots_list  %}
+            <div class="col-lg-6 col-md-6 mb-4 mb-lg-0">
+              <img
+                src="{{screen_shots}}"
+                class="w-100 shadow-1-strong rounded mb-4"
+                alt="screen_shots not avalable"
+              />
+            </div>
+            {% endfor %}
+      <!-- Gallery -->
+      {% comment %} ending screenshots grid  {% endcomment %}
+      {% comment %} download links dropdown  {% endcomment %}
+          <div class="dropdown ">
+            <a class="btn btn-secondary dropdown-toggle" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              Download links
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
+              {% for quality ,download_link in download_links_list.items %}
+              <li><a class="dropdown-item" href={{download_link}}>{{quality}}</a></li>
+              {% endfor %}
+            </ul>
+            {% comment %} next dropdown for stream  {% endcomment %}
+            <a class="btn btn-secondary dropdown-toggle mx-2 me-0" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              Stream links
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
+              {% for quality ,stream_link in stream_links_list.items %}
+              {% comment %} making a button to redirect into stream page  {% endcomment %}
+              <li><button class="dropdown-item" form = "for_stream_page" value={{stream_link}} name = "link">{{quality}}</button></li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% comment %} form for stream  {% endcomment %}
+          <form action="/forest/stream" id = "for_stream_page" >
+          </form>
+          {% comment %} end stream form  {% endcomment %}
+      {% comment %} end dropdowns of download and stream  {% endcomment %}
+      {% comment %} stream link dropdown  {% endcomment %}
+          <div class="dropdown">
+            
+          </div>
+      {% comment %} stream link dropdown end  {% endcomment %}
+      {% comment %} making a fram for YouTube trailer  {% endcomment %}
+      <!-- 21:9 aspect ratio -->
+      
+        <h1 class = " mb -2 mt-4">Trailer</h1>
+        <iframe class = "mb-2 btn-outline-success shadow border border-success rounded border-top-0 border-bottom-0" width="560" height="315" src="{{post.trailer_link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      {% comment %} end YouTube trailer fram  {% endcomment %}
+    </main>
+  </div>
+
+</div>
+{% endblock body %}

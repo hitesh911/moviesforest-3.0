@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% comment %} giving title {% endcomment %}
+{% block title %}search{% endblock title %}
+{% comment %} main body content {% endcomment %}
+{% block body %}
+
+{% comment %} checking if result is ZERO {% endcomment %}
+{% if search_related_posts|length == 0 %}
+<div class="mx-3">
+    <hr>
+    <h2>No results found</h2>
+    <p>You'r search query <b> {{query}} </b> did not any match any content</p>
+    suggestions :
+    <ul>
+        <li>Make sure you'r spellings are correct</li>
+        <li>Try IMDB titles</li>
+        <li>Try fewer worlds</li>
+    </ul>
+    <hr>
+</div>
+{% else %}
+{% comment %} creating a heading for search using h1 tag {% endcomment %}
+<hr>
+<h1 class="mx-3"><b>Search results :</b></h1>
+<hr>
+{% comment %} main div to show search result {% endcomment %}
+<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 mt-1 mx-2">
+    {% for posts in search_related_posts %}
+    <div class="col mb-3">
+        <div class="card shadow-sm p-3">
+            {% comment %} display logo with img tag {% endcomment %}
+            <img src="{{posts.logo_link}}" class="card-img-top" alt="Logo not avalable yet">
+            <div class="card-body">
+                {% comment %} display title using p tag {% endcomment %}
+                <p class="card-text">{{posts.title}}</p>
+                {% comment %} making a button for download page with a tag {% endcomment %}
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <button type="submate" name="post_id" value={{posts.sno}} form="for_download_page"
+                            class=" stretched-link btn btn-outline-secondary">Download</button>
+                    </div>
+                </div>
+            </div>
+            {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
+            <small class="text-muted mx-3">{{posts.timestamp}}</small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% comment %} form for downlaod page request {% endcomment %}
+<form action="/forest/download" id="for_download_page" method="get"></form>
+{% comment %} end form of downlaod page {% endcomment %}
+{% endif %}
+
+
+{% endblock body %}

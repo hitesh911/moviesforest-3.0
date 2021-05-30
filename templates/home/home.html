@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock title %}
+{% block homeactive %}active{% endblock homeactive %}
+{% comment %} loading static files {% endcomment %}
+{% load static %}
+{% block body %}
+{% comment %} banner section {% endcomment %}
+<div class="d-flex h-100 text-center text-dark bg-white  mt-3">
+  <div class="container-xl">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark d-flex">
+      <div class="col-md-6 px-0">
+        <h1 class="display-4 fst-italic">Welcome to the MOVIES FOREST</h1>
+        <p class="lead my-3">Hey there, are you here for movies , bots or some amazing tools.
+          Yes you are in right place. Here you can find any Hollywood , Bollywood or anima movie that you want
+          We are not pirating, We are providing </p>
+        <p class="lead mb-0"><a class=" text-white fw-bold " data-bs-toggle="collapse" href="#collapseExample"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
+            Read more
+          </a></p>
+        <div class="collapse" id="collapseExample">
+          <p class=" text-white">
+            SITE DISCRIPTION :
+            <br>
+            Hey there, are you here for movies , bots or some amazing tools. Yes you are in right place. Here you can
+            find any Hollywood , Bollywood or anima movie or series that you want We are not pirating, We are providing
+            <br>
+            This is one of the best site for downloading movies or webseries here you will find all type of content that
+            you want also you can watch online if you want we provid you best service then other. You can also use our
+            bots to get movie if not available in this site or you can also contect us in contect us page you can join
+            our telegram official group where you can request your movie or webseries
+            <br>
+
+            ABOUT :
+            <br>
+            About Us : MoviesForest Is Best Website/Platform For Bollywood / Anime And Hollywood HD Movies And
+            Web-Series. We provides you easy google drive download links. Here We Share Various Filesharing Sites Links
+            For One Movie In Many Quality Like Bluray, HDRip, BRRip, WeB-DL, etc. MoviesForest – Download And Watch
+            Movies Online For Free Download Dual/Multi Audio High-Quality Movies And Tv/Web Series Directly Without Any
+            Popup Ads. We Are Providing English Movies, Hollywood Dual Audio Movies, Bollywood Movies, Animation Movies,
+            Tv/Web Series, Tv-Shows, Anime, And Many More.
+            <br>
+            Disclaimer: All My Post Are Free Available On Internet Posted By Somebody Else I’m Not VIOLATING Any
+            COPYRIGHTED LAW. If Anything Is Against LAW, Please Notify Me. If You think We Shared Your Content Or
+            Product Without Your Permission, Then You Can Claim Using Our DMCA Contact Form Page. We Never Host Any File
+            On Our Server All Point To Content Hosted On Third-Party Websites. Note: MoviesForest Is a Complete
+            Independent Entity.
+            <br>
+
+
+            DMCA :
+            <br>
+            DMCA Digital Millennium Copyright Act (DMCA) is a United States copyright law that allows specific files to
+            be removed by their owners if they are being used without proper permission. In order to file a complaint,
+            connect with us and we will respond you in 24 hours.
+            <br>
+
+
+
+
+
+            Site Disclaimer :
+            <br>
+            Site Disclaimer We do not store any copyright-protected content on our websites/servers. All the posts are
+            made only for educational purposes and any linked content is stored only in third-party websites. Since
+            freedom of speech is allowed in this fashion, we do not attend in any kind of copyright infringing. This is
+            a promotional website only, all the downloadable content provided on this site (All materials) is for
+            testing/promotion purposes only. All files placed here are for introducing purpose. We highly ENCOURAGE
+            users to BUY the CDs or DVDs of the movie or the music they like. Please, buy original contents from author
+            or developer site! If you Do not agree to all the terms, please disconnect from this site now itself. By
+            remaining at this site, you affirm your understanding and compliance of the above disclaimer and absolve
+            this site of any responsibility henceforth. All files found on this site have been collected from various
+            sources across the web and are believed to be in the “public domain”. All the logos and stuff are the
+            property of their respective owners. You should DELETE IT(data) within 24 hours and make a point to buy the
+            original CD or DVD from a local or online store. If you are the rightful owner of any contents posted here
+            and object to them being displayed or If you are one of the representatives of copy rights department and
+            you don’t like our conditions of store, please Contact Us immediately and we will delete it!
+            <br>
+            <h3>Thanks for reading</h3>
+          </p>
+        </div>
+
+      </div>
+      {% comment %} logo banner start {% endcomment %}
+      <div class=" col-md-6 px-0  mt-3 d-none d-lg-block d-lg-block d-xxl-block d-xl-block">
+        <div class="mt-5">
+          <img src="{% static 'logo/logo.jpg' %}" alt="Bootstrap" loading="lazy" width="200" height="125">
+        </div>
+      </div>
+      {% comment %} logo banner end {% endcomment %}
+    </div>
+    {% comment %} form section start {% endcomment %}
+    <form action="/forest/movies" method="post" id="movies_page_request">
+      {% csrf_token %}
+    </form>
+    {% comment %} form section end {% endcomment %}
+    {% comment %} movies section {% endcomment %}
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Movies</strong>
+            <h3 class="mb-0">Latest movies</h3>
+            <p class="card-text mb-auto mt-3">We provide every new movies with best resolution. If you are looking for
+              best
+              movie downloading site on internet you are in right place </p>
+            <button class="stretched-link btn btn-outline-secondary my-3" form="movies_page_request" value="hollywood"
+              name="hollywood" type="submate">Click here..</button>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <svg href="/forest" class="bd-placeholder-img" width="200" height="250" xmlns="#" role="img"
+              aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+                dy=".3em">Movies</text>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-success">Tools</strong>
+            <h3 class="mb-0">Tools</h3>
+            <p class="mb-auto mt-3">Tools are basically use to do some task like Downloading facebook , YouTube
+              videos or Send unlimited sms to someone </p>
+            <button class="stretched-link btn btn-outline-secondary my-3 disabled" form="tools" value="tools"
+              name="tools" type="submate">Click here..</button>
+          </div>
+          <div class="col-auto d-none d-lg-block">
+            <svg class="bd-placeholder-img" width="200" height="250" xmlns="#" role="img"
+              aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+                dy=".3em">Tools</text>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+
+{% endblock body %}
