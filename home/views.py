@@ -45,12 +45,14 @@ def search(request):
         search_related_posts = Post.objects.none()
     else:
         # fetching related posts form database with diffrent colomn's 
-        search_from_title = Post.objects.filter(title__icontains = query)
-        search_from_content = Post.objects.filter(content__icontains = query)
-        search_from_category = Post.objects.filter(category__icontains = query)
-        search_from_section = Post.objects.filter(section__icontains = query)
+        # search_from_title = Post.objects.filter(title__icontains = query)
+        # search_from_content = Post.objects.filter(content__icontains = query)
+        # search_from_category = Post.objects.filter(category__icontains = query)
+        # search_from_section = Post.objects.filter(section__icontains = query)
         # joining all search column's with each others 
-        search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
+        # search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
+        search_related_posts = Post.objects.filter(title__search = query)
+
     # checking if search_related_posts are empty 
     if search_related_posts.count() == 0:
         messages.error(request , "No content found, Please recheck you query")
