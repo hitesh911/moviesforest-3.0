@@ -36,7 +36,7 @@ def forest_movies(request):
         # if user request for hollywood page
         if request.POST.get("hollywood"):
             # changing all movies_post with hollywood related posts
-            all_movies_post = Post.objects.filter(section="hollywood").order_by("whymotherfucker").reverse()
+            all_movies_post = Post.objects.filter(section="hollywood").order_by("sno").reverse()
             # getting how many pages will built with hollywood content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -47,7 +47,7 @@ def forest_movies(request):
         # if user request for bollywood page
         elif request.POST.get("bollywood"):
             # changing all movies_post with bollywood related posts
-            all_movies_post = Post.objects.filter(section="bollywood")
+            all_movies_post = Post.objects.filter(section="bollywood").order_by("sno").reverse()
             # getting how many pages will built with bollywood content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -60,7 +60,7 @@ def forest_movies(request):
         # if user request for anima page
         elif request.POST.get("anima"):
             # changing all movies_post with anima related posts
-            all_movies_post = Post.objects.filter(section="anima")
+            all_movies_post = Post.objects.filter(section="anima").order_by("sno").reverse()
             # getting how many pages will built with anima content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -73,7 +73,7 @@ def forest_movies(request):
         # if user request for hollywood page
         elif request.POST.get("animation"):
             # changing all movies_post with animation related posts
-            all_movies_post = Post.objects.filter(section="animation")
+            all_movies_post = Post.objects.filter(section="animation").order_by("sno").reverse()
             # getting how many pages will built with animation content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -90,7 +90,7 @@ def forest_movies(request):
             page_id = request.session["page_id"]
             # updating content with related category and section
             all_movies_post = Post.objects.filter(
-                category__icontains=selected_label, section=page_id)
+                category__icontains=selected_label, section=page_id).order_by("sno").reverse()
             # making page lenght one because i want to show label content in single page
             len_pages = 1
             # making a label_selected True because i want to show all content in singel page
@@ -105,7 +105,7 @@ def forest_movies(request):
             # getting a page id where user is now
             page_id = request.POST["page_id"]
             # updating content with related page_id content
-            all_movies_post = Post.objects.filter(section=page_id)
+            all_movies_post = Post.objects.filter(section=page_id).order_by("sno").reverse()
             # getting lenth of content
             len_pages = len(all_movies_post)/9
 
@@ -118,7 +118,7 @@ def forest_movies(request):
             # getting a page id where user is now
             page_id = request.POST["page_id"]
             # updating content with related page_id content
-            all_movies_post = Post.objects.filter(section=page_id)
+            all_movies_post = Post.objects.filter(section=page_id).order_by("sno").reverse()
             # getting lenth of content
             len_pages = len(all_movies_post)/9
     # if request is not post it means user refreshes or either try to scrape
@@ -130,7 +130,7 @@ def forest_movies(request):
         # checking session page exists or not
         if get_session_page_id != None and get_session_page_id != "mother_fucker":
             # making content related to previous page_id
-            all_movies_post = Post.objects.filter(section=get_session_page_id)
+            all_movies_post = Post.objects.filter(section=get_session_page_id).order_by("sno").reverse()
             # getting lenght
             len_pages = len(all_movies_post)/9
             # changing page id to previous page id
@@ -143,7 +143,7 @@ def forest_movies(request):
         # if session not means session is empty
         if get_session_page_id == None or get_session_page_id == "mother_fucker":
             # making content related to motherfucker posts
-            all_movies_post = Post.objects.filter(section="mother_fucker")
+            all_movies_post = Post.objects.filter(section="mother_fucker").order_by("sno").reverse()
             # getting length
             len_pages = len(all_movies_post)/9
             # setting default page id and banner as motherfucker
