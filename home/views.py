@@ -63,7 +63,6 @@ def search(request):
         q = SearchQuery(query)
         # making a final search results 
         search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).order_by("-rank")
-        search_related_posts = Post.objects.annotate(search=SearchVector("title","content")).filter(search=SearchQuery(query))
     # checking if search_related_posts are empty 
     if search_related_posts.count() == 0:
         messages.error(request , "No content found, Please recheck you query")
