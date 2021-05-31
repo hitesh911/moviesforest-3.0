@@ -159,10 +159,10 @@ def forest_movies(request):
     other = []
     # for loop to filter the labels 
     for lab in labels.iterator():
-        if lables_item.categories.isdigit():
-            year.append(labels_item)
+        if lab.categories.isdigit():
+            year.append(lab.categories)
         else:
-            other.append(lables_item)
+            other.append(lab.categories)
     # if someone refresh applying changes according to the page_id
     if page_id == "hollywood":
         active_hollywood = " bg-success"
