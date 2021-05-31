@@ -2,6 +2,7 @@ from django.shortcuts import render
 from home.models import Contact 
 from django.contrib import messages
 from forest.models import Post
+from django.contrib.postgres.search import SearchVector
 
 def home(request):
     return render(request , 'home/home.html')
