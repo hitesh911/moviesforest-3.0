@@ -155,12 +155,16 @@ def forest_movies(request):
     labels = Label.objects.all()
     # making empty year list 
     year = []
+    # making main for main categorey 
+    main = []
     # making other labels list 
     other = []
     # for loop to filter the labels 
     for lab in labels.iterator():
         if lab.categories.isdigit():
             year.append(lab.categories)
+        if lab.categories.lower() == "movie" or lab.categories.lower() == "web-series" or lab.categories.lower() == "tvseries":
+            main.append(lab.categories)
         else:
             other.append(lab.categories)
     # if someone refresh applying changes according to the page_id
@@ -213,7 +217,7 @@ def forest_movies(request):
                "content_start": str(content_start), "show_banner": show_banner, "at_page_no": at_page_no, "disable_next": disable_next,
                "disable_previous": disable_previous, "banner": page_id, "page_id": page_id, "back_home_button": back_home_button,
                "len_pages": int(len_pages), "active_hollywood": active_hollywood, "active_bollywood": active_bollywood, "active_anima": active_anima,
-               "active_animation": active_animation, "year": year , "other":other}
+               "active_animation": active_animation, "year": year ,"main":main ,  "other":other}
     # returning a responce
     return render(request, 'forest/movies.html', context)
 # personal function for devlopers to create the posts
