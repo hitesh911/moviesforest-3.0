@@ -21,132 +21,140 @@
     {% endwith %}
     <hr>
     {% endif %}
-        {% comment %} making a category dropdown {% endcomment %}
-    <div class="dropdown  my-3 dropdown-hover-all">
-        <button class="btn btn-secondary dropdown-toggle show" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Categories
+    {% comment %} making a category dropdown {% endcomment %}
+    <div class="dropdown mt-3">
+        <button class="btn btn-secondary dropdown-toggle show" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Dropdown button
         </button>
-        <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton" style="margin: 0px; position: absolute; inset: auto auto 0px 0px; transform: translate(0px, -40px);" data-popper-placement="top-start">
-                <a class="dropdown-item" href="#">Action</a>
-                <div class="dropdown dropend">
-                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Layouts</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-layouts" style="margin: 0px;">
-                        <a class="dropdown-item" href="#">Basic</a>
-                        <a class="dropdown-item" href="#">Compact Aside</a>
-                        <div class="dropdown-divider"></div>
-                            <div class="dropdown dropend">
-                                <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
-                                <div class="dropdown-menu" aria-labelledby="dropdown-layouts" style="margin: 0px;">
-                                    <a class="dropdown-item" href="#">Fullscreen</a>
-                                    <a class="dropdown-item" href="#">Empty</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Magic</a>
-                                </div>
-                            </div>
+        <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton"
+            style="margin: 0px; position: absolute; inset: auto auto 0px 0px; transform: translate(0px, -40px);"
+            data-popper-placement="top-start">
+            <a class="dropdown-item" href="#">Action</a>
+            <div class="dropdown dropend">
+                <a class="dropdown-item dropdown-toggle show" href="#" id="dropdown-layouts" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">Layouts</a>
+                <div class="dropdown-menu show" aria-labelledby="dropdown-layouts"
+                    style="margin: 0px; position: absolute; inset: 0px auto auto 0px; transform: translate(181px);"
+                    data-popper-placement="right-start">
+                    <a class="dropdown-item" href="#">Basic</a>
+                    <a class="dropdown-item" href="#">Compact Aside</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown dropend">
+                        <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-layouts" style="margin: 0px;">
+                            <a class="dropdown-item" href="#">Fullscreen</a>
+                            <a class="dropdown-item" href="#">Empty</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Magic</a>
                         </div>
                     </div>
-                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-        {% comment %} <ul class="container dropdown-menu" aria-labelledby="categorydropdown"> {% endcomment %}
-            {% comment %} {% for label in labels  %}
-            <li><button class="text-capitalize dropdown-item" value = {{label.categories}} name = "label" type = "submate" form = "for_categories">{{label.categories}}</button></li>
-            {% endfor %} {% endcomment %}
-        {% comment %} </ul> {% endcomment %}
+            </div>
+            <a class="dropdown-item" href="#">Something else here</a>
         </div>
     </div>
+    {% comment %} <ul class="container dropdown-menu" aria-labelledby="categorydropdown"> {% endcomment %}
+        {% comment %} {% for label in labels %}
+        <li><button class="text-capitalize dropdown-item" value={{label.categories}} name="label" type="submate"
+                form="for_categories">{{label.categories}}</button></li>
+        {% endfor %} {% endcomment %}
+        {% comment %}
+    </ul> {% endcomment %}
     {% comment %} making a form for categorydropdown menus {% endcomment %}
-    <form action="/forest/movies" id = "for_categories" method = "post">
-    {% csrf_token %}
+    <form action="/forest/movies" id="for_categories" method="post">
+        {% csrf_token %}
     </form>
-    {% comment %} end form  {% endcomment %}
-    {% comment %} end category dropdown  {% endcomment %}
+    {% comment %} end form {% endcomment %}
+    {% comment %} end category dropdown {% endcomment %}
 
 
     {% comment %} making a main logic to display the content {% endcomment %}
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 mt-1">
-        {% if all_movies_post|length < 1 %}
-            <div class = "mx-3">
-                <hr>
-                    <h2>No content found?</h2>
-                    <p >You need to try diffrent category. This category is not avalable for this section now.</p>
-                    suggestions :
-                    <ul>
-                        <li>You can change you'r section</li>
-                        <li>Try mannual search for better results</li>
-                        <li>Try diffrent category or section combination</li>
-                    </ul>
-                <hr>
-            </div>
-        {% else %}
-            {% with content_start|add:":"|add:content_end as final %}
-                {% comment %} itrating all content avalable {% endcomment %}
-                {% for posts in all_movies_post|slice:final%}
-                    <div class="col mb-3">
-                        <div class="card shadow-sm p-3">
-                            {% comment %} display logo with img tag {% endcomment %}
-                            <img src="{{posts.logo_link}}" class="card-img-top" alt="Logo not avalable yet">
-                            <div class="card-body">
-                                {% comment %} display title using p tag {% endcomment %}
-                                <p class="card-text">{{posts.title}}</p>
-                                <div class=" d-flex justify-content-between align-items-center">
-                                    {% comment %} making a button with the value of serial no of post {% endcomment %}
-                                    <div class = "d-inline">
-                                        <button  class="stretched-link btn btn-outline-secondary " type=" submate" name = "post_id" value = {{posts.sno}} form = "for_download_page">Download</button>
-                                    </div>
-                                </div>
-                            </div>
-                            {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
-                            <small class="text-muted mx-3">{{posts.timestamp}}</small>
-                        </div>
+        {% if all_movies_post|length < 1 %} <div class="mx-3">
+            <hr>
+            <h2>No content found?</h2>
+            <p>You need to try diffrent category. This category is not avalable for this section now.</p>
+            suggestions :
+            <ul>
+                <li>You can change you'r section</li>
+                <li>Try mannual search for better results</li>
+                <li>Try diffrent category or section combination</li>
+            </ul>
+            <hr>
+    </div>
+    {% else %}
+    {% with content_start|add:":"|add:content_end as final %}
+    {% comment %} itrating all content avalable {% endcomment %}
+    {% for posts in all_movies_post|slice:final%}
+    <div class="col mb-3">
+        <div class="card shadow-sm p-3">
+            {% comment %} display logo with img tag {% endcomment %}
+            <img src="{{posts.logo_link}}" class="card-img-top" alt="Logo not avalable yet">
+            <div class="card-body">
+                {% comment %} display title using p tag {% endcomment %}
+                <p class="card-text">{{posts.title}}</p>
+                <div class=" d-flex justify-content-between align-items-center">
+                    {% comment %} making a button with the value of serial no of post {% endcomment %}
+                    <div class="d-inline">
+                        <button class="stretched-link btn btn-outline-secondary " type=" submate" name="post_id"
+                            value={{posts.sno}} form="for_download_page">Download</button>
                     </div>
-                {% endfor %}
-            {% endwith %}
-            {% comment %} form for downlaod page request  {% endcomment %}
-            <form action="/forest/download" id = "for_download_page" method = "get"></form>
-            {% comment %} end form of downlaod page  {% endcomment %}
-        {% endif %}
+                </div>
+            </div>
+            {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
+            <small class="text-muted mx-3">{{posts.timestamp}}</small>
+        </div>
     </div>
+    {% endfor %}
+    {% endwith %}
+    {% comment %} form for downlaod page request {% endcomment %}
+    <form action="/forest/download" id="for_download_page" method="get"></form>
+    {% comment %} end form of downlaod page {% endcomment %}
+    {% endif %}
+</div>
 
-    {% comment %} making a next content display button and go to top button {% endcomment %}
-    <nav class="blog-pagination d-flex justify-content-center mb-3" aria-label="Pagination">
-        {% if back_home_button != True %}
-        {% if disable_previous == False %}
-        <button class="btn btn-outline-dark mx-2" type="submate" form="next_page_request" value="{{at_page_no}}"
-            name="previous">
-            Previous</button>
-        {% else %}
-        <button class="btn btn-outline-dark mx-2 disabled" type="submate" form="next_page_request"
-            value="{{at_page_no}}" name="previous">
-            Previous</button>
-        {% endif %}
-        {% if disable_next == False %}
+{% comment %} making a next content display button and go to top button {% endcomment %}
+<nav class="blog-pagination d-flex justify-content-center mb-3" aria-label="Pagination">
+    {% if back_home_button != True %}
+    {% if disable_previous == False %}
+    <button class="btn btn-outline-dark mx-2" type="submate" form="next_page_request" value="{{at_page_no}}"
+        name="previous">
+        Previous</button>
+    {% else %}
+    <button class="btn btn-outline-dark mx-2 disabled" type="submate" form="next_page_request" value="{{at_page_no}}"
+        name="previous">
+        Previous</button>
+    {% endif %}
+    {% if disable_next == False %}
 
-        <button class="btn btn-outline-dark mx-2" type="submate" form="next_page_request" value="{{at_page_no}}"
-            name="next">
-            Next</button>
-        {% else %}
+    <button class="btn btn-outline-dark mx-2" type="submate" form="next_page_request" value="{{at_page_no}}"
+        name="next">
+        Next</button>
+    {% else %}
 
-        <button class="btn btn-outline-dark mx-2 disabled" type="submate" form="next_page_request"
-            value="{{at_page_no}}" name="next">
-            Next</button>
+    <button class="btn btn-outline-dark mx-2 disabled" type="submate" form="next_page_request" value="{{at_page_no}}"
+        name="next">
+        Next</button>
 
-        {% endif %}
-        {% else %}
-        <a class="btn btn-outline-dark mx-2" href="/">Back home</a>
-        {% endif %}
+    {% endif %}
+    {% else %}
+    <a class="btn btn-outline-dark mx-2" href="/">Back home</a>
+    {% endif %}
 
-    </nav>
+</nav>
 
-    {% comment %} creating a form to submate previous page no {% endcomment %}
-    <form action="movies" method="post" id="next_page_request">
-        {% csrf_token %}
-        {% comment %} for giving a previous page id {% endcomment %}
-        <input type="hidden" value="{{page_id}}" form="next_page_request" name="page_id">
-    </form>
-    {% comment %} showing page no at which user are in present {% endcomment %}
-    <div class=" container-xl d-flex justify-content-end">
-        <a class="text-decoration-none ">Page {{at_page_no}}/{{len_pages}}</a>
-    </div>
+{% comment %} creating a form to submate previous page no {% endcomment %}
+<form action="movies" method="post" id="next_page_request">
+    {% csrf_token %}
+    {% comment %} for giving a previous page id {% endcomment %}
+    <input type="hidden" value="{{page_id}}" form="next_page_request" name="page_id">
+</form>
+{% comment %} showing page no at which user are in present {% endcomment %}
+<div class=" container-xl d-flex justify-content-end">
+    <a class="text-decoration-none ">Page {{at_page_no}}/{{len_pages}}</a>
+</div>
 
 </div>
 {% endblock body %}
