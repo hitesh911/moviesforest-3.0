@@ -158,7 +158,7 @@ def forest_movies(request):
     # making other labels list 
     other = []
     # for loop to filter the labels 
-    for lables_item in labels.items():
+    for lables_item in labels:
         if lables_item.categories.isdigit():
             year.append(labels_item)
         else:
