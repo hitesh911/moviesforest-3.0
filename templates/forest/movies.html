@@ -22,29 +22,31 @@
     <hr>
     {% endif %}
     {% comment %} making a category dropdown {% endcomment %}
-    {% comment %} this is for years  {% endcomment %}
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Years
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            {% for item in year %}
-            <li><button class="text-capitalize dropdown-item" value={{item}} name="label" type="submate"
-                form="for_categories">{{item}}</button></li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% comment %} this is for others  {% endcomment %}
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            other
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            {% for more in other %}
-            <li><button class="text-capitalize dropdown-item" value={{other}} name="label" type="submate"
-                form="for_categories">{{other}}</button></li>
-            {% endfor %}
-        </ul>
+    <div class="container d-flex justify-content-between">
+        {% comment %} this is for years  {% endcomment %}
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Years
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for item in year %}
+                <li><button class="text-capitalize dropdown-item" value={{item}} name="label" type="submate"
+                    form="for_categories">{{item}}</button></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% comment %} this is for others  {% endcomment %}
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                other
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for more in other %}
+                <li><button class="text-capitalize dropdown-item" value={{more}} name="label" type="submate"
+                    form="for_categories">{{more}}</button></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
     
     {% comment %} making a form for categorydropdown menus {% endcomment %}
