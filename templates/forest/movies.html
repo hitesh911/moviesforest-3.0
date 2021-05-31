@@ -22,7 +22,7 @@
     <hr>
     {% endif %}
         {% comment %} making a category dropdown {% endcomment %}
-    <div class="dropdown container d-flex justify-content-center my-3">
+    <div class="dropdown  my-3">
         <button class="btn btn-secondary dropdown-toggle show" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Categories
         </button>
@@ -34,24 +34,25 @@
                         <a class="dropdown-item" href="#">Basic</a>
                         <a class="dropdown-item" href="#">Compact Aside</a>
                         <div class="dropdown-divider"></div>
-                        <div class="dropdown dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-layouts" style="margin: 0px;">
-                                <a class="dropdown-item" href="#">Fullscreen</a>
-                                <a class="dropdown-item" href="#">Empty</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Magic</a>
+                            <div class="dropdown dropend">
+                                <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-layouts" style="margin: 0px;">
+                                    <a class="dropdown-item" href="#">Fullscreen</a>
+                                    <a class="dropdown-item" href="#">Empty</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Magic</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
         {% comment %} <ul class="container dropdown-menu" aria-labelledby="categorydropdown"> {% endcomment %}
             {% comment %} {% for label in labels  %}
             <li><button class="text-capitalize dropdown-item" value = {{label.categories}} name = "label" type = "submate" form = "for_categories">{{label.categories}}</button></li>
             {% endfor %} {% endcomment %}
         {% comment %} </ul> {% endcomment %}
+        </div>
     </div>
     {% comment %} making a form for categorydropdown menus {% endcomment %}
     <form action="/forest/movies" id = "for_categories" method = "post">
