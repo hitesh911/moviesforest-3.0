@@ -153,8 +153,16 @@ def forest_movies(request):
 
     # getting all labels avalable in database
     labels = Label.objects.all()
+    # making empty year list 
+    year = []
+    # making other labels list 
+    other = []
     # for loop to filter the labels 
-    # for lables_items in labels:
+    for lables_item in labels.items():
+        if lables_item.categories.isdigit():
+            year.append(labels_item)
+        else:
+            other.append(lables_item)
     # if someone refresh applying changes according to the page_id
     if page_id == "hollywood":
         active_hollywood = " bg-success"
@@ -205,7 +213,7 @@ def forest_movies(request):
                "content_start": str(content_start), "show_banner": show_banner, "at_page_no": at_page_no, "disable_next": disable_next,
                "disable_previous": disable_previous, "banner": page_id, "page_id": page_id, "back_home_button": back_home_button,
                "len_pages": int(len_pages), "active_hollywood": active_hollywood, "active_bollywood": active_bollywood, "active_anima": active_anima,
-               "active_animation": active_animation, "labels": labels}
+               "active_animation": active_animation, "year": year , "other":other}
     # returning a responce
     return render(request, 'forest/movies.html', context)
 # personal function for devlopers to create the posts
@@ -253,7 +261,7 @@ def make_post(request):
     # checking label list is empty or not
     elif len(label) == 0:
         error_generated = True
-        error = "You need to specify al least one label"
+        error = "You need to specify at least one label"
     # checking  logo link
     elif len(logo_link) == 0:
         error_generated = True
