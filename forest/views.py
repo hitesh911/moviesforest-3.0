@@ -163,7 +163,7 @@ def forest_movies(request):
     for lab in labels.iterator():
         if lab.categories.isdigit():
             year.append(lab.categories)
-        if lab.categories.lower() == "movie" or lab.categories.lower() == "web-series" or lab.categories.lower() == "tvseries":
+        elif lab.categories.lower() == "movie" or lab.categories.lower() == "web-series" or lab.categories.lower() == "tvseries":
             main.append(lab.categories)
         else:
             other.append(lab.categories)
