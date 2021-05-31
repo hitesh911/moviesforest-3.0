@@ -28,13 +28,19 @@
             Categories
         </button>
         <ul class="container dropdown-menu" aria-labelledby="categorydropdown">
-            <li><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">Year</button>
+            <li>
+                <div class="dropdown">
+                    <a class="text-capitalize dropdown-item dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Year
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
             </li>
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="#" class="link-dark rounded">Overview</a></li>
-                    <li><a href="#" class="link-dark rounded">Updates</a></li>
-                    <li><a href="#" class="link-dark rounded">Reports</a></li>
-                </ul>
             {% comment %} {% for label in labels  %}
             <li><button class="text-capitalize dropdown-item" value = {{label.categories}} name = "label" type = "submate" form = "for_categories">{{label.categories}}</button></li>
             {% endfor %} {% endcomment %}
