@@ -29,12 +29,12 @@
         </button>
         <ul class="container dropdown-menu" aria-labelledby="categorydropdown">
             <li><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">Year</button>
+            </li>
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="#" class="link-dark rounded">Overview</a></li>
                     <li><a href="#" class="link-dark rounded">Updates</a></li>
                     <li><a href="#" class="link-dark rounded">Reports</a></li>
                 </ul>
-            </li>
             {% comment %} {% for label in labels  %}
             <li><button class="text-capitalize dropdown-item" value = {{label.categories}} name = "label" type = "submate" form = "for_categories">{{label.categories}}</button></li>
             {% endfor %} {% endcomment %}
