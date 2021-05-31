@@ -51,8 +51,10 @@ def search(request):
         # search_from_section = Post.objects.filter(section__icontains = query)
         # joining all search column's with each others 
         # search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
-        search_related_posts = Post.objects.filter(title__search = query)
-
+        vector = SearchVector("title" , weight = "A") + \
+            SearchVector("content", weight = "B")
+        q = SearchQuery(query)
+        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).order_by("-rank")
     # checking if search_related_posts are empty 
     if search_related_posts.count() == 0:
         messages.error(request , "No content found, Please recheck you query")

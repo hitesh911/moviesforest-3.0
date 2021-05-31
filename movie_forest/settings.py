@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'forest.apps.ForestConfig',
+    'django.contrib.postgres',
+    
 
 ]
 
