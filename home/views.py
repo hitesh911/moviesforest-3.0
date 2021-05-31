@@ -2,7 +2,7 @@ from django.shortcuts import render
 from home.models import Contact 
 from django.contrib import messages
 from forest.models import Post
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import SearchVector , SearchRank , SearchQuery
 
 def home(request):
     return render(request , 'home/home.html')
@@ -54,7 +54,8 @@ def search(request):
         # search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
         vector = SearchVector("title" , weight = "A") + \
             SearchVector("content", weight = "B")
-        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , query , cover_density = True)).order_by("-rank")
+        q = SearchQuery(query)
+        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).order_by("-rank")
     # checking if search_related_posts are empty 
     if search_related_posts.count() == 0:
         messages.error(request , "No content found, Please recheck you query")
