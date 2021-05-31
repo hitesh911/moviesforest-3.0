@@ -36,7 +36,7 @@ def forest_movies(request):
         # if user request for hollywood page
         if request.POST.get("hollywood"):
             # changing all movies_post with hollywood related posts
-            all_movies_post = Post.objects.filter(section="hollywood")
+            all_movies_post = Post.objects.filter(section="hollywood").reverse()
             # getting how many pages will built with hollywood content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -47,7 +47,7 @@ def forest_movies(request):
         # if user request for bollywood page
         elif request.POST.get("bollywood"):
             # changing all movies_post with bollywood related posts
-            all_movies_post = Post.objects.filter(section="bollywood")
+            all_movies_post = Post.objects.filter(section="bollywood").reverse()
             # getting how many pages will built with bollywood content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -60,7 +60,7 @@ def forest_movies(request):
         # if user request for anima page
         elif request.POST.get("anima"):
             # changing all movies_post with anima related posts
-            all_movies_post = Post.objects.filter(section="anima")
+            all_movies_post = Post.objects.filter(section="anima").reverse()
             # getting how many pages will built with anima content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -73,7 +73,7 @@ def forest_movies(request):
         # if user request for hollywood page
         elif request.POST.get("animation"):
             # changing all movies_post with animation related posts
-            all_movies_post = Post.objects.filter(section="animation")
+            all_movies_post = Post.objects.filter(section="animation").reverse()
             # getting how many pages will built with animation content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
@@ -90,7 +90,7 @@ def forest_movies(request):
             page_id = request.session["page_id"]
             # updating content with related category and section
             all_movies_post = Post.objects.filter(
-                category__icontains=selected_label, section=page_id)
+                category__icontains=selected_label, section=page_id).reverse()
             # making page lenght one because i want to show label content in single page
             len_pages = 1
             # making a label_selected True because i want to show all content in singel page
@@ -105,7 +105,7 @@ def forest_movies(request):
             # getting a page id where user is now
             page_id = request.POST["page_id"]
             # updating content with related page_id content
-            all_movies_post = Post.objects.filter(section=page_id)
+            all_movies_post = Post.objects.filter(section=page_id).reverse()
             # getting lenth of content
             len_pages = len(all_movies_post)/9
 
@@ -118,7 +118,7 @@ def forest_movies(request):
             # getting a page id where user is now
             page_id = request.POST["page_id"]
             # updating content with related page_id content
-            all_movies_post = Post.objects.filter(section=page_id)
+            all_movies_post = Post.objects.filter(section=page_id).reverse()
             # getting lenth of content
             len_pages = len(all_movies_post)/9
     # if request is not post it means user refreshes or either try to scrape
@@ -130,7 +130,7 @@ def forest_movies(request):
         # checking session page exists or not
         if get_session_page_id != None and get_session_page_id != "mother_fucker":
             # making content related to previous page_id
-            all_movies_post = Post.objects.filter(section=get_session_page_id)
+            all_movies_post = Post.objects.filter(section=get_session_page_id).reverse()
             # getting lenght
             len_pages = len(all_movies_post)/9
             # changing page id to previous page id
@@ -143,7 +143,7 @@ def forest_movies(request):
         # if session not means session is empty
         if get_session_page_id == None or get_session_page_id == "mother_fucker":
             # making content related to motherfucker posts
-            all_movies_post = Post.objects.filter(section="mother_fucker")
+            all_movies_post = Post.objects.filter(section="mother_fucker").reverse()
             # getting length
             len_pages = len(all_movies_post)/9
             # setting default page id and banner as motherfucker
@@ -340,17 +340,27 @@ def download(request):
     post = Post.objects.get(sno=post_id)
     # getting download_links make them in json format
     download_links_list = loads(post.download_links)
+    # making a empty stream link list 
     stream_links_list = {}
 
     # download link what i have 
+    # type 1:
     # https://drive.google.com/uc?id=id_of_post&export=download
+    # type 2:
+    # https://drive.google.com/file/d/id_of_post/view 
+
 
     # stream link with i want to make 
     # https://drive.google.com/file/d/id_of_post/preview
     # converting  downlaod links to stream links
     for quality, links in download_links_list.items():
-        # getting if from download link Note: I use partition method here because if something went wrong the string will be empty
-        id_of_download_link = links.partition("/uc?id=")[2].partition("&export=download")[0]
+        # handling both type of download links to make proper stream link 
+        if "uc?id=" in links:
+            # getting if from download link Note: I use partition method here because if something went wrong the string will be empty
+            id_of_download_link = links.partition("/uc?id=")[2].partition("&export=download")[0]
+        if "/file/d/" in links:
+            # getting id from download link 
+            id_of_download_link = links.partition("/file/d/")[2].partition("/view")[0]
         # making a string of google drive streaming link
         ready_stream_url = f"https://drive.google.com/file/d/{id_of_download_link}/preview"
         stream_links_list[quality] = ready_stream_url
