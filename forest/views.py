@@ -36,7 +36,7 @@ def forest_movies(request):
         # if user request for hollywood page
         if request.POST.get("hollywood"):
             # changing all movies_post with hollywood related posts
-            all_movies_post = reversed(Post.objects.filter(section="hollywood"))
+            all_movies_post = Post.objects.filter(section="hollywood")
             # getting how many pages will built with hollywood content avalable in database
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
