@@ -45,6 +45,7 @@ def search(request):
     if len(query)>70:
         search_related_posts = Post.objects.none()
     else:
+        # normal search from database :
         # fetching related posts form database with diffrent colomn's 
         # search_from_title = Post.objects.filter(title__icontains = query)
         # search_from_content = Post.objects.filter(content__icontains = query)
@@ -52,10 +53,17 @@ def search(request):
         # search_from_section = Post.objects.filter(section__icontains = query)
         # joining all search column's with each others 
         # search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
+        # advance vector search from postgres database :
+        # making a vector of column's 
         vector = SearchVector("title" , weight = "A") + \
-            SearchVector("content", weight = "B")
+            SearchVector("content", weight = "B") + \
+                SearchVector("section" , weight = "C") + \
+                    SearchVector("category" , weight = "D")
+        # passing our query into SeaschQuery postgress function 
         q = SearchQuery(query)
-        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).order_by("-rank")
+        # making a final search results 
+        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).order_by("-rank").filter(search=SearchQuery(q))
+        # search_related_posts = Post.objects.annotate(search=SearchVector("title","content")).filter(search=SearchQuery(query))
     # checking if search_related_posts are empty 
     if search_related_posts.count() == 0:
         messages.error(request , "No content found, Please recheck you query")

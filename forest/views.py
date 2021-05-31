@@ -161,10 +161,13 @@ def forest_movies(request):
     other = []
     # for loop to filter the labels 
     for lab in labels.iterator():
+        # if categorery is in numbers so put it into year section 
         if lab.categories.isdigit():
             year.append(lab.categories)
-        elif lab.categories.lower() == "movie" or lab.categories.lower() == "web-series" or lab.categories.lower() == "tvseries":
+        # if category is language or main so put it into main 
+        elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "tamil" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
             main.append(lab.categories)
+        # and put other categorey into others 
         else:
             other.append(lab.categories)
     # if someone refresh applying changes according to the page_id
