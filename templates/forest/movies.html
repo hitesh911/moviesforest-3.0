@@ -23,22 +23,35 @@
     {% endif %}
         {% comment %} making a category dropdown {% endcomment %}
     <div class="dropdown container d-flex justify-content-center my-3">
-        <button class="container btn btn-secondary dropdown-toggle"  type="button" id="categorydropdown"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
+        <button class="btn btn-secondary dropdown-toggle show" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Categories
         </button>
-        <ul class="container dropdown-menu" aria-labelledby="categorydropdown">
-            <li><a class="dropdown-item" href="#"> Dropdown item 2 » </a>
-			  	 <ul class="submenu dropdown-menu">
-				    <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-				    <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
-				    <li><a class="dropdown-item" href="#">Submenu item 3</a></li>
-				 </ul>
-			  </li>
+        <div class="dropdown-menu show" aria-labelledby="dropdownMenuButton" style="margin: 0px; position: absolute; inset: auto auto 0px 0px; transform: translate(0px, -40px);" data-popper-placement="top-start">
+                <a class="dropdown-item" href="#">Action</a>
+                <div class="dropdown dropend">
+                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Layouts</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-layouts" style="margin: 0px;">
+                        <a class="dropdown-item" href="#">Basic</a>
+                        <a class="dropdown-item" href="#">Compact Aside</a>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown dropend">
+                            <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-layouts" style="margin: 0px;">
+                                <a class="dropdown-item" href="#">Fullscreen</a>
+                                <a class="dropdown-item" href="#">Empty</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Magic</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        {% comment %} <ul class="container dropdown-menu" aria-labelledby="categorydropdown"> {% endcomment %}
             {% comment %} {% for label in labels  %}
             <li><button class="text-capitalize dropdown-item" value = {{label.categories}} name = "label" type = "submate" form = "for_categories">{{label.categories}}</button></li>
             {% endfor %} {% endcomment %}
-        </ul>
+        {% comment %} </ul> {% endcomment %}
     </div>
     {% comment %} making a form for categorydropdown menus {% endcomment %}
     <form action="/forest/movies" id = "for_categories" method = "post">
