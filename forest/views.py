@@ -350,9 +350,9 @@ def delete_post(request):
     # getting post id to delete 
     post_deleted = True
     try:
-    post_id = int(request.GET["page_id"])
-    deleting_post = Post.objects.get(sno=post_id)
-    deleting_post.delete()
+        post_id = int(request.GET["page_id"])
+        deleting_post = Post.objects.get(sno=post_id)
+        deleting_post.delete()
     except:
         post_deleted = False
     reponceData = {"delete_status":post_deleted}
