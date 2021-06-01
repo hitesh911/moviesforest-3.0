@@ -396,6 +396,7 @@ def update_posts(request):
                     real_post.trailer_link = content
                 else:
                     continue
+            real_post.save()
             update_success = True
         if request.GET.get("add"):
             new_content = loads(request.GET["add"])
@@ -422,6 +423,7 @@ def update_posts(request):
                     real_post.trailer_link += content
                 else:
                     continue
+            real_post.save()
             add_success = True
     else:
         pass
