@@ -383,7 +383,7 @@ def update_posts(request):
         except Exception as d:
             exception_list.append(str(d))
         if "update" not in exception_list:
-            new_content = load(update_request)
+            new_content = loads(update_request)
             # getting real post assesoiated with post_id 
             real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
@@ -408,7 +408,7 @@ def update_posts(request):
                 else:
                     continue
         if "add" not in exception_list:
-            new_content = load(add_request)
+            new_content = loads(add_request)
             # getting real post assesoiated with post_id 
             real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
