@@ -366,7 +366,7 @@ def update_posts(request):
     # making as default
     update_success = False
     add_success = False
-    new_content = None
+    post_id = None
     if request.GET.get("post_id"):
         # getting post_id from request 
         post_id = str(request.GET["post_id"])
@@ -404,23 +404,23 @@ def update_posts(request):
             real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
                 if column.lower() == "section":
-                    new_content = real_post.section += content
+                    real_post.section += content
                 elif column.lower() == "label" or column.lower() == "category":
-                    new_content = real_post.category += content
+                    real_post.category += content
                 elif column.lower() == "logo_link":
-                    new_content = real_post.logo_link += content
+                    real_post.logo_link += content
                 elif column.lower() == "screen_shots":
-                    new_content = real_post.screen_shots += content
+                    real_post.screen_shots += content
                 elif column.lower() == "title":
-                    new_content = real_post.title += content
+                    real_post.title += content
                 elif column.lower() == "title_caption":
-                    new_content = real_post.title_caption += content
+                    real_post.title_caption += content
                 elif column.lower() == "content":
-                    new_content = real_post.content += content
+                    real_post.content += content
                 elif column.lower() == "download_links":
-                    new_content = real_post.download_links += content
+                    real_post.download_links += content
                 elif column.lower() == "trailer_link":
-                    new_content = real_post.trailer_link += content
+                    real_post.trailer_link += content
                 else:
                     continue
             real_post.save()
@@ -429,7 +429,7 @@ def update_posts(request):
         pass
     context = {"Update_success":update_success,
                 "Add_success":add_success,
-                "New_content":new_content,
+                "Post_id":post_id,
     }
     return JsonResponse(context)
 
