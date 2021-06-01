@@ -54,7 +54,7 @@ def search(request):
         # passing our query into SeaschQuery postgress function 
         q = SearchQuery(query)
         # making a final search results 
-        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=1.0).order_by("-rank")
+        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
     # checking if search_related_posts are empty after advcance search so search it normally
     if search_related_posts.count() == 0:
         # normal search from database :
@@ -63,7 +63,7 @@ def search(request):
         search_from_content = Post.objects.filter(content__icontains = query)
         search_from_category = Post.objects.filter(category__icontains = query)
         search_from_section = Post.objects.filter(section__icontains = query)
-        # joining all search column's with each others 
+        # joining all search column's with each others using union function
         search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
         # if search_related_posts is still empty giving an alert 
         if search_related_posts.count()==0:
