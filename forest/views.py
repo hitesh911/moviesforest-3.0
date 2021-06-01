@@ -347,7 +347,12 @@ def make_post(request):
     return JsonResponse(responseData)
 # this is for delete content from database 
 def delete_post(request):
-    pass
+    # getting post id to delete 
+    post_id = int(request.GET("page_id"))
+    deleting_post = Post.objects.get(sno=post_id)
+    delete_post.delete()
+    
+    
 # this is for download page
 def download(request):
     # getting post_serial_no

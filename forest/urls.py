@@ -8,4 +8,5 @@ urlpatterns = [
     path('make_post', views.make_post , name='make_post'),
     path('download', views.download , name='download'),
     path('stream', views.stream , name='stream'),
+    path('delete_post', views.delete_post , name='delete_post'),
 ]
