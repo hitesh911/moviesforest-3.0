@@ -351,7 +351,7 @@ def delete_post(request):
     reasion = "You give existing post_id" 
     post_deleted = True
     try:
-        post_id = int(request.GET["page_id"])
+        post_id = int(request.GET["post_id"])
         deleting_post = Post.objects.get(sno=post_id)
         deleting_post.delete()
     except Exception as e:
