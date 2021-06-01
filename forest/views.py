@@ -351,6 +351,8 @@ def delete_post(request):
     post_id = int(request.GET("page_id"))
     deleting_post = Post.objects.get(sno=post_id)
     delete_post.delete()
+    reponceData = {"delete_status":True}
+    return JsonResponse(responceData)
     
     
 # this is for download page
