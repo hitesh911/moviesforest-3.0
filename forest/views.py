@@ -351,6 +351,7 @@ def delete_post(request):
     reasion = "You give existing post_id" 
     post_deleted = True
     try:
+        access_key = request.GET["assess_key"]
         post_id = int(request.GET["post_id"])
         deleting_post = Post.objects.get(sno=post_id)
         deleting_post.delete()
