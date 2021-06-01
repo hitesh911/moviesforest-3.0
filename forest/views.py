@@ -361,7 +361,90 @@ def delete_post(request):
     responseData = {"Delete_status":post_deleted , "Reasion":reasion}
     return JsonResponse(responseData)
     
-    
+# this is for update content in database 
+def update_posts(request):
+    # exception list 
+    exception_list = []
+    # making as default
+    update_success = False
+    add_success = False
+    new_content = None
+    if request.GET.get("post_id")
+        # getting post_id 
+        post_id = str(request.GET["post_id"])
+        # trying to get update perameter 
+        try:
+            update_request = request.GET["update"]
+        except Exception as e:
+            exception_list.append(str(e))
+        # tyring to get add perameter 
+        try:
+            add_request = request.GET["add"]
+        except Exception as d:
+            exception_list.append(str(d))
+        if "update" not in exception_list:
+            new_content = load(update_request)
+            # getting real post assesoiated with post_id 
+            real_post = Post.objects.get(sno=post_id)
+            for column , content in new_content.items():
+                if column.lower() == "section":
+                    real_post.section = content
+                elif column.lower() == "label" or column.lower() == "category":
+                    real_post.category = content
+                elif column.lower() == "logo_link":
+                    real_post.logo_link = content
+                elif column.lower() == "screen_shots":
+                    real_post.screen_shots = content
+                elif column.lower() == "title":
+                    real_post.title = content
+                elif column.lower() == "title_caption":
+                    real_post.title_caption = content
+                elif column.lower() == "content":
+                    real_post.content = content
+                elif column.lower() == "download_links":
+                    real_post.download_links = content
+                elif column.lower() == "trailer_link":
+                    real_post.trailer_link = content
+                else:
+                    continue
+        if "add" not in exception_list:
+            new_content = load(add_request)
+            # getting real post assesoiated with post_id 
+            real_post = Post.objects.get(sno=post_id)
+            for column , content in new_content.items():
+                if column.lower() == "section":
+                    real_post.section += content
+                elif column.lower() == "label" or column.lower() == "category":
+                    real_post.category += content
+                elif column.lower() == "logo_link":
+                    real_post.logo_link += content
+                elif column.lower() == "screen_shots":
+                    real_post.screen_shots += content
+                elif column.lower() == "title":
+                    real_post.title += content
+                elif column.lower() == "title_caption":
+                    real_post.title_caption += content
+                elif column.lower() == "content":
+                    real_post.content += content
+                elif column.lower() == "download_links":
+                    real_post.download_links += content
+                elif column.lower() == "trailer_link":
+                    real_post.trailer_link += content
+                else:
+                    continue
+    else:
+        pass
+    context = {"Update_success":update_success,
+                "Add_success":add_success,
+                "New_content":new_content,
+    }
+    return JsonResponse(context)
+
+
+            
+
+
+
 # this is for download page
 def download(request):
     # getting post_serial_no
