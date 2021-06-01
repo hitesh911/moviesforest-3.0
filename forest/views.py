@@ -355,8 +355,8 @@ def delete_post(request):
         deleting_post.delete()
     except:
         post_deleted = False
-    reponceData = {"delete_status":post_deleted}
-    return JsonResponse(responceData)
+    responseData = {"delete_status":post_deleted}
+    return JsonResponse(responseData)
     
     
 # this is for download page
