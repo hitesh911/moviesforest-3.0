@@ -404,23 +404,23 @@ def update_posts(request):
             real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
                 if column.lower() == "section":
-                    real_post.section += content
+                    new_content = real_post.section += content
                 elif column.lower() == "label" or column.lower() == "category":
-                    real_post.category += content
+                    new_content = real_post.category += content
                 elif column.lower() == "logo_link":
-                    real_post.logo_link += content
+                    new_content = real_post.logo_link += content
                 elif column.lower() == "screen_shots":
-                    real_post.screen_shots += content
+                    new_content = real_post.screen_shots += content
                 elif column.lower() == "title":
-                    real_post.title += content
+                    new_content = real_post.title += content
                 elif column.lower() == "title_caption":
-                    real_post.title_caption += content
+                    new_content = real_post.title_caption += content
                 elif column.lower() == "content":
-                    real_post.content += content
+                    new_content = real_post.content += content
                 elif column.lower() == "download_links":
-                    real_post.download_links += content
+                    new_content = real_post.download_links += content
                 elif column.lower() == "trailer_link":
-                    real_post.trailer_link += content
+                    new_content = real_post.trailer_link += content
                 else:
                     continue
             real_post.save()
