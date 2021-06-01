@@ -369,7 +369,7 @@ def update_posts(request):
     update_success = False
     add_success = False
     new_content = None
-    if request.GET.get("post_id")
+    if request.GET.get("post_id"):
         # getting post_id 
         post_id = str(request.GET["post_id"])
         # trying to get update perameter 
