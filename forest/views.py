@@ -363,8 +363,6 @@ def delete_post(request):
     
 # this is for update content in database 
 def update_posts(request):
-    # exception list 
-    exception_list = []
     # making as default
     update_success = False
     add_success = False
@@ -372,18 +370,9 @@ def update_posts(request):
     if request.GET.get("post_id"):
         # getting post_id from request 
         post_id = str(request.GET["post_id"])
-        # trying to get update perameter 
-        try:
-            update_request = request.GET["update"]
-        except Exception as e:
-            exception_list.append(str(e))
-        # tyring to get add perameter 
-        try:
-            add_request = request.GET["add"]
-        except Exception as d:
-            exception_list.append(str(d))
-        if "update" not in exception_list:
-            new_content = loads(update_request)
+        # if sender give update perameter 
+        if request.GET.get("update"):
+            new_content = loads(request.GET["update"])
             # getting real post assesoiated with post_id 
             real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
@@ -407,8 +396,8 @@ def update_posts(request):
                     real_post.trailer_link = content
                 else:
                     continue
-        if "add" not in exception_list:
-            new_content = loads(add_request)
+        if request.GET.get("add"):
+            new_content = loads(request.GET["add"])
             # getting real post assesoiated with post_id 
             real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
