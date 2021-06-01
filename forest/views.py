@@ -345,9 +345,10 @@ def make_post(request):
         "post_id": post_id,
     }
     return JsonResponse(responseData)
+# this is for delete content from database 
+def delete_post(request):
+    pass
 # this is for download page
-
-
 def download(request):
     # getting post_serial_no
     post_id = request.GET["post_id"]
