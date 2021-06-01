@@ -347,15 +347,17 @@ def make_post(request):
     return JsonResponse(responseData)
 # this is for delete content from database 
 def delete_post(request):
-    # getting post id to delete 
+    # getting post id to delete
+    reasion = "You give existing post_id" 
     post_deleted = True
     try:
         post_id = int(request.GET["page_id"])
         deleting_post = Post.objects.get(sno=post_id)
         deleting_post.delete()
-    except:
+    except Exception as e:
+        reasion = e
         post_deleted = False
-    responseData = {"delete_status":post_deleted}
+    responseData = {"Delete_status":post_deleted , "Reasion":reasion}
     return JsonResponse(responseData)
     
     
