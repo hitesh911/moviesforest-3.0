@@ -355,7 +355,7 @@ def delete_post(request):
         deleting_post = Post.objects.get(sno=post_id)
         deleting_post.delete()
     except Exception as e:
-        reasion = e
+        reasion = str(e)
         post_deleted = False
     responseData = {"Delete_status":post_deleted , "Reasion":reasion}
     return JsonResponse(responseData)
