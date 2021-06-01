@@ -396,6 +396,7 @@ def update_posts(request):
                     real_post.trailer_link = content
                 else:
                     continue
+            update_success = True
         if request.GET.get("add"):
             new_content = loads(request.GET["add"])
             # getting real post assesoiated with post_id 
@@ -421,6 +422,7 @@ def update_posts(request):
                     real_post.trailer_link += content
                 else:
                     continue
+            add_success = True
     else:
         pass
     context = {"Update_success":update_success,
