@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG  = True
+DEBUG  = False
 
-ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "hp354998-movies-forest.zeet.app"]
+ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "hp354998-movies-forest-8193.zeet.app"]
 
 
 # Application definition
