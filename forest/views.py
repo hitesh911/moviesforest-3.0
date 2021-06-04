@@ -53,7 +53,7 @@ def forest_movies(request):
             # parsing a page_id to know "next previous" button's that user is at which page
             page_id = "bollywood"
             # set page id in session
-            request.session["page_id"] = page_id
+            # request.session["page_id"] = page_id
             # changing page no to firest as default because session will save the previous page no
             at_page_no = 1
 
@@ -66,7 +66,7 @@ def forest_movies(request):
             # parsing a page_id to know "next previous" button's that user is at which page
             page_id = "anima"
             # set page id in session
-            request.session["page_id"] = page_id
+            # request.session["page_id"] = page_id
             # changing page no to firest as default because session will save the previous page no
             at_page_no = 1
 
@@ -79,7 +79,7 @@ def forest_movies(request):
             # parsing a page_id to know "next previous" button's that user is at which page
             page_id = "animation"
             # set page id in session
-            request.session["page_id"] = page_id
+            # request.session["page_id"] = page_id
             # changing page no to firest as default because session will save the previous page no
             at_page_no = 1
         # if user request for any category
@@ -440,6 +440,7 @@ def update_posts(request):
 
 # this is for download page
 def download(request):
+    saving a session in 
     # getting post_serial_no
     post_id = request.GET["post_id"]
     # fetching post content with this serial_no from database
@@ -473,6 +474,22 @@ def download(request):
 
     # making a list of screenshots by spliting with space
     screen_shots_list = post.screen_shots.split(" ")
+
+    # making a views counter login here 
+    if request.session["visited"]:
+        pass
+    elif:
+        # saving a session for checking if user is not spammer 
+        request.session["visited"] = "visited"
+        # making session clear at browser close 
+        request.session.get_expire_at_browser_close()
+        # to clearing the expired sessions from database
+        request.session.clear_expired()
+        # incrementing views count 
+        post.views_count +=1
+        post.save()
+
+
     context = {"post": post, "download_links_list": download_links_list,
                "stream_links_list": stream_links_list,
                "screen_shots_list": screen_shots_list}
@@ -484,6 +501,7 @@ def stream(request):
     link = request.GET["link"]
     context = {"link": link}
     return render(request, "forest/stream.html", context)
+
 
 
 

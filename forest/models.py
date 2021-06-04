@@ -1,4 +1,5 @@
 from django.db import models
+
 # model to storeing the posts 
 class Post(models.Model):
     # for serial number.
@@ -21,7 +22,8 @@ class Post(models.Model):
     download_links = models.TextField(default= ' {"480":"https://480", "720":"https://720","1080":"https://1080"}')
     # this is for trailers 
     trailer_link = models.TextField(default="https://tralerss")
-    
+    # this is for views 
+    views_count = models.IntegerField(default=0)
     
     # this is for timestamp 
     timestamp = models.DateTimeField( blank = True, auto_now_add=True)
