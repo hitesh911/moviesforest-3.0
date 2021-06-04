@@ -103,7 +103,7 @@
                 </div>
             </div>
             {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
-            <small class="text-muted mx-3">{{posts.timestamp}}</small>
+            <small class="text-muted mx-3">{{posts.timestamp}} Views : {{posts.views_count}}</small>
         </div>
     </div>
     {% endfor %}
