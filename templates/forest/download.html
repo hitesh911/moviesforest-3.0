@@ -14,7 +14,7 @@
     {% comment %} making a share logo here {% endcomment %}
     <div class="container d-flex justify-content-between mb-1">
      <div>
-      Stream viewed : {{post.views_count}}
+      Views : {{post.views_count}}
       </div>
       {% comment %} this is for logo {% endcomment %}
       <div>
@@ -115,7 +115,6 @@
           </div>
           {% comment %} form for stream  {% endcomment %}
           <form action="/forest/stream" id ="for_stream_page">
-          <input type="hidden" name = "post_ki_id" value = {{page_id}} form = "for_stream_page">
           </form>
           {% comment %} end stream form  {% endcomment %}
       {% comment %} end dropdowns of download and stream  {% endcomment %}

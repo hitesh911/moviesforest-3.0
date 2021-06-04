@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from forest.models import Post, Label
 from django.contrib import messages
 from json import loads
-import requests , random , time
+import requests 
 
 
 def forest_movies(request):
@@ -469,6 +469,13 @@ def download(request):
 
     # making a list of screenshots by spliting with space
     screen_shots_list = post.screen_shots.split(" ")
+    # incrementing views count 
+    post.views_count +=1
+    post.save()
+    
+
+        
+
 
     context = {"post": post, "download_links_list": download_links_list,
                "stream_links_list": stream_links_list,
@@ -477,11 +484,6 @@ def download(request):
 
 
 def stream(request):
-    # getting in which post use request for 
-    post = int(request.GET["post_ki_id"])
-    # incrementing views count 
-    post.views_count +=1
-    post.save()
     # getting stream link
     link = request.GET["link"]
     context = {"link": link}
