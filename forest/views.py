@@ -483,7 +483,7 @@ def download(request):
         request.session.get_expire_at_browser_close()
         # to clearing the expired sessions from database
         request.session.clear_expired()
-    if int(request.session["reload_no"]) == 20:
+    if int(request.session["reload_no"]) == 2:
         return redirect('/')
     else:
         pass
