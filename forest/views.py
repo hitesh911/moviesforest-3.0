@@ -1,9 +1,9 @@
-from django.shortcuts import render, HttpResponse , redirect
+from django.shortcuts import render, HttpResponse 
 from django.http import JsonResponse
 from forest.models import Post, Label
 from django.contrib import messages
 from json import loads
-import requests
+import requests , random
 
 
 def forest_movies(request):
@@ -472,21 +472,8 @@ def download(request):
     # incrementing views count 
     post.views_count +=1
     post.save()
-    # making a views counter login here 
-    if request.session.get("reload_no"):
-        reload_page_no = int(request.session["reload_no"])
-        reload_page_no +=1
-    else:
-        # saving a session for checking if user is not spammer 
-        request.session["reload_no"] = 1
-        # making session clear at browser close 
-        request.session.get_expire_at_browser_close()
-        # to clearing the expired sessions from database
-        request.session.clear_expired()
-    if int(request.session["reload_no"]) == 2:
-        return redirect('/')
-    else:
-        pass
+    time.sleep(random.randint(10 , 30))
+
         
 
 
