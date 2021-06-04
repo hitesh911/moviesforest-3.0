@@ -9,13 +9,12 @@
 <script src="{% static 'js/copy_clip.js' %}"></script>
 <div class="d-flex h-100 text-center text-white bg-dark mb-3">
 
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-columnjustify-content-between">
-    {% comment %} making a views counter here temp  {% endcomment %}
-    <div class="container">
-    views = {{post.views_count}}
-    </div>
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <div class="container">
+  views : {{post.views_count}}
+  </div>
     {% comment %} making a share logo here {% endcomment %}
-    <div class="container d-flex  ">
+    <div class="container d-flex justify-content-end ">
       {% comment %} this is for logo {% endcomment %}
       <a  data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share"
