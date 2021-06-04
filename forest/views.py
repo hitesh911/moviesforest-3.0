@@ -472,10 +472,6 @@ def download(request):
     # incrementing views count 
     post.views_count +=1
     post.save()
-    time.sleep(random.randint(10 , 30))
-
-        
-
 
     context = {"post": post, "download_links_list": download_links_list,
                "stream_links_list": stream_links_list,
