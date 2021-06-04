@@ -477,7 +477,7 @@ def download(request):
     # making a views counter login here 
     if request.session["visited"]:
         pass
-    elif:
+    else:
         # saving a session for checking if user is not spammer 
         request.session["visited"] = "visited"
         # making session clear at browser close 
