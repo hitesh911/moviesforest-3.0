@@ -14,7 +14,7 @@
     {% comment %} making a share logo here {% endcomment %}
     <div class="container d-flex justify-content-between mb-1">
      <div>
-      Views : {{post.views_count}}
+      Stream viewed : {{post.views_count}}
       </div>
       {% comment %} this is for logo {% endcomment %}
       <div>
@@ -103,7 +103,7 @@
             </ul>
             {% comment %} next dropdown for stream  {% endcomment %}
             <a class="btn btn-secondary dropdown-toggle mx-2 me-0" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              Stream links
+              Watch Now
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
@@ -114,15 +114,11 @@
             </ul>
           </div>
           {% comment %} form for stream  {% endcomment %}
-          <form action="/forest/stream" id = "for_stream_page" >
+          <form action="/forest/stream" id ="for_stream_page">
+          <input type="hidden" name = "post_ki_id" value = "{{page_id}}">
           </form>
           {% comment %} end stream form  {% endcomment %}
       {% comment %} end dropdowns of download and stream  {% endcomment %}
-      {% comment %} stream link dropdown  {% endcomment %}
-          <div class="dropdown">
-            
-          </div>
-      {% comment %} stream link dropdown end  {% endcomment %}
       {% comment %} making a fram for YouTube trailer  {% endcomment %}
       <!-- 21:9 aspect ratio -->
       
