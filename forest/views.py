@@ -470,7 +470,7 @@ def download(request):
     # making a list of screenshots by spliting with space
     screen_shots_list = post.screen_shots.split(" ")
         # incrementing views count if request from orginal download button 
-    if request.Get.get("original_view"):
+    if request.GET.get("original_view"):
         post.views_count +=1
         post.save()
     else:
