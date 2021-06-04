@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from forest.models import Post, Label
 from django.contrib import messages
 from json import loads
-import requests , random
+import requests , random , time
 
 
 def forest_movies(request):
