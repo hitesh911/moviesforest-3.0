@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse , redirect
 from django.http import JsonResponse
 from forest.models import Post, Label
 from django.contrib import messages
@@ -65,8 +65,6 @@ def forest_movies(request):
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
             page_id = "anima"
-            # set page id in session
-            # request.session["page_id"] = page_id
             # changing page no to firest as default because session will save the previous page no
             at_page_no = 1
 
@@ -78,8 +76,6 @@ def forest_movies(request):
             len_pages = len(all_movies_post)/9
             # parsing a page_id to know "next previous" button's that user is at which page
             page_id = "animation"
-            # set page id in session
-            # request.session["page_id"] = page_id
             # changing page no to firest as default because session will save the previous page no
             at_page_no = 1
         # if user request for any category
@@ -473,20 +469,25 @@ def download(request):
 
     # making a list of screenshots by spliting with space
     screen_shots_list = post.screen_shots.split(" ")
-
+    # incrementing views count 
+    post.views_count +=1
+    post.save()
     # making a views counter login here 
-    if request.session.get("visited"):
-        pass
+    if request.session.get("reload_no"):
+        reload_page_no = int(request.session["reload_no"])
+        reload_page_no +=1
     else:
-        # saving a session for checking if user is not spammer for
-        request.session["visited"] = "visited"
+        # saving a session for checking if user is not spammer 
+        request.session["reload_no"] = 1
         # making session clear at browser close 
         request.session.get_expire_at_browser_close()
         # to clearing the expired sessions from database
         request.session.clear_expired()
-        # incrementing views count 
-        post.views_count +=1
-        post.save()
+    if int(request.session["reload_no"]) == 20:
+        return redirect('/')
+    else:
+        pass
+        
 
 
     context = {"post": post, "download_links_list": download_links_list,
