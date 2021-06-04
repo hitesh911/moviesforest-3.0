@@ -478,7 +478,7 @@ def download(request):
 
 def stream(request):
     # getting in which post use request for 
-    post = request.GET["post_ki_id"]
+    post = int(request.GET["post_ki_id"])
     # incrementing views count 
     post.views_count +=1
     post.save()
