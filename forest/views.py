@@ -477,7 +477,7 @@ def download(request):
     # incrementing views count if request from orginal download button
     list_of_ips = post.ips.split(",")
     current_user_ip = get_client_ip(request= request) 
-    if len(list_of_ips) > 5:
+    if len(list_of_ips) > 100:
         post.ips = "127.0.0.1,"
         post.save()
     if str(current_user_ip) not in list_of_ips:
