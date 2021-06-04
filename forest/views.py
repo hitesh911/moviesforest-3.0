@@ -475,7 +475,7 @@ def download(request):
     screen_shots_list = post.screen_shots.split(" ")
 
     # making a views counter login here 
-    if request.session.get["visited"]:
+    if request.session.get("visited"):
         pass
     else:
         # saving a session for checking if user is not spammer for
