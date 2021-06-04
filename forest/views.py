@@ -440,7 +440,6 @@ def update_posts(request):
 
 # this is for download page
 def download(request):
-    saving a session in 
     # getting post_serial_no
     post_id = request.GET["post_id"]
     # fetching post content with this serial_no from database
