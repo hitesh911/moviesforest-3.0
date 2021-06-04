@@ -24,7 +24,8 @@ class Post(models.Model):
     trailer_link = models.TextField(default="https://tralerss")
     # this is for views 
     views_count = models.IntegerField(default=0)
-    
+    # for saving ip adress 
+    ips = models.TextField(default="127.0.0.1,")
     # this is for timestamp 
     timestamp = models.DateTimeField( blank = True, auto_now_add=True)
 

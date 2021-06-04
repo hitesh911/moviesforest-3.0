@@ -5,7 +5,16 @@ from django.contrib import messages
 from json import loads
 import requests 
 
+# specific functions 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
+# main functions 
 def forest_movies(request):
     # specific verables
     label_selected = False
@@ -216,7 +225,7 @@ def forest_movies(request):
                "content_start": str(content_start), "show_banner": show_banner, "at_page_no": at_page_no, "disable_next": disable_next,
                "disable_previous": disable_previous, "banner": page_id, "page_id": page_id, "back_home_button": back_home_button,
                "len_pages": int(len_pages), "active_hollywood": active_hollywood, "active_bollywood": active_bollywood, "active_anima": active_anima,
-               "active_animation": active_animation, "year": year ,"main":main ,  "other":other}
+               "active_animation": active_animation, "year": year ,"main":main ,  "other":other }
     # returning a responce
     return render(request, 'forest/movies.html', context)
 # personal function for devlopers to create the posts
@@ -430,10 +439,6 @@ def update_posts(request):
     return JsonResponse(context)
 
 
-            
-
-
-
 # this is for download page
 def download(request):
     # getting post_serial_no
@@ -469,12 +474,19 @@ def download(request):
 
     # making a list of screenshots by spliting with space
     screen_shots_list = post.screen_shots.split(" ")
-        # incrementing views count if request from orginal download button 
-    if request.GET.get("original_view"):
+    # incrementing views count if request from orginal download button
+    list_of_ips = post.ips.split(",")
+    current_user_ip = get_client_ip(request= request) 
+    if len(list_of_ips) > 1:
+        post.ips = ""
+    if int(current_user_ip) not in list_of_ips:
+        post.ips += f"{current_user_ip},"
         post.views_count +=1
         post.save()
     else:
         pass
+
+
     
 
         
