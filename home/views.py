@@ -82,6 +82,6 @@ def search(request):
 
 def history(request):
     current_user_ip = str(get_client_ip(request = request))
-    user_history_posts = Post.objects.filter(ips__icontains = current_user_ip)
-    context = {"history_related_posts":all_posts}
+    history_related_posts = Post.objects.filter(ips__icontains = current_user_ip)
+    context = {"history_related_posts":history_related_posts}
     return render(request , "home/history.html" , context)
