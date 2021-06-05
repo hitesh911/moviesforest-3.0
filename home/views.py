@@ -3,6 +3,8 @@ from home.models import Contact
 from django.contrib import messages
 from forest.models import Post
 from django.contrib.postgres.search import SearchVector , SearchRank , SearchQuery
+# importing get clint ip function for history function
+from forest.views import get_client_ip
 
 def home(request):
     return render(request , 'home/home.html')
@@ -79,6 +81,7 @@ def search(request):
     
 
 def history(request):
-    all_posts = Post.objects.all()
+    current_user_ip = str(get_client_ip(request = request))
+    user_history_posts = Post.objects.filter(ips__icontains = current_user_ip)
     context = {"history_related_posts":all_posts}
     return render(request , "home/history.html" , context)
