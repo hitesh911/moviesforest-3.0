@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% comment %} giving title {% endcomment %}
-{% block title %}search{% endblock title %}
+{% block title %}History{% endblock title %}
+{% comment %} making history active  {% endcomment %}
+{% block historyactive %}active{% endblock historyactive %}
 {% comment %} main body content {% endcomment %}
 {% block body %}
 
 {% comment %} checking if result is ZERO {% endcomment %}
-{% if search_related_posts|length == 0 %}
+{% if history_related_posts|length == 0 %}
 <div class="mx-3">
     <hr>
-    <h2>No results found</h2>
-    <p>You'r search query <b> {{query}} </b> did not any match any content</p>
+    <h2>No resent posts found</h2>
     Suggestions :
     <ul>
-        <li>Make sure you'r spellings are correct</li>
-        <li>Try IMDB titles</li>
-        <li>Try fewer worlds</li>
+        <li>Make sure you have views some post later.</li>
+        <li>Make sure you history status is on.</li>
     </ul>
     <hr>
 </div>

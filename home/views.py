@@ -78,4 +78,7 @@ def search(request):
     return render(request , "home/search.html" , context)
     
 
-
+def history(request):
+    all_posts = Post.objects.all()
+    context = {"history_related_posts":all_posts}
+    return render(request , "home/history.html")

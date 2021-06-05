@@ -475,24 +475,21 @@ def download(request):
     # making a list of screenshots by spliting with space
     screen_shots_list = post.screen_shots.split(" ")
     # incrementing views count if request from orginal download button
+    # getting the list of ips that are resently viewed in post 
     list_of_ips = post.ips.split(",")
+    # getting current user ip 
     current_user_ip = get_client_ip(request= request) 
+    # if lenght of resent ips is more than 100 so removing all ips 
     if len(list_of_ips) > 100:
         post.ips = "127.0.0.1,"
         post.save()
+    # if new ip found so incrementing the ip in ips list 
     if str(current_user_ip) not in list_of_ips:
         post.ips += f"{current_user_ip},"
         post.views_count +=1
         post.save()
     else:
         pass
-
-
-    
-
-        
-
-
     context = {"post": post, "download_links_list": download_links_list,
                "stream_links_list": stream_links_list,
                "screen_shots_list": screen_shots_list}
