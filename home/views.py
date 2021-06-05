@@ -81,4 +81,4 @@ def search(request):
 def history(request):
     all_posts = Post.objects.all()
     context = {"history_related_posts":all_posts}
-    return render(request , "home/history.html")
+    return render(request , "home/history.html" , context)
