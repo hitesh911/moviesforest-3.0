@@ -50,7 +50,12 @@
     </div>
     {% endfor %}
 </div>
-<div class="container">
+
+{% comment %} form for downlaod page request {% endcomment %}
+<form action="/forest/download" id="for_download_page" method="get"></form>
+{% comment %} end form of downlaod page {% endcomment %}
+{% endif %}
+<div class="container mb-2">
 Search in Zero_two 
 <form method = "post" action = "/zero_two" class="d-flex">
     <input class="form-control me-2" type="search" placeholder="Movie name" aria-label="search" name = "movie"  >
@@ -58,10 +63,6 @@ Search in Zero_two
     <button class="btn btn-outline-success" type="submit" >Search</button>
 </form>
 </div>
-{% comment %} form for downlaod page request {% endcomment %}
-<form action="/forest/download" id="for_download_page" method="get"></form>
-{% comment %} end form of downlaod page {% endcomment %}
-{% endif %}
 
 
 {% endblock body %}
