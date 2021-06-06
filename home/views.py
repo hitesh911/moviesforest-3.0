@@ -1,4 +1,5 @@
 from django.shortcuts import render 
+from django.views import View
 from home.models import Contact 
 from django.contrib import messages
 from forest.models import Post
@@ -88,15 +89,34 @@ def history(request):
     history_related_posts = Post.objects.filter(ips__icontains = current_user_ip)
     context = {"history_related_posts":history_related_posts}
     return render(request , "home/history.html" , context)
-def zero_two(request):
-    base_url = 'http://maiis.pythonanywhere.com'
-    API_KEY = '898sdvi7rb3l34cv'
-    text = 'Your+Name+2016'
-    size = 1073741824
-    url_to_req = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
-    data = requests.get(url_to_req).json()
-    time.sleep(5)
-    data_2 = requests.get(f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}').json()
-    response = data_2["link"]
-    context = {"response" : response}
-    return render(request , 'home/zero_two.html' , context)
+# def zero_two(request):
+#     # base url to request to zero_two 
+#     base_url = 'http://maiis.pythonanywhere.com'
+#     # api key to excess the zero_two api 
+#     API_KEY = '898sdvi7rb3l34cv'
+#     getting movie name from post reqest
+#     text = 'Your+Name+2016'
+#     size = 1073741824
+#     url_to_req = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
+#     data = requests.get(url_to_req).json()
+#     time.sleep(5)
+#     data_2 = requests.get(f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}').json()
+#     response = data_2["link"]
+#     context = {"response" : response}
+#     return render(request , 'home/zero_two.html' , context)
+class ZeroTwo(View):
+    def get(self , request):
+        response = "You can't access ZeroTwo like this motherfucker!"
+        context = {"getresponce":response}
+        return render(request , "home/zero_two.html" , context)
+    def post(self , request):
+        # getting movie name 
+        movie_name = request.GET["movie"]
+        # getting year 
+        year = request.GET["year"]s
+        # base url to request to zero_two 
+        base_url = 'http://maiis.pythonanywhere.com'
+        # api key to excess the zero_two api 
+        API_KEY = '898sdvi7rb3l34cv'
+        return render(request , "home/zero_two.html")
+
