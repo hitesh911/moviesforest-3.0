@@ -128,11 +128,12 @@ class ZeroTwo(View):
         time.sleep(5)
         url2 = f'{base_url}/api/{API_KEY}/get_movie/{data1["key"]}'
         # making next request 
-        data2 = request.get(url2).json()
+        data2 = requests.get(url2).json()
         if data2['status']:
             name = data2["name"]
             size = data2["size"]
             link = data2["link"]
+        
 
         context = {"name":name ,"size":size , "link":link}
         return render(request , "home/zero_two.html" , context )
