@@ -134,4 +134,5 @@ class ZeroTwo(View):
     #         link = data2["link"]
 
     #     context = {"name":name ,"size":size , "link":link}
+    def post(self , request):
         return render(request , "home/zero_two.html" )
