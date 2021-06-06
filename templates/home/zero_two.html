@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Zero_Two{% endblock title %}
 {% block body %}
-{{name}}
-{{size}}
-{{link}}
+{% if status %}
+    <div class="container">
+    <h2>Name</h2>
+    {{name}}
+    <h2>size</h2>
+    {{size}}
+    <a href="{{link}}">Download now</a>
+    </div>
+{% else %}
+    <h1>Movie not found</h1>
+    <p>Try to make you movie and year combination right</p>
+{% endif %}
 {% endblock body %}
