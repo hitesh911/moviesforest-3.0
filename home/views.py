@@ -1,4 +1,4 @@
-from django.shortcuts import render 
+from django.shortcuts import render  , HttpResponse
 from home.models import Contact 
 from django.contrib import messages
 from forest.models import Post
@@ -82,8 +82,10 @@ def search(request):
     
 # this is for history save 
 def history(request):
-    messages.warning(request , "You history will deleted with ip change")
+    messages.warning(request , "You'r history will deleted with ip change")
     current_user_ip = str(get_client_ip(request = request))
     history_related_posts = Post.objects.filter(ips__icontains = current_user_ip)
     context = {"history_related_posts":history_related_posts}
     return render(request , "home/history.html" , context)
+def zero_two(request):
+    return HttpResponse("Yes i am in zero_two")
