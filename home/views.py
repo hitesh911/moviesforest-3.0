@@ -1,4 +1,4 @@
-from django.shortcuts import render 
+from django.shortcuts import render  , HttpResponse
 from django.views import View
 from home.models import Contact 
 from django.contrib import messages
@@ -105,18 +105,20 @@ def history(request):
 #     context = {"response" : response}
 #     return render(request , 'home/zero_two.html' , context)
 class ZeroTwo(View):
-    def get(self , request):
-        response = "You can't access ZeroTwo like this motherfucker!"
-        context = {"getresponce":response}
-        return render(request , "home/zero_two.html" , context)
+    # def get(self , request):
+    #     response = "You can't access ZeroTwo like this motherfucker!"
+    #     context = {"getresponce":response}
+    #     return render(request , "home/zero_two.html" , context)
+    # def post(self , request):
+    #     # getting movie name 
+    #     movie_name = request.GET["movie"]
+    #     # getting year 
+    #     year = request.GET["year"]
+    #     # base url to request to zero_two 
+    #     base_url = 'http://maiis.pythonanywhere.com'
+    #     # api key to excess the zero_two api 
+    #     API_KEY = '898sdvi7rb3l34cv'
+    #     return render(request , "home/zero_two.html")
     def post(self , request):
-        # getting movie name 
-        movie_name = request.GET["movie"]
-        # getting year 
-        year = request.GET["year"]s
-        # base url to request to zero_two 
-        base_url = 'http://maiis.pythonanywhere.com'
-        # api key to excess the zero_two api 
-        API_KEY = '898sdvi7rb3l34cv'
-        return render(request , "home/zero_two.html")
+        return HttpResponse("yes")
 
