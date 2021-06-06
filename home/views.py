@@ -7,6 +7,7 @@ from django.contrib.postgres.search import SearchVector , SearchRank , SearchQue
 from forest.views import get_client_ip
 
 def home(request):
+    messages.success(request , "<a href = 'moviesforest.herokuapp.com'>Click here<a/>")
     return render(request , 'home/home.html')
 def contact(request):
     if request.method == 'POST':
