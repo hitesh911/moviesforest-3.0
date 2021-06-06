@@ -105,33 +105,33 @@ def history(request):
 #     context = {"response" : response}
 #     return render(request , 'home/zero_two.html' , context)
 class ZeroTwo(View):
-    def get(self , request):
-        response = "You can't access ZeroTwo like this motherfucker!"
-        context = {"getresponce":response}
-        return render(request , "home/zero_two.html" , context)
-    def post(self , request):
-        # getting movie name 
-        movie_name = request.GET["movie"]
-        # getting year 
-        year = str(request.GET["year"].replace(" ", "+"))
-        # getting size 
-        size = str(request.GET["size"].replace(" ", "+"))
-        # base url to request to zero_two 
-        base_url = 'http://maiis.pythonanywhere.com'
-        # api key to excess the zero_two api 
-        API_KEY = '898sdvi7rb3l34cv'
-        # making a text to search in zero_two 
-        text = f"{year}+{size}"
-        # making a request to zero_two api 
-        url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
-        data1 = requests.get(url1).json()
-        time.sleep(5)
-        url2 = f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}'
-        data2 = request.get(url2).json()
-        if data2['status']:
-            name = data2["name"]
-            size = data2["size"]
-            link = data2["link"]
+    # def get(self , request):
+    #     response = "You can't access ZeroTwo like this motherfucker!"
+    #     context = {"getresponce":response}
+    #     return render(request , "home/zero_two.html" , context)
+    # def post(self , request):
+    #     # getting movie name 
+    #     movie_name = request.GET["movie"]
+    #     # getting year 
+    #     year = str(request.GET["year"].replace(" ", "+"))
+    #     # getting size 
+    #     size = str(request.GET["size"].replace(" ", "+"))
+    #     # base url to request to zero_two 
+    #     base_url = 'http://maiis.pythonanywhere.com'
+    #     # api key to excess the zero_two api 
+    #     API_KEY = '898sdvi7rb3l34cv'
+    #     # making a text to search in zero_two 
+    #     text = f"{year}+{size}"
+    #     # making a request to zero_two api 
+    #     url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
+    #     data1 = requests.get(url1).json()
+    #     time.sleep(5)
+    #     url2 = f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}'
+    #     data2 = request.get(url2).json()
+    #     if data2['status']:
+    #         name = data2["name"]
+    #         size = data2["size"]
+    #         link = data2["link"]
 
-        context = {"name":name ,"size":size , "link":link}
-        return render(request , "home/zero_two.html" , context)
+    #     context = {"name":name ,"size":size , "link":link}
+        return render(request , "home/zero_two.html" )
