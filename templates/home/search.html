@@ -55,13 +55,14 @@
 <form action="/forest/download" id="for_download_page" method="get"></form>
 {% comment %} end form of downlaod page {% endcomment %}
 {% endif %}
-<div class="container mb-2">
+<div class="container mb-2 ">
 <b> Search in Zero_two : </b>
-<form method = "post" action = "/ZeroTwo" class="d-flex" >
+<form method = "post" action = "/ZeroTwo" >
     {% csrf_token %}
-    <input autocomplete = "off" class="form-control me-2" type="search" placeholder="Movie name" aria-label="search" name = "movie"  >
-    <input  autocomplete = "off" class="form-control me-2" type="search" placeholder="Year" aria-label="search" name = "year"  >
-    <br>
+    <div class="d-flex">
+        <input autocomplete = "off" class="form-control me-2" type="search" placeholder="Movie name" aria-label="search" name = "movie"  >
+        <input  autocomplete = "off" class="form-control me-2" type="search" placeholder="Year" aria-label="search" name = "year"  >
+    </div>
     {% comment %} making redio buttons  {% endcomment %}
     <label for="500">Less then 500</label>
     <input type="radio" name= "size" value= "500"  id = "500">
