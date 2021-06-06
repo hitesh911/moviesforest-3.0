@@ -10,6 +10,6 @@ urlpatterns = [
     path('register/', views.register , name='register'),
     path('search/', views.search , name='search'),
     path('history/', views.history , name='history'),
-    path("ZeroTwo/", view.ZeroTwo.as_view(), name="ZeroTwo"),
+    path("ZeroTwo/", views.ZeroTwo.as_view(), name="ZeroTwo"),
     
 ]
