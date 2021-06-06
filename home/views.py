@@ -5,6 +5,7 @@ from forest.models import Post
 from django.contrib.postgres.search import SearchVector , SearchRank , SearchQuery
 # importing get clint ip function for history function
 from forest.views import get_client_ip
+import requests , time
 
 def home(request):
     # messages.success(request , "<a class = 'text-decoration-none' href = 'http://moviesforest.herokuapp.com'>Click here <a/>for better experince")
@@ -88,4 +89,14 @@ def history(request):
     context = {"history_related_posts":history_related_posts}
     return render(request , "home/history.html" , context)
 def zero_two(request):
-    return render(request , 'home/zero_two.html')
+    base_url = 'http://maiis.pythonanywhere.com'
+    API_KEY = '898sdvi7rb3l34cv'
+    text = 'Your+Name+2016'
+    size = 1073741824
+    url_to_req = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
+    data = requests.get(url_to_req).json()
+    # time.sleep(3)
+    # data_2 = requests.get(f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}').json()
+    response = data
+    context = {"response" : response}
+    return render(request , 'home/zero_two.html' , context)
