@@ -97,7 +97,6 @@ def zero_two(request):
     data = requests.get(url_to_req).json()
     time.sleep(5)
     data_2 = requests.get(f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}').json()
-    url2 = f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}'
-    response = url2
+    response = data_2["link"]
     context = {"response" : response}
     return render(request , 'home/zero_two.html' , context)
