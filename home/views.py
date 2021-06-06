@@ -111,11 +111,11 @@ class ZeroTwo(View):
         return render(request , "home/zero_two.html" , context)
     def post(self , request):
         # getting movie name 
-        movie_name = request.GET["movie"]
+        movie_name = str(request.POST["movie"]).replace(" ", "+")
         # getting year 
-        year = str(request.GET["year"].replace(" ", "+"))
+        year = str(request.POST["year"]).replace(" ", "+")
         # getting size 
-        size = str(request.GET["size"].replace(" ", "+"))
+        size = request.POST["size"]
         # base url to request to zero_two 
         base_url = 'http://maiis.pythonanywhere.com'
         # api key to excess the zero_two api 
