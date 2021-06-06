@@ -58,6 +58,7 @@
 <div class="container mb-2">
 <b> Search in Zero_two : </b>
 <form method = "post" action = "/zero_two" class="d-flex" autocomplete = "off">
+    {% csrf_token %}
     <input autocomplete = "false" class="form-control me-2" type="search" placeholder="Movie name" aria-label="search" name = "movie"  >
     <input class="form-control me-2" type="search" placeholder="Year" aria-label="search" name = "year"  >
     <button class="btn btn-outline-success" type="submit" >Search</button>
