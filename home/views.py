@@ -1,4 +1,4 @@
-from django.shortcuts import render  , HttpResponse
+from django.shortcuts import render 
 from home.models import Contact 
 from django.contrib import messages
 from forest.models import Post
@@ -88,4 +88,4 @@ def history(request):
     context = {"history_related_posts":history_related_posts}
     return render(request , "home/history.html" , context)
 def zero_two(request):
-    return HttpResponse("Yes i am in zero_two")
+    return render(request , 'home/zero_two.html')
