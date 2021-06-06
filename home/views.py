@@ -114,8 +114,22 @@ class ZeroTwo(View):
         movie_name = request.GET["movie"]
         # getting year 
         year = request.GET["year"]
+        # getting size 
+        size = request.GET["size"]
         # base url to request to zero_two 
         base_url = 'http://maiis.pythonanywhere.com'
         # api key to excess the zero_two api 
         API_KEY = '898sdvi7rb3l34cv'
-        return render(request , "home/zero_two.html")
+        # making a request to zero_two api 
+        url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
+        data1 = requests.get(url1).json()
+        time.sleep(5)
+        url2 = f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}'
+        data2 = request.get(url2).json()
+        if data2['status']:
+            name = data2["name"]
+            size = data2["size"]
+            link = data2["link"]
+
+        context = {"name":name ,"size":size , "link":link}
+        return render(request , "home/zero_two.html" , context)
