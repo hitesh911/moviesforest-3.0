@@ -79,10 +79,10 @@ def search(request):
     # render search.html if request is post means request is from our site  
     return render(request , "home/search.html" , context)
     
-
+# this is for history save 
 def history(request):
-    messages.warning(request , "You history will deleted with out ip change")
+    messages.warning(request , "You history will deleted with ip change")
     current_user_ip = str(get_client_ip(request = request))
-    history_related_posts = Post.objects.filter(ips__icontains = current_user_ip).order_by("sno").reverse()
+    history_related_posts = Post.objects.filter(ips__icontains = current_user_ip)
     context = {"history_related_posts":history_related_posts}
     return render(request , "home/history.html" , context)
