@@ -121,12 +121,13 @@ class ZeroTwo(View):
         # api key to excess the zero_two api 
         API_KEY = '898sdvi7rb3l34cv'
         # making a text to search in zero_two 
-        text = f"{year}+{size}"
+        text = f"{movie_name}+{year}"
         # making a request to zero_two api 
         url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
         data1 = requests.get(url1).json()
         time.sleep(5)
-        url2 = f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}'
+        url2 = f'{base_url}/api/{API_KEY}/get_movie/{data1["key"]}'
+        # making next request 
         data2 = request.get(url2).json()
         if data2['status']:
             name = data2["name"]
