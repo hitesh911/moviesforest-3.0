@@ -28,7 +28,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG  = True
 
-ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "hp354998-movies-forest-8193.zeet.app"]
+ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "hp354998-movies-forest-8193.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
 
 
 # Application definition
@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'home.apps.HomeConfig',
     'forest.apps.ForestConfig',
-    'django.contrib.postgres',
+    
+
     
 
 ]
