@@ -1,16 +1,52 @@
 {% extends 'base.html' %}
 {% block title %}Zero_Two{% endblock title %}
 {% block body %}
-{% if status %}
+{% comment %} If request not send to the Zero_Two   {% endcomment %}
+{% if not request_success %}
     <div class="container">
-    <h2>Name</h2>
-    {{name}}
-    <h2>size</h2>
-    {{size}}
-    <a href="{{link}}">Download now</a>
+        <h2>Sorry unable to communicate with Zero_Two</h2>
+        <br>
+        <p>You can report this issue to devlopers</p>
+        <br>
+        <a href="/contact">Contact us</a>
     </div>
+{% else %}
+    {% if not status %}
+        <div class="mx-3">
+            <hr>
+            <h2>No movie found !</h2>
+            <p>Zero_Two is unable to find righ movie that satisfy you requirments</p>
+            Suggestions :
+            <ul>
+                <li>Make sure you'r spellings are correct and released year is corrct.</li>
+                <li>Search you movie details in <a class = "text-decoration-none" href="https://google.com">google</a></li>
+                <li>Try diffrent sizes</li>
+            </ul>
+            <hr>
+        </div>
+    {% else %}
+        <div class="container">
+            <h2>Name</h2>
+            {{name}}
+            <h2>size</h2>
+            {{size}}
+            <br>
+            <a href="{{link}}">Download now</a>
+        </div>
+
+    {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+{% comment %} {% if status %}
+    
 {% else %}
     <h1>Movie not found</h1>
     <p>Try to make you movie and year combination right</p>
-{% endif %}
+{% endif %} {% endcomment %}
 {% endblock body %}

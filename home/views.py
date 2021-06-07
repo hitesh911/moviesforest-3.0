@@ -111,7 +111,11 @@ class ZeroTwo(View):
         return render(request , "home/zero_two.html" , context)
     def post(self , request):
         # making default context verables 
-        status = False
+        name = None
+        size = None
+        link = None
+        status = True
+        request_success = True
         # getting movie name 
         movie_name = str(request.POST["movie"]).replace(" ", "+")
         # getting year 
@@ -124,19 +128,31 @@ class ZeroTwo(View):
         API_KEY = '898sdvi7rb3l34cv'
         # making a text to search in zero_two 
         text = f"{movie_name}+{year}"
-        # making a request to zero_two api 
+        # making a perfect url to make first request 
         url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
-        data1 = requests.get(url1).json()
+        # making a request to zero_two api 
+        try:
+            data1 = requests.get(url1).json()
+        except:
+            request_success = False
+        # sleeping for 5 second for second request 
         time.sleep(5)
+        # making next url to request 
         url2 = f'{base_url}/api/{API_KEY}/get_movie/{data1["key"]}'
         # making next request 
-        data2 = requests.get(url2).json()
+        try:
+            data2 = requests.get(url2).json()
+        except:
+            request_success = False
+        # checking if zero_two get the movie 
         if data2['status']:
             name = data2["name"]
             size = data2["size"]
             link = data2["link"]
             status = data2["status"]
-            context = {"name":name ,"size":size , "link":link ,"status" :status}
+        # if zero_two did't get the movie so making status false 
         else:
-            context = {"status":status}
+            status = False
+        context = {"request_success":request_success, "status":status,"name":name,
+                    "size":size , "link":link ,}
         return render(request , "home/zero_two.html" , context )

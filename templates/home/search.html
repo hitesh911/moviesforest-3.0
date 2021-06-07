@@ -6,18 +6,18 @@
 
 {% comment %} checking if result is ZERO {% endcomment %}
 {% if search_related_posts|length == 0 %}
-<div class="mx-3">
-    <hr>
-    <h2>No results found</h2>
-    <p>You'r search query <b> {{query}} </b> did not match any content</p>
-    Suggestions :
-    <ul>
-        <li>Make sure you'r spellings are correct</li>
-        <li>Try IMDB titles</li>
-        <li>Try fewer worlds</li>
-    </ul>
-    <hr>
-</div>
+    <div class="mx-3">
+        <hr>
+        <h2>No results found</h2>
+        <p>You'r search query <b> {{query}} </b> did not match any content</p>
+        Suggestions :
+        <ul>
+            <li>Make sure you'r spellings are correct</li>
+            <li>Try IMDB titles</li>
+            <li>Try fewer worlds</li>
+        </ul>
+        <hr>
+    </div>
 {% else %}
 {% comment %} creating a heading for search using h1 tag {% endcomment %}
 <hr>
