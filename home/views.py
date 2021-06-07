@@ -129,7 +129,7 @@ class ZeroTwo(View):
         # making a text to search in zero_two 
         text = f"{movie_name}+{year}"
         # making a perfect url to make first request 
-        url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
+        url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}/bava'
         # making a request to zero_two api 
         try:
             data1 = requests.get(url1).json()
