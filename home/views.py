@@ -133,7 +133,6 @@ class ZeroTwo(View):
              # checking if zero_two get the movie 
             if data2['status']:
                 name = data2["name"].split()
-                name = name[0:2]
                 size = data2["size"]
                 link = data2["link"]
                 status = data2["status"]
