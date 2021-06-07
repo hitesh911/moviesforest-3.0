@@ -131,9 +131,10 @@ class ZeroTwo(View):
         # making a perfect url to make first request 
         url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}/bava'
         # making a request to zero_two api 
-        data1 = requests.get(url1).json()
+        req1 = requests.get(url1)
+        data1 = req1.json()
         # if request is not 200 so making request_success false
-        if data1.status_code != 200:
+        if req1.status_code != 200:
             request_success = False
         else:
             pass
@@ -144,8 +145,9 @@ class ZeroTwo(View):
             # making next url to request 
             url2 = f'{base_url}/api/{API_KEY}/get_movie/{data1["key"]}'
             # making next request 
-            data2 = requests.get(url2).json()
-            if data2.status_code != 200:
+            req2 = requests.get(url2)
+            data2 = req2.json()
+            if req2.status_code != 200:
                 request_success = False
             else:
                 pass
