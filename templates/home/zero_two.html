@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Zero_Two{% endblock title %}
+{% comment %} loading static files  {% endcomment %}
+{% load static %}
 {% block body %}
 {% comment %} If request not send to the Zero_Two   {% endcomment %}
 {% if not request_success %}
@@ -30,6 +32,10 @@
             <hr>
         </div>
     {% else %}
+        <section
+            class="py-5 text-center d-flex flex-column-reverse mb-4  container-xxxl bg-image border border-3 border-dark rounded "
+            style="background :url('{% static "/banners/zero_two.jpg" %}') center /cover; height :80vh; background-repeat : no-repeat;">
+        </section>
         <div class="container">
             <h2>Name</h2>
             {{name}}
