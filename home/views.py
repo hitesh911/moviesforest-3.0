@@ -132,7 +132,7 @@ class ZeroTwo(View):
             data2 = requests.get(url2).json()
              # checking if zero_two get the movie 
             if data2['status']:
-                name = data2["name"].split()
+                name = data2["name"]
                 size = data2["size"]
                 link = data2["link"]
                 status = data2["status"]
