@@ -136,7 +136,7 @@ class ZeroTwo(View):
             size = data2["size"]
             link = data2["link"]
             status = data2["status"]
-            context = {"name":name ,"size":size , "link":link "status" :status}
+            context = {"name":name ,"size":size , "link":link ,"status" :status}
         else:
             context = {"status":status}
         return render(request , "home/zero_two.html" , context )
