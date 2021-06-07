@@ -15,6 +15,7 @@
             <li>Make sure you'r spellings are correct</li>
             <li>Try IMDB titles</li>
             <li>Try fewer worlds</li>
+            <li>Please search on Zero_Two <a class = "text-decoration-none"href="#zero_two">below</a></li>
         </ul>
         <hr>
     </div>
@@ -60,7 +61,7 @@
 <form method = "post" action = "/ZeroTwo" >
     {% csrf_token %}
     <div class="d-flex">
-        <input autocomplete = "off" class="form-control me-2" type="search" placeholder="Movie name" aria-label="search" name = "movie">
+        <input autocomplete = "off" class="form-control me-2" type="search" placeholder="Movie name" aria-label="search" name = "movie" id = "zero_two">
         <input  autocomplete = "off" class="form-control me-2" type="number" placeholder="Year" aria-label="search" name = "year"  >
     </div>
     {% comment %} making redio buttons  {% endcomment %}
