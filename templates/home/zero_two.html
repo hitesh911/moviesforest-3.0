@@ -5,6 +5,11 @@
 {% block body %}
 {% comment %} If request not send to the Zero_Two   {% endcomment %}
 <div class="container-xl pt-2">
+ {% comment %} displaying a banner in section tag {% endcomment %}
+    <section
+        class="py-5 text-center d-flex flex-column-reverse mb-4  container-xxxl bg-image border border-3 border-dark rounded "
+        style="background :url('{% static "banners/zero_two,.jpg" %}') center /cover; height :80vh; background-repeat : no-repeat;">
+    </section>
     {% if not request_success %}
         <div class="mx-3">
                 <hr>
@@ -42,9 +47,9 @@
                     <h3>Size --></h3>
                     <li>{{size}}</li>
                     <h3>Download link --></h3>
-                    <li><a class = "text-decoration-none" href="{{link}}">Movies_forest</a></li>
+                    <li><a class = "text-decoration-none" href="{{link}}">https://movies_forest.com/download</a></li>
                     <h3>Stream link --></h3>
-                    <li><button name = "link" value = {{link}} form = "for_stream" class="btn btn-link"></button></li>
+                    <li><button name = "link" value = {{link}} form = "for_stream" class="btn btn-link">https://movies_forest.com/stream</button></li>
                 </ul>
                 <hr>
                {% comment %} form to make a request to stream page  {% endcomment %}
