@@ -137,22 +137,26 @@ class ZeroTwo(View):
             request_success = False
         # sleeping for 5 second for second request 
         time.sleep(5)
-        # making next url to request 
-        url2 = f'{base_url}/api/{API_KEY}/get_movie/{data1["key"]}'
-        # making next request 
-        try:
-            data2 = requests.get(url2).json()
-        except:
-            request_success = False
-        # checking if zero_two get the movie 
-        if data2['status']:
-            name = data2["name"]
-            size = data2["size"]
-            link = data2["link"]
-            status = data2["status"]
-        # if zero_two did't get the movie so making status false 
-        else:
-            status = False
+        # if first request is successed so ony then make second request 
+        if request_success:
+            # making next url to request 
+            url2 = f'{base_url}/api/{API_KEY}/get_movie/{data1["key"]}'
+            # making next request 
+            try:
+                data2 = requests.get(url2).json()
+            except:
+                request_success = False
+        # if second request is also successed so then change the data according to the responce 
+        if request_success:
+            # checking if zero_two get the movie 
+            if data2['status']:
+                name = data2["name"]
+                size = data2["size"]
+                link = data2["link"]
+                status = data2["status"]
+            # if zero_two did't get the movie so making status false 
+            else:
+                status = False
         context = {"request_success":request_success, "status":status,"name":name,
                     "size":size , "link":link ,}
         return render(request , "home/zero_two.html" , context )
