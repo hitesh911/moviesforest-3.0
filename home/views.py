@@ -91,7 +91,7 @@ def history(request):
     return render(request , "home/history.html" , context)
 
 
-    
+
 # making a class for zeroTwo 
 class ZeroTwo(View):
     def get(self , request):
@@ -99,6 +99,7 @@ class ZeroTwo(View):
         context = {"getresponce":response}
         return render(request , "home/zero_two.html" , context)
     def post(self , request):
+        messages.warning(request , "Zero_Two's content is not verifyed. It could be wrong")
         # making default context verables 
         name = None
         size = None
