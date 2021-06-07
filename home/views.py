@@ -117,7 +117,8 @@ class ZeroTwo(View):
         # api key to excess the zero_two api 
         API_KEY = '898sdvi7rb3l34cv'
         # making a query to search in zero_two 
-        query = f"{movie_name}+{year}"
+        query = year
+        # f"{movie_name}+{year}"
         # making a perfect url to make first request 
         url1 = f'{base_url}/api/{API_KEY}/search_movie/{query}/size={size}'
         # making a request to zero_two api 
