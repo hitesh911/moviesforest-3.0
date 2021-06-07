@@ -3,13 +3,18 @@
 {% block body %}
 {% comment %} If request not send to the Zero_Two   {% endcomment %}
 {% if not request_success %}
-    <div class="container">
-        <h2>Sorry unable to communicate with Zero_Two</h2>
-        <br>
-        <p>You can report this issue to devlopers</p>
-        <br>
-        <a href="/contact">Contact us</a>
-    </div>
+     <div class="mx-3">
+            <hr>
+            <h2>Sorry !</h2>
+            <p>Unable to communicate with Zero_Two</p>
+            Problems :
+            <ul>
+                <li>Zero_Two can be under maintenance</li>
+                <li>Devloper's could be suffring from tecking issues</li>
+                <li>You can contact us. <a class = "text-decoration-none"href="/contact">Click here</a></li>
+            </ul>
+            <hr>
+        </div>
 {% else %}
     {% if not status %}
         <div class="mx-3">
