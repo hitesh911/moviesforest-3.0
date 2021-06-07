@@ -116,10 +116,10 @@ class ZeroTwo(View):
         base_url = 'http://maiis.pythonanywhere.com'
         # api key to excess the zero_two api 
         API_KEY = '898sdvi7rb3l34cv'
-        # making a text to search in zero_two 
-        text = f"{movie_name}+{year}"
+        # making a query to search in zero_two 
+        query = f"{movie_name}+{year}"
         # making a perfect url to make first request 
-        url1 = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
+        url1 = f'{base_url}/api/{API_KEY}/search_movie/{query}/size={size}'
         # making a request to zero_two api 
         data1 = requests.get(url1).json()
         # sleeping for 5 second for second request 
@@ -144,5 +144,5 @@ class ZeroTwo(View):
             request_success = False
        
         context = {"request_success":request_success, "status":status,"name":name,
-                    "size":size , "link":link , "movie_name":movie_name}
+                    "size":size , "link":link , "query":query}
         return render(request , "home/zero_two.html" , context )
