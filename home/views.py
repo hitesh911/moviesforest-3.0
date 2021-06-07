@@ -9,7 +9,7 @@ from forest.views import get_client_ip
 import requests , time
 
 def home(request):
-    # messages.success(request , "<a class = 'text-decoration-none' href = 'http://moviesforest.herokuapp.com'>Click here <a/>for better experince")
+    messages.success(request , "<a class = 'text-decoration-none' href = 'http://moviesforest.herokuapp.com'>Click here <a/>for better experince")
     return render(request , 'home/home.html')
 def contact(request):
     if request.method == 'POST':
