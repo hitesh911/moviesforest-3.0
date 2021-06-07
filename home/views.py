@@ -110,6 +110,8 @@ class ZeroTwo(View):
         context = {"getresponce":response}
         return render(request , "home/zero_two.html" , context)
     def post(self , request):
+        # making default context verables 
+        status = False
         # getting movie name 
         movie_name = str(request.POST["movie"]).replace(" ", "+")
         # getting year 
@@ -134,5 +136,7 @@ class ZeroTwo(View):
             size = data2["size"]
             link = data2["link"]
             status = data2["status"]
-        context = {"name":name ,"size":size , "link":link , "status": status}
+            context = {"name":name ,"size":size , "link":link "status" :status}
+        else:
+            context = {"status":status}
         return render(request , "home/zero_two.html" , context )
