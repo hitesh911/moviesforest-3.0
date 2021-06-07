@@ -89,21 +89,10 @@ def history(request):
     history_related_posts = Post.objects.filter(ips__icontains = current_user_ip)
     context = {"history_related_posts":history_related_posts}
     return render(request , "home/history.html" , context)
-# def zero_two(request):
-#     # base url to request to zero_two 
-#     base_url = 'http://maiis.pythonanywhere.com'
-#     # api key to excess the zero_two api 
-#     API_KEY = '898sdvi7rb3l34cv'
-#     getting movie name from post reqest
-#     text = 'Your+Name+2016'
-#     size = 1073741824
-#     url_to_req = f'{base_url}/api/{API_KEY}/search_movie/{text}/size={size}'
-#     data = requests.get(url_to_req).json()
-#     time.sleep(5)
-#     data_2 = requests.get(f'{base_url}/api/{API_KEY}/get_movie/{data["key"]}').json()
-#     response = data_2["link"]
-#     context = {"response" : response}
-#     return render(request , 'home/zero_two.html' , context)
+
+
+    
+# making a class for zeroTwo 
 class ZeroTwo(View):
     def get(self , request):
         response = "You can't access ZeroTwo like this motherfucker!"
@@ -116,7 +105,7 @@ class ZeroTwo(View):
         link = None
         status = True
         request_success = True
-        # getting movie name 
+        # getting user define movie name 
         movie_name = str(request.POST["movie"]).replace(" ", "+")
         # getting year 
         year = str(request.POST["year"]).replace(" ", "+")
@@ -154,5 +143,5 @@ class ZeroTwo(View):
             request_success = False
        
         context = {"request_success":request_success, "status":status,"name":name,
-                    "size":size , "link":link ,}
+                    "size":size , "link":link , "movie_name":movie_name}
         return render(request , "home/zero_two.html" , context )

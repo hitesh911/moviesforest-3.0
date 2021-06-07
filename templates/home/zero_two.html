@@ -4,49 +4,56 @@
 {% load static %}
 {% block body %}
 {% comment %} If request not send to the Zero_Two   {% endcomment %}
-{% if not request_success %}
-     <div class="mx-3">
-            <hr>
-            <h2>Sorry !</h2>
-            <p>Unable to communicate with Zero_Two</p>
-            Problems :
-            <ul>
-                <li>Zero_Two can be under maintenance</li>
-                <li>Developer's could be suffring from technical issues</li>
-                <li>You can contact us. <a class = "text-decoration-none"href="/contact">Click here</a></li>
-            </ul>
-            <hr>
-        </div>
-{% else %}
-    {% if not status %}
+<div class="container-xl pt-2">
+    {% if not request_success %}
         <div class="mx-3">
-            <hr>
-            <h2>No movie found !</h2>
-            <p>Zero_Two is unable to find righ movie that satisfy you requirments</p>
-            Suggestions :
-            <ul>
-                <li>Make sure you'r spellings are correct and released year is corrct.</li>
-                <li>Search you movie details in <a class = "text-decoration-none" href="https://google.com">google</a></li>
-                <li>Try diffrent sizes</li>
-            </ul>
-            <hr>
-        </div>
+                <hr>
+                <h2>Sorry !</h2>
+                <p>Unable to communicate with Zero_Two</p>
+                Problems :
+                <ul>
+                    <li>Zero_Two can be under maintenance</li>
+                    <li>Developer's could be suffring from technical issues</li>
+                    <li>You can contact us. <a class = "text-decoration-none"href="/contact">Click here</a></li>
+                </ul>
+                <hr>
+            </div>
     {% else %}
-        <section
-            class="py-5 text-center d-flex flex-column-reverse mb-4  container-xxxl bg-image border border-3 border-dark rounded "
-            style="background :url('{% static "/banners/zero_two.jpg" %}') center /cover; height :80vh; background-repeat : no-repeat;">
-        </section>
-        <div class="container">
-            <h2>Name</h2>
-            {{name}}
-            <h2>size</h2>
-            {{size}}
-            <br>
-            <a href="{{link}}">Download now</a>
-        </div>
+        {% if not status %}
+            <div class="mx-3">
+                <hr>
+                <h2>No movie found !</h2>
+                <p>Query : {{movie_name}}</p>
+                <p>Zero_Two is unable to find righ movie that satisfy you requirments</p>
+                Suggestions :
+                <ul>
+                    <li>Make sure you'r spellings are correct and released year is corrct.</li>
+                    <li>Search you movie details in <a class = "text-decoration-none" href="https://google.com">google</a></li>
+                    <li>Try diffrent sizes</li>
+                </ul>
+                <hr>
+            </div>
+        {% else %}
+            <div class="container">
+                <h1>Movie found :</h1>
+                <ul>
+                    <h3>File Name --></h3>
+                    <li>{{name}}</li>
+                    <h3>Size --></h3>
+                    <li>{{size}}</li>
+                    <h3>Download link --></h3>
+                    <li><a class = "text-decoration-none" href="{{link}}">Movies_forest</a></li>
+                    <h3>Stream link --></h3>
+                    <li><button name = "link" value = {{link}} form = "for_stream" class="btn btn-link"></button></li>
+                </ul>
+                <hr>
+               {% comment %} form to make a request to stream page  {% endcomment %}
+               <form action="/forest/stream" method = "get" id = "for_stream"></form>
+            </div>
 
+        {% endif %}
     {% endif %}
-{% endif %}
+</div>
 
 
 
