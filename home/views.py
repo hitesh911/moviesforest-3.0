@@ -31,14 +31,10 @@ def contact(request):
     return render(request , 'home/contact.html')
 def about(request):
     return render(request , 'home/about.html')
-def login(request):
-    return render(request , 'home/login.html')
-def register(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-    
-    return render(request , 'home/register.html')
+def dmca(request):
+    return render(request , 'home/dmca.html')
+def disclaimer(request):
+    return render(request , 'home/disclaimer.html')
 
 def search(request):
     # checking if request is post and from our official site 
