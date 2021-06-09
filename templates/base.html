@@ -143,11 +143,11 @@
   {% block body %}{% endblock body %}
 
 {% comment %} this is footer  {% endcomment %}
-  <footer class="mt-auto text-dark-50 text-center container footer d-flex flex-column justify-content-center ">
+  <footer class="mt-auto text-dark-50 text-center container footer  ">
     <p>Copyright ©️ 2020-2021 <a href="#" class="text-dark">MovieForest</a>, by <a href="#"
         class="text-dark">JUFFLER</a>.</p>
     {% comment %} making more pages like dmca  {% endcomment %}
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb d-flex justify-content-center">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/contact">Request us</a></li>
         <li class="breadcrumb-item {% block dmcaactive %}{% endblock dmcaactive %}"><a href="/dmca">DMCA</a></li>
