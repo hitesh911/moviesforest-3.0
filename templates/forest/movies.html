@@ -131,8 +131,8 @@
         Previous</button>
     {% endif %}
     {% comment %} showing page number bettween next and previous buttons  {% endcomment %}
-    <div class="inline-flex align-items-end">
-    <h2>{{at_page_no}}|{{len_pages}}</h2>
+    <div class = "text-primary">
+    <h2>{{at_page_no}}/{{len_pages}}</h2>
     </div>
     {% comment %} making next button  {% endcomment %}
     {% if disable_next == False %}
