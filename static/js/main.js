@@ -25,7 +25,7 @@ function copyUrl() {
 
 
 //grab the video dom element
-const video = document.querySelector('iframe');
+const video = document.querySelector('stream-iframe');
 const notifications = document.querySelectorAll('.notification');
 const forwardNotificationValue = document.querySelector('.video-forward-notify span');
 const rewindNotificationValue = document.querySelector('.video-rewind-notify span');
