@@ -1,41 +1,19 @@
 /* making every thing right as default  */
-/* body * {
+body * {
 
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-} */
+}
 
-/* apllying font in whole site 
+/* apllying font in whole site */
 html * {
     font-family: 'Baloo Bhai 2', cursive;
 
-} */
-
-
-
-html {
-    box-sizing: border-box;
-    font-family: 'Baloo Bhai 2', cursive;
 }
 
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
 
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    background: #7A419B;
-    min-height: 100vh;
-    background: #fff;
-    background-size: cover;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .player {
     width: 100%;
@@ -46,7 +24,7 @@ body {
     overflow: hidden;
 }
 
-iframe {
+#stream-iframe {
     width: 100%;
     max-width: 750px;
     display: block;
@@ -106,9 +84,6 @@ iframe {
     display: none;
 }
 
-i {
-    font-style: normal;
-}
 
 .animate-in {
     display: flex;
@@ -169,8 +144,4 @@ i {
         opacity: 1;
         transform: translateX(-20px);
     }
-}
-
-span {
-    font-size: 12px;
 }
