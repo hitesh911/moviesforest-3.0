@@ -1,5 +1,29 @@
 {% extends 'base.html' %}
 {% block title %}stream{% endblock title %}
+{% load static %}
 {% block body %}
-     <iframe src="{{link}}" width="100%" height="480" title="Moviesforest_originals" allow='autoplay'  allowfullscreen></iframe>
+     {% comment %} making main video container  {% endcomment %}
+     <div class="video-container">
+          {% comment %} ifram that contain my video  {% endcomment %}
+          <iframe class = "player__video viewer"src="{{link}}" width="100%" height="480" title="Moviesforest_originals" allow='autoplay'  allowfullscreen></iframe>
+          {% comment %} making a div to revind (backword)  {% endcomment %}
+          <div class="video-rewind-notify rewind notification">
+               {% comment %} making an icon inside it  {% endcomment %}
+               <div class="rewind-icon icon">
+                    <i class="left-triangle triangle">◀◀◀</i>
+                    <span class="rewind">10 seconds</span>
+               </div>
+          </div>
+          {% comment %} making a div to forward  {% endcomment %}
+          <div class="video-forward-notify forward notification">
+          {% comment %} making an icon  {% endcomment %}
+               <div class="forward-icon icon">
+                    <i class="right-triangle triangle">▶▶▶</i>
+                    <span class="forward">10 seconds</span>
+               </div>
+          </div>
+     </div>
 {% endblock body %}
+
+
+
