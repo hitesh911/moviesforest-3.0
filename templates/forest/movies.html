@@ -130,6 +130,8 @@
         name="previous">
         Previous</button>
     {% endif %}
+    {% comment %} showing page number bettween next and previous buttons  {% endcomment %}
+    <a class="text-decoration-none ">Page {{at_page_no}}/{{len_pages}}</a>
     {% if disable_next == False %}
 
     <button class="btn btn-outline-dark mx-2" type="submate" form="next_page_request" value="{{at_page_no}}"
@@ -155,9 +157,9 @@
     <input type="hidden" value="{{page_id}}" form="next_page_request" name="page_id">
 </form>
 {% comment %} showing page no at which user are in present {% endcomment %}
-<div class=" container-xl d-flex justify-content-end">
-    <a class="text-decoration-none ">Page {{at_page_no}}/{{len_pages}}</a>
-</div>
+{% comment %} <div class=" container-xl d-flex justify-content-end">
+    
+</div> {% endcomment %}
 
 </div>
 {% endblock body %}
