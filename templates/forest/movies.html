@@ -131,7 +131,7 @@
         Previous</button>
     {% endif %}
     {% comment %} showing page number bettween next and previous buttons  {% endcomment %}
-    <a class="text-decoration-none ">Page {{at_page_no}}/{{len_pages}}</a>
+    <p>{{at_page_no}}/{{len_pages}}</p>
     {% if disable_next == False %}
 
     <button class="btn btn-outline-dark mx-2" type="submate" form="next_page_request" value="{{at_page_no}}"
