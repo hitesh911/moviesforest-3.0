@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG  = False
+DEBUG  = True
 
 ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "dharmendermahant592-movies-forest.zeet.app/" , "www.themoviesforest.gq", "themoviesforest.gq"]
 
@@ -43,11 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'home.apps.HomeConfig',
     'forest.apps.ForestConfig',
-    
-
-    
+    'django.contrib.sites', #adding sites app for generating table to store my site domain 
+    'django.contrib.sitemaps', #adding django sitemap framwork
 
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
