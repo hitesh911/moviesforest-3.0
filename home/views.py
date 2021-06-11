@@ -42,37 +42,41 @@ def search(request):
     # if request is from our site recheck request is from search button 
     # getting query 
     query = request.GET["search"]
-    # check if query is longer than 70 worlds 
-    if len(query)>70:
-        search_related_posts = Post.objects.none()
+    # if query is only widespaces or empty so giving all content in reversed format to tsukasa
+    if query.isspace() or query == "":
+        search_related_posts = Post.objects.all().order_by("sno").reverse()
     else:
-        # advance vector search from postgres database :
-        # making a vector of column's 
-        vector = SearchVector("title" , weight = "A") + \
-            SearchVector("content", weight = "B") + \
-                SearchVector("section" , weight = "C") + \
-                    SearchVector("category" , weight = "D")
-        # passing our query into SeaschQuery postgress function 
-        q = SearchQuery(query)
-        # making a final search results 
-        search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
-    # checking if search_related_posts are empty after advcance search so search it normally
-    if search_related_posts.count() == 0:
-        # normal search from database :
-        # fetching related posts form database with diffrent colomn's 
-        search_from_title = Post.objects.filter(title__icontains = query)
-        search_from_content = Post.objects.filter(content__icontains = query)
-        search_from_category = Post.objects.filter(category__icontains = query)
-        search_from_section = Post.objects.filter(section__icontains = query)
-        # joining all search column's with each others using union function
-        search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
-        # if search_related_posts is still empty giving an alert 
-        if search_related_posts.count()==0:
-            messages.error(request , "No content found, Please recheck you query")
+        # check if query is longer than 70 worlds 
+        if len(query)>70:
+            search_related_posts = Post.objects.none()
+        else:
+            # advance vector search from postgres database :
+            # making a vector of column's 
+            vector = SearchVector("title" , weight = "A") + \
+                SearchVector("content", weight = "B") + \
+                    SearchVector("section" , weight = "C") + \
+                        SearchVector("category" , weight = "D")
+            # passing our query into SeaschQuery postgress function 
+            q = SearchQuery(query)
+            # making a final search results 
+            search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
+        # checking if search_related_posts are empty after advcance search so search it normally
+        if search_related_posts.count() == 0:
+            # normal search from database :
+            # fetching related posts form database with diffrent colomn's 
+            search_from_title = Post.objects.filter(title__icontains = query)
+            search_from_content = Post.objects.filter(content__icontains = query)
+            search_from_category = Post.objects.filter(category__icontains = query)
+            search_from_section = Post.objects.filter(section__icontains = query)
+            # joining all search column's with each others using union function
+            search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
+            # if search_related_posts is still empty giving an alert 
+            if search_related_posts.count()==0:
+                messages.error(request , "No content found, Please recheck you query")
+            else:
+                pass
         else:
             pass
-    else:
-        pass
     # seding context 
     context = {"search_related_posts": search_related_posts , "query":query}
     # render search.html if request is post means request is from our site  
