@@ -265,7 +265,7 @@ def make_post(request):
     # getting traiter_link
     trailer_link = request.GET["trailer_link"]
     # getting keywords for post 
-    keyworlds = requests.GET["keyworlds"]
+    keywords = requests.GET["keywords"]
     # responce data which needs to be given
     # checking if given data is giving an error or not
     # checking the sections is in correct format
@@ -328,7 +328,7 @@ def make_post(request):
         Create_new_post = Post(section=section, category=label, logo_link=logo_link,
                                 screen_shots=screen_shots, title=title, title_caption=title_caption,
                                 content=discreption, download_links=download_links, trailer_link=trailer_link,
-                                keyworlds = keyworlds,
+                                keywords = keywords,
                                 )
         Create_new_post.save()
         post_success = True
@@ -354,7 +354,7 @@ def make_post(request):
         "download_links": download_links,
         "trailer_link": trailer_link,
         "post_id": post_id,
-        "keyworlds":keyworlds,
+        "keywords":keywords,
     }
     return JsonResponse(responseData)
 # this is for delete content from database 

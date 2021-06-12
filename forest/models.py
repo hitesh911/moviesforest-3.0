@@ -23,7 +23,7 @@ class Post(models.Model):
     # this is for trailers 
     trailer_link = models.TextField(default="https://tralerss")
     # this is for keyworlds 
-    keyworlds = models.TextField(default="download now")
+    keywords = models.TextField(default="download now")
     # this is for views 
     views_count = models.IntegerField(default=0)
     # for saving ip adress 
