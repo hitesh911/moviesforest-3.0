@@ -1,12 +1,6 @@
 from django.contrib import admin
 from django.urls import path 
 from forest import views
-from django.contrib.sitemaps.views import sitemap
-from forest.sitemaps import PostSitemap
-
-sitemaps = {
-    "link":PostSitemap
-}
 
 urlpatterns = [
     path('', views.forest_movies , name='movies'),
@@ -16,6 +10,5 @@ urlpatterns = [
     path('stream', views.stream , name='stream'),
     path('delete_post', views.delete_post , name='delete_post'),
     path('update_post', views.update_posts , name='update_post'),
-    # making a sitemap.xml url 
-    path('sitemap.xml',sitemap,{"sitemaps":sitemaps}, name = 'django.contrib.sitemaps.views.sitemap'),
+    
 ]

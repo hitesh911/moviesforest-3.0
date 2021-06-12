@@ -15,10 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path , include
+from django.contrib.sitemaps.views import sitemap
+from movie_forest.sitemaps import PostSitemap
+# importing template view for robots.txt 
+from django.views.generic.base import TemplateView
 
+sitemaps = {
+    "link":PostSitemap
+}
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('forest/', include('forest.urls')),
+    # making a sitemap.xml url 
+    path('sitemap.xml',sitemap,{"sitemaps":sitemaps}, name = 'django.contrib.sitemaps.views.sitemap'),
+    # making robots.txt url 
+    path("robots.txt", TemplateView.as_view(template_name = "robots.txt",content_type = "text/plain"), name="robots.txt")
     
 ]
