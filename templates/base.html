@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {% load static %}
+  {% comment %} block for other metatags related to the posts  {% endcomment %}
+  {% block metatags %}{% endblock metatags%}
   {% comment %} linking coustom css  {% endcomment %}
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% comment %} link google fonts  {% endcomment %}
@@ -140,6 +142,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   {% endfor %}
+  {% comment %} making a block for body  {% endcomment %}
   {% block body %}{% endblock body %}
 {% comment %} this is footer  {% endcomment %}
   <footer class="mt-auto text-dark-50 text-center container footer ">

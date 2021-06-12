@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
-{% comment %} loading social share for share function {% endcomment %}
-{% block title %}{{post.title}}{% endblock title %}
-{% comment %} loading social share module to make share button {% endcomment %}
+{% comment %} filling metatags  {% endcomment %}
+{% block metatags %}
+<meta name = "discreption" property = "og:description" content = "{{post.content|slice: ":10"}}">
+<meta name = "keywords" content = "{{post.keyworlds}}">
+<meta name = "author" content = "JUFFLER">
 
+
+{% endblock metatags %}
+{% comment %} filling title block  {% endcomment %}
+{% block title %}{{post.title}}{% endblock title %}
+{% comment %} loading static files  {% endcomment %}
 {% load static %}
 {% block body %}
 {% comment %} including a javascript file to make copy link function {% endcomment %}

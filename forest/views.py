@@ -264,6 +264,8 @@ def make_post(request):
     download_links = request.GET["download_links"]
     # getting traiter_link
     trailer_link = request.GET["trailer_link"]
+    # getting keywords for post 
+    keyworlds = requests.GET["keyworlds"]
     # responce data which needs to be given
     # checking if given data is giving an error or not
     # checking the sections is in correct format
@@ -300,6 +302,9 @@ def make_post(request):
     elif len(download_links) == 0:
         error_generated = True
         error  = "You can make download empty"
+    elif keyworlds == "" and keyworlds.isspace():
+        error_generated = True
+        error = "You need to put at least one keyworld for making a post"
        
     elif Post.objects.filter(title=title).exists():
         error_generated = True
@@ -322,7 +327,8 @@ def make_post(request):
         # if each credentials are right so creating a post
         Create_new_post = Post(section=section, category=label, logo_link=logo_link,
                                 screen_shots=screen_shots, title=title, title_caption=title_caption,
-                                content=discreption, download_links=download_links, trailer_link=trailer_link
+                                content=discreption, download_links=download_links, trailer_link=trailer_link,
+                                keyworlds = keyworlds,
                                 )
         Create_new_post.save()
         post_success = True
@@ -348,6 +354,7 @@ def make_post(request):
         "download_links": download_links,
         "trailer_link": trailer_link,
         "post_id": post_id,
+        "keyworlds":keyworlds,
     }
     return JsonResponse(responseData)
 # this is for delete content from database 

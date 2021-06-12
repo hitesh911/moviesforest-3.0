@@ -22,6 +22,8 @@ class Post(models.Model):
     download_links = models.TextField(default= ' {"480":"https://480", "720":"https://720","1080":"https://1080"}')
     # this is for trailers 
     trailer_link = models.TextField(default="https://tralerss")
+    # this is for keyworlds 
+    keyworlds = models.TextField(default="download now")
     # this is for views 
     views_count = models.IntegerField(default=0)
     # for saving ip adress 
