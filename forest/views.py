@@ -401,62 +401,83 @@ def update_posts(request):
     if request.GET.get("post_id"):
         # getting post_id from request 
         post_id = str(request.GET["post_id"])
+        # getting real post assesoiated with post_id 
+        real_post = Post.objects.get(sno=post_id)
         # if sender give update perameter 
         if request.GET.get("update"):
+            # getting new content from the value of update perameter 
             new_content = loads(request.GET["update"])
-            # getting real post assesoiated with post_id 
-            real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
                 if column.lower() == "section":
                     real_post.section = content
+                    update_success = True
                 elif column.lower() == "label" or column.lower() == "category":
                     real_post.category = content
+                    update_success = True
                 elif column.lower() == "logo_link":
                     real_post.logo_link = content
+                    update_success = True
                 elif column.lower() == "screen_shots":
                     real_post.screen_shots = content
+                    update_success = True
                 elif column.lower() == "title":
                     real_post.title = content
+                    update_success = True
                 elif column.lower() == "title_caption":
                     real_post.title_caption = content
+                    update_success = True
                 elif column.lower() == "content":
                     real_post.content = content
+                    update_success = True
                 elif column.lower() == "download_links":
                     real_post.download_links = content
+                    update_success = True
                 elif column.lower() == "trailer_link":
                     real_post.trailer_link = content
+                    update_success = True
                 else:
                     continue
             real_post.save()
-            update_success = True
+
         if request.GET.get("add"):
+            # getting value of add peramater 
             new_content = loads(request.GET["add"])
-            # getting real post assesoiated with post_id 
-            real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
                 if column.lower() == "label" or column.lower() == "category":
                     real_post.category += content
+                    add_success = True
                 elif column.lower() == "screen_shots":
                     real_post.screen_shots += content
+                    add_success = True
                 elif column.lower() == "title":
                     real_post.title += content
+                    add_success = True
                 elif column.lower() == "title_caption":
                     real_post.title_caption += content
+                    add_success = True
                 elif column.lower() == "content":
                     real_post.content += content
-                elif column.lower() == "download_links":
-                    # making  a download links string into python dict
-                    new_download_links = loads(content)
-                    # previous download links Note: the links that are stored in database
-                    old_download_links = load(real_post.download_links)
-                    # mergin both dicts with eachother Note i am using new pipe(|) feature of python 3.9. feature which is not in previous versions
-                    updated_download_links = old_download_links | new_download_links
-                    # changing download links in database
-                    real_post.download_links = updated_download_links
+                    add_success = True
                 else:
                     continue
             real_post.save()
+
+        # if request for adding downlaod links 
+        if request.GET.get("add_download_links"):
+            # getting new links
+            new_links = request.GET["add_download_links"]
+            # making  a download links string into python dict
+            new_download_links = loads(new_links)
+            # previous download links Note: the links that are stored in database
+            old_download_links = load(real_post.download_links)
+            # mergin both dicts with eachother Note i am using new pipe(|) feature of python 3.9. feature which is not in previous versions
+            updated_download_links = old_download_links | new_download_links
+            # changing download links in database
+            real_post.download_links = updated_download_links
+            real_post.save()
             add_success = True
+        else:
+            pass
     else:
         pass
     context = {"Update_success":update_success,
