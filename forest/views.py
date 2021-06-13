@@ -265,7 +265,7 @@ def make_post(request):
     # getting traiter_link
     trailer_link = request.GET["trailer_link"]
     # getting keywords for post 
-    keywords = requests.GET["keywords"]
+    keywords = request.GET["keywords"]
     # responce data which needs to be given
     # checking if given data is giving an error or not
     # checking the sections is in correct format
