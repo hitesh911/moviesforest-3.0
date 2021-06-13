@@ -171,7 +171,10 @@ def forest_movies(request):
             year.append(lab.categories)
         # if category is language or main so put it into main 
         elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "tamil" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
-            main.append(lab.categories)
+            if lab.categories.lower() == "tvseries":
+                main.append("webseries")
+            else:
+                main.append(lab.categories)
         # and put other categorey into others 
         else:
             other.append(lab.categories)
