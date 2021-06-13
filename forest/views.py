@@ -408,7 +408,7 @@ def update_posts(request):
             early_response = {"Success":False,
                             "Ression":"Post_id does not exists"
             }
-            return JsonResponse(early_reponse)
+            return JsonResponse(early_response)
         # if sender give update perameter 
         if request.GET.get("update"):
             # getting new content from the value of update perameter 
