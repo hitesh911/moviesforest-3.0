@@ -405,8 +405,10 @@ def update_posts(request):
         try:
             real_post = Post.objects.get(sno=post_id)
         except:
-            resion = "You'r post_id does't exist"
-            return JsonResponse(resion)
+            early_respose = {"Success":False
+                            "Ression":"Post_id does't exist"
+            }
+            return JsonResponse(early_reponse)
         # if sender give update perameter 
         if request.GET.get("update"):
             # getting new content from the value of update perameter 
