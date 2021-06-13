@@ -245,98 +245,117 @@ def make_post(request):
     post_id = None
     # making a list for pre_defined_sections
     all_sections_list = ["hollywood", "bollywood", "anima", "animation"]
+    # making data as default 
+    section  = None
+    logo_link = None 
+    screen_shots = None
+    title = None
+    title_caption = None
+    discreption = None
+    download_links = None
+    trailer_link = None
+    keywords = None
     # gettting prerequizits for creating a post
     # getting section
-    section = request.GET["section"]
-    # getting label
-    label = request.GET["label"]
-    # getting logo_link
-    logo_link = request.GET["logo_link"]
-    # getting screenshots links
-    screen_shots = request.GET["screen_shots"]
-    # getting title
-    title = request.GET["title"]
-    # getting title_caption
-    title_caption = request.GET["title_caption"]
-    # getting content
-    discreption = request.GET["discreption"]
-    # getting download links
-    download_links = request.GET["download_links"]
-    # getting traiter_link
-    trailer_link = request.GET["trailer_link"]
-    # getting keywords for post 
-    keywords = request.GET["keywords"]
-    # responce data which needs to be given
-    # checking if given data is giving an error or not
-    # checking the sections is in correct format
-    if section not in all_sections_list:
+    # trying to getting all perameters
+    try: 
+        section = request.GET["section"]
+        # getting label
+        label = request.GET["label"]
+        # getting logo_link
+        logo_link = request.GET["logo_link"]
+        # getting screenshots links
+        screen_shots = request.GET["screen_shots"]
+        # getting title
+        title = request.GET["title"]
+        # getting title_caption
+        title_caption = request.GET["title_caption"]
+        # getting content
+        discreption = request.GET["discreption"]
+        # getting download links
+        download_links = request.GET["download_links"]
+        # getting traiter_link
+        trailer_link = request.GET["trailer_link"]
+        # getting keywords for post 
+        keywords = request.GET["keywords"]
+    except:
         error_generated = True
-        error = "Bro you'r section is wrong section can be only bollywood , bollywood , anima , animation"
-    # checking label list is empty or not
-    elif len(label) == 0:
-        error_generated = True
-        error = "You need to specify at least one label"
-    # checking  logo link
-    elif len(logo_link) == 0:
-        error_generated = True
-        error = "You'r logolink is empty!"
-    # getting screenshot links
-    elif len(screen_shots) == 0:
-        error_generated = True
-        error = "You need to give at least one screenshot link"
-    # checking title is empty or not
-    elif len(title) == 0:
-        error_generated = True
-        error = "You title must be something"
-    # checking title should not be less then 1 world
-    elif len(title_caption) == 0:
-        error_generated = True
-        error = "You need to give at least one world of title_caption"
-    # checking discreption is empty or not
-    elif len(discreption) == 0:
-        error_generated = True
-        error = "You discreption is nothing please put some content here"
-    elif len(trailer_link) == 0:
-        error_generated = True
-        error = "You need to put trailer link of movie from YouTube"
-    elif len(download_links) == 0:
-        error_generated = True
-        error  = "You can make download empty"
-    elif keywords == "" and keywords.isspace():
-        error_generated = True
-        error = "You need to put at least one keyworld for making a post"
-       
-    elif Post.objects.filter(title=title).exists():
-        error_generated = True
-        error = "You can't duplicate the post. This post exists already"
-    else:
-        # checking new label string has wide spaces or not if yes removing all spaces
-        label = "".join(label.split())
-        # spliting string with comas
-        list_of_given_labels = label.split(",")
-        # iterating loop for each object in label list
-        for i in range(len(list_of_given_labels)):
-            # checking if Label data contains lable already in database
-            if Label.objects.filter(categories__icontains=list_of_given_labels[i]):
-                pass
-            # if lable is not in database so add it
-            else:
-                New_label = Label(categories=list_of_given_labels[i])
-                New_label.save()
-                new_label_added = True
-        # if each credentials are right so creating a post
-        Create_new_post = Post(section=section, category=label, logo_link=logo_link,
-                                screen_shots=screen_shots, title=title, title_caption=title_caption,
-                                content=discreption, download_links=download_links, trailer_link=trailer_link,
-                                keywords = keywords,
-                                )
-        Create_new_post.save()
-        post_success = True
-    # if post not succed it means post already exists
-    if post_success:
-        # if post succed it means new post was created and need to show post_id
-        new_post = Post.objects.get(title=title)
-        post_id = str(new_post.sno)
+        error = "You need to send all perameter to success this post !"
+    # if error not occure  while taking perameters so moving forward 
+    if not error_generated:
+        # checking if given data is in right format or not
+        # checking the sections is in correct format
+        if section not in all_sections_list:
+            error_generated = True
+            error = "Bro you'r section is wrong section can be only bollywood , bollywood , anima , animation"
+        # checking label list is empty or not
+        elif len(label) == 0:
+            error_generated = True
+            error = "You need to specify at least one label"
+        # checking  logo link
+        elif len(logo_link) == 0:
+            error_generated = True
+            error = "You'r logolink is empty!"
+        # getting screenshot links
+        elif len(screen_shots) == 0:
+            error_generated = True
+            error = "You need to give at least one screenshot link"
+        # checking title is empty or not
+        elif len(title) == 0:
+            error_generated = True
+            error = "You title must be something"
+        # checking title should not be less then 1 world
+        elif len(title_caption) == 0:
+            error_generated = True
+            error = "You need to give at least one world of title_caption"
+        # checking discreption is empty or not
+        elif len(discreption) == 0:
+            error_generated = True
+            error = "You discreption is nothing please put some content here"
+        elif len(trailer_link) == 0:
+            error_generated = True
+            error = "You need to put trailer link of movie from YouTube"
+        elif len(download_links) == 0:
+            error_generated = True
+            error  = "You can make download empty"
+        elif keywords == "" and keywords.isspace():
+            error_generated = True
+            error = "You need to put at least one keyworld for making a post"
+        
+        elif Post.objects.filter(title=title).exists():
+            error_generated = True
+            error = "You can't duplicate the post. This post exists already"
+        else:
+            # checking new label string has wide spaces or not if yes removing all spaces
+            label = "".join(label.split())
+            # spliting string with comas
+            list_of_given_labels = label.split(",")
+            # iterating loop for each object in label list
+            for i in range(len(list_of_given_labels)):
+                # checking if Label data contains lable already in database
+                if Label.objects.filter(categories__icontains=list_of_given_labels[i]):
+                    pass
+                # if lable is not in database so add it
+                else:
+                    New_label = Label(categories=list_of_given_labels[i])
+                    New_label.save()
+                    new_label_added = True
+            # if each credentials are right so creating a post
+            Create_new_post = Post(section=section, category=label, logo_link=logo_link,
+                                    screen_shots=screen_shots, title=title, title_caption=title_caption,
+                                    content=discreption, download_links=download_links, trailer_link=trailer_link,
+                                    keywords = keywords,
+                                    )
+            Create_new_post.save()
+            post_success = True
+        # if post not succed it means post already exists
+        if post_success:
+            # if post succed it means new post was created and need to show post_id
+            new_post = Post.objects.get(title=title)
+            post_id = str(new_post.sno)
+        else:
+            pass
+        # if error generated while getting perameters do don't do anything just pass it away 
     else:
         pass
     responseData = {
