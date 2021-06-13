@@ -278,9 +278,9 @@ def make_post(request):
         trailer_link = request.GET["trailer_link"]
         # getting keywords for post 
         keywords = request.GET["keywords"]
-    except:
+    except Exception as e:
         error_generated = True
-        error = "You need to send all perameter to success this post !"
+        error = f"You need to put all perameter to success this post ! Ression {e}"
     # if error not occure  while taking perameters so moving forward 
     if not error_generated:
         # checking if given data is in right format or not
