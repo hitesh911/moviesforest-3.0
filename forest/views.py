@@ -302,7 +302,7 @@ def make_post(request):
     elif len(download_links) == 0:
         error_generated = True
         error  = "You can make download empty"
-    elif keyworlds == "" and keyworlds.isspace():
+    elif keywords == "" and keywords.isspace():
         error_generated = True
         error = "You need to put at least one keyworld for making a post"
        
