@@ -400,7 +400,7 @@ def update_posts(request):
     post_id = None
     if request.GET.get("post_id"):
         # getting post_id from request 
-        post_id = str(request.GET["post_id"])
+        post_id = int(request.GET["post_id"])
         # getting real post assesoiated with post_id 
         real_post = Post.objects.get(sno=post_id)
         # if sender give update perameter 
