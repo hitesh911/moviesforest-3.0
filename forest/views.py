@@ -471,11 +471,11 @@ def update_posts(request):
         # if request for adding downlaod links 
         if request.GET.get("add_download_links"):
             # getting new links
-            new_links = dumps(request.GET["add_download_links"])
+            new_links = request.GET["add_download_links"]
             # making  a download links string into python dict
             new_download_links = loads(new_links)
             # previous download links Note: the links that are stored in database
-            old_download_links = loads(dumps(real_post.download_links))
+            old_download_links = real_post.download_links
             # mergin both dicts with eachother Note i am using new pipe(|) feature of python 3.9. feature which is not in previous versions
             updated_download_links = old_download_links | new_download_links
             # changing download links in database
