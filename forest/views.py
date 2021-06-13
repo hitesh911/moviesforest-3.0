@@ -405,9 +405,8 @@ def update_posts(request):
         try:
             real_post = Post.objects.get(sno=post_id)
         except:
-            ression = "Post_id does not exists"
-            early_response = {"Success":False
-                            "Ression":ression
+            early_response = {"Success":False,
+                            "Ression":"Post_id does not exists"
             }
             return JsonResponse(early_reponse)
         # if sender give update perameter 
