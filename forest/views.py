@@ -285,40 +285,40 @@ def make_post(request):
     if not error_generated:
         # checking if given data is in right format or not
         # checking the sections is in correct format
-        if section not in all_sections_list:
+        if section not in all_sections_list or section.isspace():
             error_generated = True
             error = "Bro you'r section is wrong section can be only bollywood , bollywood , anima , animation"
         # checking label list is empty or not
-        elif len(label) == 0:
+        elif len(label) == 0 or label.isspace():
             error_generated = True
             error = "You need to specify at least one label"
         # checking  logo link
-        elif len(logo_link) == 0:
+        elif len(logo_link) == 0 or logo_link.isspace():
             error_generated = True
             error = "You'r logolink is empty!"
         # getting screenshot links
-        elif len(screen_shots) == 0:
+        elif len(screen_shots) == 0 or screen_shots.isspace():
             error_generated = True
             error = "You need to give at least one screenshot link"
         # checking title is empty or not
-        elif len(title) == 0:
+        elif len(title) == 0 or title.isspace():
             error_generated = True
             error = "You title must be something"
         # checking title should not be less then 1 world
-        elif len(title_caption) == 0:
+        elif len(title_caption) == 0 or title_caption.isspace():
             error_generated = True
             error = "You need to give at least one world of title_caption"
         # checking discreption is empty or not
-        elif len(discreption) == 0:
+        elif len(discreption) == 0 or discreption.isspace():
             error_generated = True
             error = "You discreption is nothing please put some content here"
-        elif len(trailer_link) == 0:
+        elif len(trailer_link) == 0 or trailer_link.isspace():
             error_generated = True
             error = "You need to put trailer link of movie from YouTube"
-        elif len(download_links) == 0:
+        elif len(download_links) == 0 or download_links.isspace():
             error_generated = True
             error  = "You can make download empty"
-        elif keywords == "" and keywords.isspace():
+        elif len(keywords) == 0 or keywords.isspace():
             error_generated = True
             error = "You need to put at least one keyworld for making a post"
         
@@ -434,12 +434,8 @@ def update_posts(request):
             # getting real post assesoiated with post_id 
             real_post = Post.objects.get(sno=post_id)
             for column , content in new_content.items():
-                if column.lower() == "section":
-                    real_post.section += content
-                elif column.lower() == "label" or column.lower() == "category":
+                if column.lower() == "label" or column.lower() == "category":
                     real_post.category += content
-                elif column.lower() == "logo_link":
-                    real_post.logo_link += content
                 elif column.lower() == "screen_shots":
                     real_post.screen_shots += content
                 elif column.lower() == "title":
@@ -449,9 +445,14 @@ def update_posts(request):
                 elif column.lower() == "content":
                     real_post.content += content
                 elif column.lower() == "download_links":
-                    real_post.download_links += content
-                elif column.lower() == "trailer_link":
-                    real_post.trailer_link += content
+                    # making  a download links string into python dict
+                    new_download_links = loads(content)
+                    # previous download links Note: the links that are stored in database
+                    old_download_links = load(real_post.download_links)
+                    # mergin both dicts with eachother Note i am using new pipe(|) feature of python 3.9. feature which is not in previous versions
+                    updated_download_links = old_download_links | new_download_links
+                    # changing download links in database
+                    real_post.download_links = updated_download_links
                 else:
                     continue
             real_post.save()
