@@ -478,8 +478,7 @@ def update_posts(request):
             old_download_links = loads(real_post.download_links)
             # mergin both dicts with eachother Note i am using new pipe(|) feature of python 3.9. feature which is not in previous versions
             updated_download_links = old_download_links | new_download_links
-            # changing download links in database
-            real_post.download_links = dumps(updated_download_links)
+            # changing download links in database | Note: (important) i use dumps function here to store it in string format            real_post.download_links = dumps(updated_download_links)
             real_post.save()
             add_success = True
         else:
