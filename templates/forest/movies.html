@@ -36,12 +36,17 @@
             </ul>
         </div>
         {% comment %} This is for main  {% endcomment %}
-     
-        {% for main_item in main %}
-            <button class="text-capitalize" value={{main_item}} name="label" type="submate"
-            form="for_categories">{{main_item}}</button>
-        {% endfor %}
-           
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Main
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for main_item in main %}
+                <li><button class="text-capitalize dropdown-item" value={{main_item}} name="label" type="submate"
+                    form="for_categories">{{main_item}}</button></li>
+                {% endfor %}
+            </ul>
+        </div>
         {% comment %} this is for others  {% endcomment %}
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
