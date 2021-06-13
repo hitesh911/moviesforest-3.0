@@ -400,7 +400,7 @@ def update_posts(request):
     post_id = None
     if request.GET.get("post_id"):
         # getting post_id from request 
-        post_id = int(request.GET["post_id"])
+        post_id = str(request.GET["post_id"])
         # getting real post assesoiated with post_id 
         real_post = Post.objects.get(sno=post_id)
         # if sender give update perameter 
@@ -469,7 +469,7 @@ def update_posts(request):
             # making  a download links string into python dict
             new_download_links = loads(new_links)
             # previous download links Note: the links that are stored in database
-            old_download_links = load(real_post.download_links)
+            old_download_links = loads(real_post.download_links)
             # mergin both dicts with eachother Note i am using new pipe(|) feature of python 3.9. feature which is not in previous versions
             updated_download_links = old_download_links | new_download_links
             # changing download links in database
