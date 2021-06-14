@@ -19,7 +19,7 @@ html * {
 
 .square {
 
-    transition: all 0.75s 0.25s;
+    transition: all 0.10s 0.25s;
     transform: rotate(0);
 }
 

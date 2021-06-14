@@ -128,7 +128,7 @@
       {% comment %} making tags section  {% endcomment %}
       <div class="album py-5 bg-light p-0 mt-1 bg-dark">
         <div class="container text-center bg-dark shadow">
-            {% for labs in post.category %}
+            {% for labs in labs_list %}
                 {% if labs == "tvseries" %}
                     <button class="text-capitalize btn btn-{{color_list|random}} shadow-sm mb-1 " value={{labs}} name="label" type="submate"
                         form="for_categories">Webseries</button>
