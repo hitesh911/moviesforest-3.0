@@ -23,17 +23,19 @@ function copyUrl() {
     alert("Link has been copied Go and share Link..");
 }
 (function(document) {
-    // var btn = document.getElementById('arrow_btn')
+    var btn = document.getElementById('arrow_btn')
     var icon = document.getElementById('arrow_icon');
     var open = false;
+    if (btn) {
 
-    icon.addEventListener('click', function() {
-        if (open) {
-            icon.className = 'fa fa-arrow-down';
-        } else {
-            icon.className = 'fa fa-arrow-down open';
-        }
+        btn.addEventListener('click', function() {
+            if (open) {
+                icon.className = 'fa fa-arrow-down';
+            } else {
+                icon.className = 'fa fa-arrow-down open';
+            }
 
-        open = !open;
-    });
+            open = !open;
+        });
+    }
 })(document);
