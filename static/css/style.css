@@ -12,6 +12,7 @@ html * {
 
 }
 
+/* this css is only for navbar togger button  */
 #checkbox {
     display: none;
 }
@@ -25,3 +26,5 @@ html * {
 #checkbox:checked+.square {
     transform: rotate(180deg);
 }
+
+/* ending this css is only for navbar togger button  */
