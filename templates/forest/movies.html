@@ -59,10 +59,10 @@
         <div class="container text-center">
             {% for main_item in main %}
                 {% if main_item == "tvseries" %}
-                    <button class="text-capitalize btn btn-{{random_color}} shadow-sm mb-1 " value={{main_item}} name="label" type="submate"
+                    <button class="text-capitalize btn btn-{{color_list|random}} shadow-sm mb-1 " value={{main_item}} name="label" type="submate"
                         form="for_categories">Webseries</button>
                 {% else %}
-                    <button class="text-capitalize btn btn-{{random_color}} shadow-sm mb-1" value={{main_item}} name="label" type="submate"
+                    <button class="text-capitalize btn btn-{{color_list|random}} shadow-sm mb-1" value={{main_item}} name="label" type="submate"
                         form="for_categories">{{main_item}}</button>
                 {% endif %}
             {% endfor %}

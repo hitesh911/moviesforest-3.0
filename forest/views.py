@@ -223,13 +223,13 @@ def forest_movies(request):
         len_pages += 1
     # making color list to send it for template to use random color functianality 
     color_list = ["danger" , "warning" ,"primary" ,"secondary" , "success" , "info" ,"light" , "dark"  ]
-    random_color = choice(color_list)
+    # random_color = choice(color_list)
     # making a context to send data to template
     context = {'all_movies_post': all_movies_post, "content_end": str(content_end),
                "content_start": str(content_start), "show_banner": show_banner, "at_page_no": at_page_no, "disable_next": disable_next,
                "disable_previous": disable_previous, "banner": page_id, "page_id": page_id, "back_home_button": back_home_button,
                "len_pages": int(len_pages), "active_hollywood": active_hollywood, "active_bollywood": active_bollywood, "active_anima": active_anima,
-               "active_animation": active_animation, "year": year ,"main":main ,  "other":other , "random_color":random_color }
+               "active_animation": active_animation, "year": year ,"main":main ,  "other":other , "color_list":color_list }
     # returning a responce
     return render(request, 'forest/movies.html', context)
 # personal function for devlopers to create the posts
