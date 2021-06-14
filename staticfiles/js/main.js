@@ -23,7 +23,7 @@ function copyUrl() {
     alert("Link has been copied Go and share Link..");
 }
 (function(document) {
-    var div = document.getElementById('container');
+    var div = document.getElementById('arrow_icon_container');
     var icon = document.getElementById('arrow_icon');
     var open = false;
 
