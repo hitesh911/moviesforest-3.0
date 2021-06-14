@@ -12,12 +12,18 @@ html * {
 
 }
 
-.fa-arrow-down {
-    transform: rotate(0deg);
-    transition: transform 1s linear;
+#checkbox {
+    display: none;
 }
 
-.fa-arrow-down.open {
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: #ff0000;
+    transition: all 0.75s 0.25s;
+    transform: rotate(0);
+}
+
+#checkbox:checked+.square {
     transform: rotate(180deg);
-    transition: transform 1s linear;
 }
