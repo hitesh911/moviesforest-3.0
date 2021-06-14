@@ -39,8 +39,8 @@
         <div class="album py-5 bg-light">
             <div class="container">
                 {% for main_item in main %}
-                <li><button class="text-capitalize dropdown-item" value={{main_item}} name="label" type="submate"
-                    form="for_categories">{{main_item}}</button></li>
+                <button class="text-capitalize dropdown-item" value={{main_item}} name="label" type="submate"
+                    form="for_categories">{{main_item}}</button>
                 {% endfor %}
             </div>
         </div>
