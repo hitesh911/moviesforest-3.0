@@ -22,9 +22,12 @@ function copyUrl() {
     document.body.removeChild(dummy);
     alert("Link has been copied Go and share Link..");
 }
-(function(document) {
+// (function(document) {
+
+
+// })(document);
+function change_icon() {
     var btn = document.getElementById('arrow_btn')
-    console.log(btn)
     var icon = document.getElementById('arrow_icon');
     var open = false;
     btn.addEventListener('click', function() {
@@ -33,8 +36,7 @@ function copyUrl() {
         } else {
             icon.className = 'fa fa-arrow-down open';
         }
-
         open = !open;
     });
 
-})(document);
+}
