@@ -13,7 +13,7 @@ html * {
 }
 
 /* this css is only for navbar togger button  note : for arrow_icon*/
-#checkbox {
+#checkbox_for_arrow {
     display: none;
 }
 
@@ -23,7 +23,7 @@ html * {
     transform: rotate(0);
 }
 
-#checkbox:checked+.arrow_icon {
+#checkbox_for_arrow:checked+.arrow_icon {
     transform: rotate(180deg);
 }
 
