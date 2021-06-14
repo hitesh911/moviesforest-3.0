@@ -11,3 +11,13 @@ html * {
     font-family: 'Baloo Bhai 2', cursive;
 
 }
+
+.fa-arrow-down {
+    transform: rotate(0deg);
+    transition: transform 1s linear;
+}
+
+.fa-arrow-down.open {
+    transform: rotate(180deg);
+    transition: transform 1s linear;
+}

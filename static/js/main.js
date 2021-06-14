@@ -22,3 +22,18 @@ function copyUrl() {
     document.body.removeChild(dummy);
     alert("Link has been copied Go and share Link..");
 }
+(function(document) {
+    var div = document.getElementById('container');
+    var icon = document.getElementById('arrow_icon');
+    var open = false;
+
+    div.addEventListener('click', function() {
+        if (open) {
+            icon.className = 'fa fa-arrow-down';
+        } else {
+            icon.className = 'fa fa-arrow-down open';
+        }
+
+        open = !open;
+    });
+})(document);
