@@ -22,3 +22,9 @@ function copyUrl() {
     document.body.removeChild(dummy);
     alert("Link has been copied Go and share Link..");
 }
+
+$(document).ready(function() {
+    $('#toggler-btn').on('click', function() {
+        $('#clpse-icon').toggleClass("fa-arrow-up-animated");
+    });
+});

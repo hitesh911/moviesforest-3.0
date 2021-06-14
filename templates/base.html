@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% comment %} linking fabicon  {% endcomment %}
   <link rel="shortcut icon" href="{% static 'logo/logo.jpg' %}">
+  {% comment %} loading mannual JavaScript  {% endcomment %}
+  <script src="{% static 'js/main.js' %}"></script>
   {% comment %} link google fonts  {% endcomment %}
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500&display=swap" rel="stylesheet"> 
@@ -46,7 +48,7 @@
       {% comment %} button to colapse right navbar  {% endcomment %}
       <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span id="clpse-icon" class="fa fa-arrow-down fa-arrow-down-animated"></span>
       </button>
       <div class="collapse show navbar-collapse mt-1" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row justify-content-between">
