@@ -547,9 +547,13 @@ def download(request):
         post.save()
     else:
         pass
+    # making list of labels 
+    labs_list = post.category.split(",")
     context = {"post": post, "download_links_list": download_links_list,
                "stream_links_list": stream_links_list,
-               "screen_shots_list": screen_shots_list , "color_list":color_list}
+               "screen_shots_list": screen_shots_list , "color_list":color_list,
+               "labs_list":labs_list,
+               }
     return render(request, "forest/download.html", context)
 
 
