@@ -26,16 +26,14 @@ function copyUrl() {
     var btn = document.getElementById('arrow_btn')
     var icon = document.getElementById('arrow_icon');
     var open = false;
-    if (btn) {
+    btn.addEventListener('click', function() {
+        if (open) {
+            icon.className = 'fa fa-arrow-down';
+        } else {
+            icon.className = 'fa fa-arrow-down open';
+        }
 
-        icon.addEventListener('click', function() {
-            if (open) {
-                icon.className = 'fa fa-arrow-down';
-            } else {
-                icon.className = 'fa fa-arrow-down open';
-            }
+        open = !open;
+    });
 
-            open = !open;
-        });
-    }
 })(document);

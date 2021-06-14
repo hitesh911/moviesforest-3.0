@@ -26,6 +26,7 @@
 
 <body>
   <script src="{% static 'js/main.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
   {% comment %} navigation bar {% endcomment %}
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -48,7 +49,7 @@
       {% comment %} button to colapse right navbar  {% endcomment %}
       <button id= "arrow_btn" class="navbar-toggler"   type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <svg id="arrow_icon" class="fa fa-arrow-down" xmlns="http://www.w3.org/2000/svg"  width="30" height="30" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+            <svg id="arrow_icon" class="fa fa-arrow-down open" xmlns="http://www.w3.org/2000/svg"  width="30" height="30" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
               <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
             </svg>
       </button>
