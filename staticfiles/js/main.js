@@ -27,16 +27,16 @@ function copyUrl() {
 
 // })(document);
 function change_icon() {
-    var btn = document.getElementById('arrow_btn')
     var icon = document.getElementById('arrow_icon');
-    var open = false;
-    btn.addEventListener('click', function() {
-        if (open) {
-            icon.className = 'fa fa-arrow-down';
-        } else {
-            icon.className = 'fa fa-arrow-down open';
-        }
-        open = !open;
-    });
+    icon.className = "fa fa-arrow-down"
+    // var open = false;
+    // btn.addEventListener('click', function() {
+    //     if (open) {
+    //         icon.className = 'fa fa-arrow-down';
+    //     } else {
+    //         icon.className = 'fa fa-arrow-down open';
+    //     }
+    //     open = !open;
+    // });
 
 }
