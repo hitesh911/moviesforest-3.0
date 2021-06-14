@@ -4,6 +4,7 @@ from forest.models import Post, Label
 from django.contrib import messages
 from json import loads , dumps
 import requests 
+from random import choice
 
 # specific functions 
 def get_client_ip(request):
@@ -171,10 +172,7 @@ def forest_movies(request):
             year.append(lab.categories)
         # if category is language or main so put it into main 
         elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "tamil" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
-            if lab.categories.lower() == "tvseries":
-                main.append("webseries")
-            else:
-                main.append(lab.categories)
+            main.append(lab.categories)
         # and put other categorey into others 
         else:
             other.append(lab.categories)
@@ -223,12 +221,15 @@ def forest_movies(request):
     # if "float len_page" is bigger then "int len_page" so changing it's value into plus one
     if int(len_pages) < len_pages:
         len_pages += 1
+    # making color list to send it for template to use random color functianality 
+    color_list = ["danger" , "warning" ,"primary" ,"secondary" , "success" , "info" ,"light" , "dark"  ]
+    random_color = choice(color_list)
     # making a context to send data to template
     context = {'all_movies_post': all_movies_post, "content_end": str(content_end),
                "content_start": str(content_start), "show_banner": show_banner, "at_page_no": at_page_no, "disable_next": disable_next,
                "disable_previous": disable_previous, "banner": page_id, "page_id": page_id, "back_home_button": back_home_button,
                "len_pages": int(len_pages), "active_hollywood": active_hollywood, "active_bollywood": active_bollywood, "active_anima": active_anima,
-               "active_animation": active_animation, "year": year ,"main":main ,  "other":other }
+               "active_animation": active_animation, "year": year ,"main":main ,  "other":other , "random_color":random_color }
     # returning a responce
     return render(request, 'forest/movies.html', context)
 # personal function for devlopers to create the posts

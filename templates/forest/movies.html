@@ -52,8 +52,13 @@
     <div class="album py-5 bg-light p-0 mt-1">
         <div class="container text-center">
             {% for main_item in main %}
-            <button class="text-capitalize btn btn-success shadow-sm mb-1" value={{main_item}} name="label" type="submate"
-                form="for_categories">{{main_item}}</button>
+                {% if main_item == "tvseries" %}
+                    <button class="text-capitalize btn btn-{{random_color}} shadow-sm mb-1 " value={{main_item}} name="label" type="submate"
+                        form="for_categories">Webseries</button>
+                {% else %}
+                    <button class="text-capitalize btn btn-{{random_color}} shadow-sm mb-1" value={{main_item}} name="label" type="submate"
+                        form="for_categories">{{main_item}}</button>
+                {% endif %}
             {% endfor %}
         </div>
     </div>
