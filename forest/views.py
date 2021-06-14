@@ -5,6 +5,9 @@ from django.contrib import messages
 from json import loads , dumps
 import requests 
 from random import choice
+# global verables 
+# making color list to send it for template to use random color functianality 
+color_list = ["danger" , "warning" ,"primary" ,"secondary" , "success" , "info" ,"light" , "dark"  ]
 
 # specific functions 
 def get_client_ip(request):
@@ -221,8 +224,6 @@ def forest_movies(request):
     # if "float len_page" is bigger then "int len_page" so changing it's value into plus one
     if int(len_pages) < len_pages:
         len_pages += 1
-    # making color list to send it for template to use random color functianality 
-    color_list = ["danger" , "warning" ,"primary" ,"secondary" , "success" , "info" ,"light" , "dark"  ]
     # making a context to send data to template
     context = {'all_movies_post': all_movies_post, "content_end": str(content_end),
                "content_start": str(content_start), "show_banner": show_banner, "at_page_no": at_page_no, "disable_next": disable_next,
@@ -548,7 +549,7 @@ def download(request):
         pass
     context = {"post": post, "download_links_list": download_links_list,
                "stream_links_list": stream_links_list,
-               "screen_shots_list": screen_shots_list}
+               "screen_shots_list": screen_shots_list , "color_list":color_list}
     return render(request, "forest/download.html", context)
 
 

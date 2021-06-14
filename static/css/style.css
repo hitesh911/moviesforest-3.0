@@ -12,7 +12,7 @@ html * {
 
 }
 
-/* this css is only for navbar togger button  */
+/* this css is only for navbar togger button note: only for arrow_icon */
 #checkbox {
     display: none;
 }

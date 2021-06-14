@@ -125,6 +125,25 @@
           </form>
           {% comment %} end stream form  {% endcomment %}
       {% comment %} end dropdowns of download and stream  {% endcomment %}
+      {% comment %} making tags section  {% endcomment %}
+      <div class="album py-5 bg-light p-0 mt-1">
+        <div class="container text-center">
+            {% for labs in post.category %}
+                {% if labs == "tvseries" %}
+                    <button class="text-capitalize btn btn-{{color_list|random}} shadow-sm mb-1 " value={{labs}} name="label" type="submate"
+                        form="for_categories">Webseries</button>
+                {% else %}
+                    <button class="text-capitalize btn btn-{{color_list|random}} shadow-sm mb-1" value={{labs}} name="label" type="submate"
+                        form="for_categories">{{labs}}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% comment %} form for lables inside downlaod page  {% endcomment %}
+    <form action="/forest/movies" id="for_categories" method="post">
+        {% csrf_token %}
+    </form>
+      {% comment %} ending tags section  {% endcomment %}
       {% comment %} making a fram for YouTube trailer  {% endcomment %}
       <!-- 21:9 aspect ratio -->
       
