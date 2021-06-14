@@ -49,10 +49,10 @@
         </div>
     </div>
      {% comment %} This is for main  {% endcomment %}
-    <div class="album py-5 bg-light p-0">
+    <div class="album py-5 bg-light p-0 mt-1">
         <div class="container text-center">
             {% for main_item in main %}
-            <button class="text-capitalize btn btn-success" value={{main_item}} name="label" type="submate"
+            <button class="text-capitalize btn btn-success shadow-sm mb-1" value={{main_item}} name="label" type="submate"
                 form="for_categories">{{main_item}}</button>
             {% endfor %}
         </div>
