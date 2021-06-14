@@ -17,9 +17,7 @@ html * {
 }
 
 .square {
-    width: 100px;
-    height: 100px;
-    background-color: #ff0000;
+
     transition: all 0.75s 0.25s;
     transform: rotate(0);
 }
