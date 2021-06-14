@@ -35,23 +35,6 @@
                 {% endfor %}
             </ul>
         </div>
-        {% comment %} This is for main  {% endcomment %}
-        <div class="album py-5 bg-light p-0">
-            <div class="container text-center">
-                {% for main_item in main %}
-                <button class="text-capitalize btn btn-success" value={{main_item}} name="label" type="submate"
-                    form="for_categories">{{main_item}}</button>
-                {% endfor %}
-            </div>
-        </div>
-        {% comment %} <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Main
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                
-            </ul>
-        </div> {% endcomment %}
         {% comment %} this is for others  {% endcomment %}
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,6 +46,15 @@
                     form="for_categories">{{more}}</button></li>
                 {% endfor %}
             </ul>
+        </div>
+    </div>
+     {% comment %} This is for main  {% endcomment %}
+    <div class="album py-5 bg-light p-0">
+        <div class="container text-center">
+            {% for main_item in main %}
+            <button class="text-capitalize btn btn-success" value={{main_item}} name="label" type="submate"
+                form="for_categories">{{main_item}}</button>
+            {% endfor %}
         </div>
     </div>
     
