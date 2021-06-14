@@ -19,7 +19,7 @@ html * {
 
 .arrow_icon {
 
-    transition: all 0.2s 0.25s;
+    transition: all 0.2s 0.2s;
     transform: rotate(0);
 }
 

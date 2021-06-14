@@ -12,18 +12,18 @@ html * {
 
 }
 
-/* this css is only for navbar togger button note: only for arrow_icon */
+/* this css is only for navbar togger button  note : for arrow_icon*/
 #checkbox {
     display: none;
 }
 
-.square {
+.arrow_icon {
 
-    transition: all 0.2s 0.25s;
+    transition: all 0.2s 0.2s;
     transform: rotate(0);
 }
 
-#checkbox:checked+.square {
+#checkbox:checked+.arrow_icon {
     transform: rotate(180deg);
 }
 
