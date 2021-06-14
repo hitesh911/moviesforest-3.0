@@ -17,13 +17,13 @@ html * {
     display: none;
 }
 
-.square {
+.arrow_icon {
 
     transition: all 0.75s 0.25s;
     transform: rotate(0);
 }
 
-#checkbox:checked+.square {
+#checkbox:checked+.arrow_icon {
     transform: rotate(180deg);
 }
 
