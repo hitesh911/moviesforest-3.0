@@ -24,6 +24,7 @@ function copyUrl() {
 }
 (function(document) {
     var btn = document.getElementById('arrow_btn')
+    console.log(btn)
     var icon = document.getElementById('arrow_icon');
     var open = false;
     btn.addEventListener('click', function() {
