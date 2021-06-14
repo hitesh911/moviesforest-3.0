@@ -25,7 +25,6 @@
 </head>
 
 <body>
-  <script src="{% static 'js/main.js' %}"></script>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
   {% comment %} navigation bar {% endcomment %}
@@ -53,6 +52,12 @@
               <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
             </svg>
       </button>
+      <script>
+        function change_icon() {
+        var icon = document.getElementById('arrow_icon');
+        icon.className = "fa fa-arrow-down";
+        }
+      </script>
       <div class="collapse show navbar-collapse mt-1" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row justify-content-between">
           <li class="nav-item">
