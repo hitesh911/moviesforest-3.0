@@ -12,8 +12,6 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% comment %} linking fabicon  {% endcomment %}
   <link rel="shortcut icon" href="{% static 'logo/logo.jpg' %}">
-  {% comment %} loading mannual JavaScript  {% endcomment %}
-  {% comment %} <script src="{% static 'js/main.js' %}"></script> {% endcomment %}
   {% comment %} link google fonts  {% endcomment %}
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@500&display=swap" rel="stylesheet"> 
@@ -46,13 +44,11 @@
         </a>
       {% comment %} ending logo  {% endcomment %}
       {% comment %} button to colapse right navbar  {% endcomment %}
-      <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      <button class="navbar-toggler"  onclick="myFunction()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span id="clpse-icon" class="fa fa-arrow-down fa-arrow-down-animated">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg"  width="30" height="30" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
             <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
           </svg>
-        </span>
       </button>
       <div class="collapse show navbar-collapse mt-1" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row justify-content-between">
