@@ -10,6 +10,7 @@ urlpatterns = [
     path('dmca', views.dmca , name='dmca'),
     path('search', views.search , name='search'),
     path('history', views.history , name='history'),
+    path("jquery_search", views.jquery_search, name="jquery_search"),
     path("ZeroTwo", views.ZeroTwo.as_view(), name="ZeroTwo"),
     
 ]

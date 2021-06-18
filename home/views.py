@@ -1,4 +1,5 @@
 from django.shortcuts import render  , HttpResponse
+from django.http import JsonResponse
 from django.views import View
 from home.models import Contact 
 from django.contrib import messages
@@ -81,7 +82,22 @@ def search(request):
     context = {"search_related_posts": search_related_posts , "query":query}
     # render search.html if request is post means request is from our site  
     return render(request , "home/search.html" , context)
-    
+# this is for search suggestions 
+def jquery_search(request):
+    real_query = request.GET.get("term")
+    # advance vector search from postgres database for getting better suggestions:
+    # making a vector of column's 
+    vector = SearchVector("title" , weight = "A") + \
+        SearchVector("content", weight = "B") + \
+            SearchVector("section" , weight = "C") + \
+                SearchVector("category" , weight = "D")
+    # passing our query into SeaschQuery postgress function 
+    q = SearchQuery(real_query)
+    # making a final search results 
+    search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
+    title_list = []
+    title_list += [x.title for x in search_related_posts]
+    return JsonResponse(list , safe=False)
 # this is for history save 
 def history(request):
     messages.warning(request , "You'r history will deleted with ip change")

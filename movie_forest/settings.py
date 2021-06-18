@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = "django-insecure-*65y(m&u)cp4v@pn1fuwiib2%2oo29_&*djtyzt*a(&+5)vgve"
+# os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG  = False
+DEBUG  = True
 
 ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "smacker-hacker-1-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
 
@@ -45,8 +46,15 @@ INSTALLED_APPS = [
     'forest.apps.ForestConfig',
     'django.contrib.sites', #adding sites app for generating table to store my site domain 
     'django.contrib.sitemaps', #adding django sitemap framwork
+    'webpush' #adding webpush application 
 
 ]
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": "BJtONiMez_26DsFud8Ptpf57BHMkJmohEg61MhcmtibKMi3ltpwMTXN0SAnEaNpwg_Ol6roBTKh7-Yf-hPlRj6k",
+    "VAPID_PRIVATE_KEY":"4A79z7VP6g1VZYbWkW3ric3YIQ_MiiTnw5QrLRsFZiM",
+    "VAPID_ADMIN_EMAIL": "hp354998@gmail.com"
+}
+
 SITE_ID = 1
 
 MIDDLEWARE = [
