@@ -22,9 +22,3 @@ function copyUrl() {
     document.body.removeChild(dummy);
     alert("Link has been copied Go and share Link..");
 }
-
-$(function() {
-    $("#query_input").autocomplete({
-        source: "jquery_search"
-    });
-});
