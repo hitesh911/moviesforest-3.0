@@ -94,7 +94,8 @@ def jquery_search(request):
     # passing our query into SeaschQuery postgress function 
     q = SearchQuery(real_query)
     # making a final search results 
-    search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
+    #search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
+    search_related_posts = Post.objects.filter(title__icontains = real_query)
     title_list = []
     title_list += [x.title for x in search_related_posts]
     return JsonResponse(title_list , safe=False)
