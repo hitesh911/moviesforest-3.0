@@ -25,6 +25,6 @@ function copyUrl() {
 
 $(function() {
     $("#query_input").autocomplete({
-        source: "{% url 'jquery_search' %}"
+        source: "jquery_search"
     });
 });
