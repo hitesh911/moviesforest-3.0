@@ -23,7 +23,7 @@ function copyUrl() {
     alert("Link has been copied Go and share Link..");
 }
 
-$(function() {
+$(function($) {
     $("#query_input").autocomplete({
         source: "{% url 'jquery_search' %}"
     });
