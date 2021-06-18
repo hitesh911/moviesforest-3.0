@@ -1,2 +1,2 @@
 User-Agent *
-Disallow: /forest/download
+Disallow:
