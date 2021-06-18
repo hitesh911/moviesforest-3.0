@@ -97,7 +97,7 @@ def jquery_search(request):
     search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
     title_list = []
     title_list += [x.title for x in search_related_posts]
-    return JsonResponse(list , safe=False)
+    return JsonResponse(title_list , safe=False)
 # this is for history save 
 def history(request):
     messages.warning(request , "You'r history will deleted with ip change")
