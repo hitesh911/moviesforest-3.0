@@ -84,18 +84,15 @@ def search(request):
     return render(request , "home/search.html" , context)
 # this is for search suggestions 
 def jquery_search(request):
-    real_query = request.GET.get("term")
-    # advance vector search from postgres database for getting better suggestions:
-    # making a vector of column's 
-    vector = SearchVector("title" , weight = "A") + \
-        SearchVector("content", weight = "B") + \
-            SearchVector("section" , weight = "C") + \
-                SearchVector("category" , weight = "D")
-    # passing our query into SeaschQuery postgress function 
-    q = SearchQuery(real_query)
-    # making a final search results 
-    #search_related_posts = Post.objects.annotate(rank=SearchRank(vector , q , cover_density = True)).filter(rank__gte=0.3).order_by("-rank")
-    search_related_posts = Post.objects.filter(title__icontains = real_query)
+    query = request.GET.get("term")
+    # normal search from database for suggestions:
+    # fetching related posts form database with diffrent colomn's 
+    search_from_title = Post.objects.filter(title__icontains = query)
+    search_from_content = Post.objects.filter(content__icontains = query)
+    search_from_category = Post.objects.filter(category__icontains = query)
+    search_from_section = Post.objects.filter(section__icontains = query)
+    # joining all search column's with each others using union function
+    search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
     title_list = []
     title_list += [x.title for x in search_related_posts]
     return JsonResponse(title_list , safe=False)
