@@ -88,9 +88,9 @@ def jquery_search(request):
     # normal search from database for suggestions:
     # fetching related posts form database with diffrent colomn's 
     search_from_title = Post.objects.filter(title__icontains = query)
-    search_from_content = Post.objects.filter(content__icontains = query)
     search_from_category = Post.objects.filter(category__icontains = query)
     search_from_section = Post.objects.filter(section__icontains = query)
+    search_from_content = Post.objects.filter(content__icontains = query)
     # joining all search column's with each others using union function
     search_related_posts = search_from_title.union(search_from_category , search_from_section ,search_from_content )
     title_list = []
