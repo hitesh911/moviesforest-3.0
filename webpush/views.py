@@ -13,7 +13,7 @@ def save_info(request):
         post_data = json.loads(request.body.decode('utf-8'))
     except ValueError:
         return HttpResponse(status=400)
-    
+    print(post_data)
     # Process the subscription data to mach with the model
     subscription_data = process_subscription_data(post_data)
     subscription_form = SubscriptionForm(subscription_data)

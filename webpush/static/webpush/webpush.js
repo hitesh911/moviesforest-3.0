@@ -1,211 +1,188 @@
 var isPushEnabled = false,
-    registration,
-    subBtn;
+  subBtn,
+  messageBox,
+  registration;
 
 window.addEventListener('load', function() {
-    subBtn = document.getElementById('webpush-subscribe-button');
+  subBtn = document.getElementById('webpush-subscribe-button');
+  messageBox = document.getElementById('webpush-message');
 
-    subBtn.addEventListener('click',
-        function() {
-            subBtn.disabled = true;
-            if (isPushEnabled) {
-                return unsubscribe(registration);
-            }
-            return subscribe(registration);
+  // Do everything if the Browser Supports Service Worker
+  if ('serviceWorker' in navigator) {
+    var serviceWorker = document.querySelector('meta[name="service-worker-js"]').content;
+    navigator.serviceWorker.register(serviceWorker)
+      .then(
+        function(reg) {
+          registration = reg;
+          initialiseState(reg);
         }
-    );
-
-    // Do everything if the Browser Supports Service Worker
-    if ('serviceWorker' in navigator) {
-        const serviceWorker = document.querySelector('meta[name="service-worker-js"]').content;
-        navigator.serviceWorker.register(serviceWorker).then(
-            function(reg) {
-                registration = reg;
-                initialiseState(reg);
-            });
-    }
-    // If service worker not supported, show warning to the message box
-    else {
-        showMessage('Movies Worker is not supported in your Browser!');
-    }
-
-    // Once the service worker is registered set the initial state  
-    function initialiseState(reg) {
-        // Are Notifications supported in the service worker?  
-        if (!(reg.showNotification)) {
-            // Show a message and activate the button
-            subBtn.textContent = 'Subscribe to Push Messaging';
-            showMessage('Showing Notification is not suppoted in your browser');
-            return;
-        }
-
-        // Check the current Notification permission.  
-        // If its denied, it's a permanent block until the  
-        // user changes the permission  
-        if (Notification.permission === 'denied') {
-            // Show a message and activate the button
-            subBtn.textContent = 'Subscribe to Push Messaging';
-            subBtn.disabled = false;
-            showMessage('Notification is blocked from your browser.');
-            return;
-        }
-
-        // Check if push messaging is supported  
-        if (!('PushManager' in window)) {
-            // Show a message and activate the button
-            subBtn.textContent = 'Subscribe to moviesforest';
-            subBtn.disabled = false;
-            showMessage('Notification is not available in the browser');
-            return;
-        }
-
-        // We need to get subscription state for push notifications and send the information to server
-        reg.pushManager.getSubscription().then(
-            function(subscription) {
-                if (subscription) {
-                    postSubscribeObj('subscribe', subscription,
-                        function(response) {
-                            // Check the information is saved successfully into server
-                            if (response.status === 201) {
-                                // Show unsubscribe button instead
-                                subBtn.textContent = 'Unsubscribe';
-                                subBtn.disabled = false;
-                                isPushEnabled = true;
-                                showMessage('Successfully subscribed for moviesforest');
-                            }
-                        });
-                }
-            });
-    }
-});
-
-function showMessage(message) {
-    const messageBox = document.getElementById('webpush-message');
-    if (messageBox) {
-        messageBox.textContent = message;
+      );
+  }
+  // If service worker not supported, show warning to the message box
+  else {
+        messageBox.textContent = 'Service Worker is not supported in your Browser!';
         messageBox.style.display = 'block';
+      }
+
+  // Once the service worker is registered set the initial state  
+  function initialiseState(reg) {
+    // Are Notifications supported in the service worker?  
+    if (!(reg.showNotification)) {
+        // Show a message and activate the button
+        messageBox.textContent = 'Showing Notification is not suppoted in your browser';
+        messageBox.style.display = 'block';
+        return;
     }
+
+    // Check the current Notification permission.  
+    // If its denied, it's a permanent block until the  
+    // user changes the permission  
+    if (Notification.permission === 'denied') {
+      // Show a message and activate the button
+      messageBox.textContent = 'The Push Notification is blocked from your browser.';
+      messageBox.style.display = 'block';
+      return;  
+    }
+
+    // Check if push messaging is supported  
+    if (!('PushManager' in window)) {
+      // Show a message and activate the button 
+      messageBox.textContent = 'Push Notification is not available in the browser';
+      messageBox.style.display = 'block';
+      return;  
+    }
+
+    // We need to subscribe for push notification and send the information to server  
+    subscribe(reg)
+  }
 }
+);
+
 
 function subscribe(reg) {
-    // Get the Subscription or register one
-    reg.pushManager.getSubscription().then(
-        function(subscription) {
-            var metaObj, applicationServerKey, options;
-            // Check if Subscription is available
-            if (subscription) {
-                return subscription;
-            }
-
-            metaObj = document.querySelector('meta[name="django-webpush-vapid-key"]');
-            applicationServerKey = metaObj.content;
-            options = {
-                userVisibleOnly: true
-            };
-            if (applicationServerKey) {
-                options.applicationServerKey = urlB64ToUint8Array(applicationServerKey)
-            }
-            // If not, register one
-            reg.pushManager.subscribe(options)
-                .then(
-                    function(subscription) {
-                        postSubscribeObj('subscribe', subscription,
-                            function(response) {
-                                // Check the information is saved successfully into server
-                                if (response.status === 201) {
-                                    // Show unsubscribe button instead
-                                    subBtn.textContent = 'Unsubscribe';
-                                    subBtn.disabled = false;
-                                    isPushEnabled = true;
-                                    showMessage('Successfully subscribed for moviesforest');
-                                }
-                            });
-                    })
-                .catch(
-                    function() {
-                        console.log('Subscription error.', arguments)
-                    })
-        }
-    );
+  // Get the Subscription or register one
+  getSubscription(reg).then(
+      function(subscription) {
+        postSubscribeObj('subscribe',subscription);
+      }
+    )
+    .catch(
+      function(error) {
+        console.log('Subscription error.', error)
+      }
+    )
 }
 
 function urlB64ToUint8Array(base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding)
-        .replace(/\-/g, '+')
-        .replace(/_/g, '/');
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
 
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
 
-    for (var i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
+  for (var i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
 }
 
-function unsubscribe(reg) {
-    // Get the Subscription to unregister
-    reg.pushManager.getSubscription()
-        .then(
-            function(subscription) {
+function getSubscription(reg) {
+    return reg.pushManager.getSubscription().then(
+        function(subscription) {
+          var metaObj, applicationServerKey, options;
+          // Check if Subscription is available
+          if (subscription) {
+            return subscription;
+          }
 
-                // Check we have a subscription to unsubscribe
-                if (!subscription) {
-                    // No subscription object, so set the state
-                    // to allow the user to subscribe to push
-                    subBtn.disabled = false;
-                    showMessage('Subscription is not available');
-                    return;
-                }
-                postSubscribeObj('unsubscribe', subscription,
-                    function(response) {
-                        // Check if the information is deleted from server
-                        if (response.status === 202) {
-                            // Get the Subscription
-                            // Remove the subscription
-                            subscription.unsubscribe()
-                                .then(
-                                    function(successful) {
-                                        subBtn.textContent = 'Subscribe';
-                                        showMessage('Successfully');
-                                        isPushEnabled = false;
-                                        subBtn.disabled = false;
-                                    }
-                                )
-                                .catch(
-                                    function(error) {
-                                        subBtn.textContent = 'Unsubscribe';
-                                        showMessage('Error during unsubscribe');
-                                        subBtn.disabled = false;
-                                    }
-                                );
-                        }
-                    });
-            }
-        )
+          metaObj = document.querySelector('meta[name="django-webpush-vapid-key"]');
+          applicationServerKey = metaObj.content;
+          options = {
+              userVisibleOnly: true
+          };
+          if (applicationServerKey){
+              options.applicationServerKey = urlB64ToUint8Array(applicationServerKey)
+          }
+          // If not, register one
+          return registration.pushManager.subscribe(options)
+        }
+      )
 }
 
-function postSubscribeObj(statusType, subscription, callback) {
-    // Send the information to the server with fetch API.
-    // the type of the request, the name of the user subscribing, 
-    // and the push subscription endpoint + key the server needs
-    // to send push messages
+function unsubscribe() {
+  // Get the Subscription to unregister
+  registration.pushManager.getSubscription()
+    .then(
+      function(subscription) {
 
-    var browser = navigator.userAgent.match(/(firefox|msie|chrome|safari|trident)/ig)[0].toLowerCase(),
-        data = {
-            status_type: statusType,
-            subscription: subscription.toJSON(),
-            browser: browser,
-            group: subBtn.dataset.group
-        };
+        // Check we have a subscription to unsubscribe
+        if (!subscription) {
+          // No subscription object, so set the state
+          // to allow the user to subscribe to push
+          messageBox.textContent = 'Subscription is not available';
+          messageBox.style.display = 'block';
+          return;
+        }
+        postSubscribeObj('unsubscribe', subscription);
+      }
+    )  
+}
 
-    fetch(subBtn.dataset.url, {
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data),
-        credentials: 'include'
-    }).then(callback);
+function postSubscribeObj(statusType, subscription) {
+  // Send the information to the server with fetch API.
+  // the type of the request, the name of the user subscribing, 
+  // and the push subscription endpoint + key the server needs
+  // to send push messages
+  
+  var browser = navigator.userAgent.match(/(firefox|msie|chrome|safari|trident)/ig)[0].toLowerCase(),
+    data = {  status_type: statusType,
+              subscription: subscription.toJSON(),
+              browser: browser,
+              group: subBtn.dataset.group
+           };
+
+  fetch(subBtn.dataset.url, {
+    method: 'post',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data),
+    credentials: 'include'
+  })
+    .then(
+      function(response) {
+        // Check the information is saved successfully into server
+        if ((response.status == 201) && (statusType == 'subscribe')) {
+          // Show unsubscribe button instead
+          isPushEnabled = true;
+          messageBox.textContent = 'Successfully subscribed for Push Notification';
+          messageBox.style.display = 'block';
+        }
+
+        // Check if the information is deleted from server
+        if ((response.status == 202) && (statusType == 'unsubscribe')) {
+          // Get the Subscription
+          getSubscription(registration)
+            .then(
+              function(subscription) {
+                // Remove the subscription
+                subscription.unsubscribe()
+                .then(
+                  function(successful) {
+                    messageBox.textContent = 'Successfully unsubscribed for Push Notification';
+                    messageBox.style.display = 'block';
+                    isPushEnabled = false;
+                  }
+                )
+              }
+            )
+            .catch(
+              function(error) {
+                messageBox.textContent = 'Error during unsubscribe from Push Notification';
+                messageBox.style.display = 'block';
+              }
+            );
+        }
+      }
+    )
 }
