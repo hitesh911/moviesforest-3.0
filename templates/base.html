@@ -5,8 +5,11 @@
   <!-- Required meta tags are these -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {% comment %} loading static files  {% endcomment %}
+  {% comment %} loading static files and others application  {% endcomment %}
   {% load static %}
+  {% load webpush_notifications %}
+  {% comment %} loading headers Required for webpush application  {% endcomment %}
+  {% webpush_header %}
   {% comment %} block for other metatags related to the posts  {% endcomment %}
   {% block metatags %}{% endblock metatags%}
   {% comment %}-------------------------------- this is css section -------------------------------------------------- {% endcomment %}

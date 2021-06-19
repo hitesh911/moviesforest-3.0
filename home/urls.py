@@ -12,5 +12,7 @@ urlpatterns = [
     path('history', views.history , name='history'),
     path("jquery_search", views.jquery_search, name="jquery_search"),
     path("ZeroTwo", views.ZeroTwo.as_view(), name="ZeroTwo"),
+    # this is a path to send notification 
+    path("send_notification", views.send_notification, name="send_notification")
     
 ]

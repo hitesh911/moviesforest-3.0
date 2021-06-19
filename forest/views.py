@@ -550,10 +550,17 @@ def download(request):
         pass
     # making list of labels 
     labs_list = post.category.split(",")
+    # ---------------------this is the code related to the wepush notifications -----------------
+    # deciding a goup name for my subscribers 
+    group_name = "my_subscriber"
+    # making a dict of group(perameter name ) to send it to context 
+    webpush = {"group": group_name}
+    # making a final context to send it to tamplete 
     context = {"post": post, "download_links_list": download_links_list,
                "stream_links_list": stream_links_list,
                "screen_shots_list": screen_shots_list , "color_list":color_list,
                "labs_list":labs_list,
+               "webpush":webpush,
                }
     return render(request, "forest/download.html", context)
 

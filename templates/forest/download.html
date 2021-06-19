@@ -9,11 +9,31 @@
 {% endblock metatags %}
 {% comment %} filling title block  {% endcomment %}
 {% block title %}{{post.title}}{% endblock title %}
-{% comment %} loading static files  {% endcomment %}
+{% comment %} loading static files and webpush application  {% endcomment %}
 {% load static %}
+{% load webpush_notifications %}
 {% block body %}
-{% comment %} including a javascript file to make copy link function {% endcomment %}
+{% comment %} including a javascript file to make copy link or other function {% endcomment %}
 <script src="{% static 'js/main.js' %}"></script>
+{% comment %}---------------------- this is the toast msg to ask people to subscribe ----------------------- {% endcomment %}
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+  <div id="sub_msg" class="toast" data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="{% static 'logo/logo.jpg' %}" class="rounded me-2 img-fluid" style="max-width:15%;">
+      <strong class="me-auto">Movies_forest</strong>
+      <small>JUFFLER</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    {% comment %} this is toast msg body  {% endcomment %}
+    <div class="toast-body d-flex ">
+        {% webpush_button with_class=" btn btn-outline-danger" %}
+        <div class = "text-center mx-2">
+          Don't worry, you will get only rare posts notification
+        </div> 
+    </div>
+  </div>
+</div>
+{% comment %} -------------------------this is other all content of download page ---------------------------------- {% endcomment %}
 <div class="d-flex h-100 text-center text-white bg-dark mb-3">
 
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">

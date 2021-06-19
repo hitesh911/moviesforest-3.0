@@ -8,10 +8,52 @@ from django.contrib.postgres.search import SearchVector , SearchRank , SearchQue
 # importing get clint ip function for history function
 from forest.views import get_client_ip
 import requests , time
+# this is a function from webpush applocation 
+from webpush import send_group_notification
+
+# this is the function for sending notifications to subscribers 
+def send_notification(request):
+    # inisilizing status 
+    notification_send = True
+    problem = None
+    # getting data from request 
+    try:
+        heading = request.GET["heading"]
+        body = request.GET["body"]
+        icon_url = request.GET["icon_url"]
+        url =request.GET["url"]
+    except Exception as e:
+        problem = str(e)
+
+    # deciding for which group i want to send the notification 
+    group_name = "my_subscriber"
+    # making a data payload to send content in notification 
+    payload = {"head": heading, "body": body, 
+           "icon": icon_url, "url": url}
+    try:
+        send_group_notification(group_name=group_name, payload=payload, ttl=10000)
+    except:
+        notification_send = False
+    
+    # making a context 
+    context = {"Notification_send": notification_send,
+                "problem" : problem
+    
+    }
+    return JsonResponse(context)
+
 
 def home(request):
     # messages.success(request , "<a class = 'text-deco`ration-none' href = 'http://moviesforest.herokuapp.com'>Click here <a/>for better experince")
-    return render(request , 'home/home.html')
+    # ---------------------this is the content related to the wepush notifications -----------------
+    # deciding a goup name for my subscribers 
+    group_name = "my_subscriber"
+    # making a dict of group to send it to context 
+    webpush = {"group": group_name}
+    # making a context 
+    context = {"webpush":webpush}
+    #-------------------------- returning the context with goup name for webpush --------------------------------
+    return render(request , 'home/home.html', context)
 def contact(request):
     if request.method == 'POST':
         name = request.POST['name']
@@ -29,7 +71,7 @@ def contact(request):
             contact = Contact(name = name , email = email , number = number , content = content)
             contact.save()
             messages.success(request , "You message has been send You will be replayed on you gmail")
-    return render(request , 'home/contact.html')
+    return render(request , 'home/contact.html' )
 def about(request):
     return render(request , 'home/about.html')
 def dmca(request):
@@ -153,4 +195,4 @@ class ZeroTwo(View):
        
         context = {"request_success":request_success, "status":status,"name":name,
                     "size":size , "link":link , "query":query}
-        return render(request , "home/zero_two.html" , context )
+        return render(request , "home/zero_two.html" , context)

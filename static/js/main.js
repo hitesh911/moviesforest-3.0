@@ -22,3 +22,7 @@ function copyUrl() {
     document.body.removeChild(dummy);
     alert("Link has been copied Go and share Link..");
 }
+
+$(document).ready(function() {
+    $("#sub_msg").toast('show');
+});

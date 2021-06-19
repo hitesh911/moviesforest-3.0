@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path , include
+from django.urls import path , include , re_path
 from django.contrib.sitemaps.views import sitemap
 from movie_forest.sitemaps import PostSitemap
 # importing template view for robots.txt 
@@ -30,6 +30,7 @@ urlpatterns = [
     # making a sitemap.xml url 
     path('sitemap.xml',sitemap,{"sitemaps":sitemaps}, name = 'django.contrib.sitemaps.views.sitemap'),
     # making robots.txt url 
-    path("robots.txt", TemplateView.as_view(template_name = "robots.txt",content_type = "text/plain"), name="robots.txt")
-    
+    path("robots.txt", TemplateView.as_view(template_name = "robots.txt",content_type = "text/plain"), name="robots.txt"),
+    # this is for weppush application 
+    re_path(r'^webpush/', include('webpush.urls')),
 ]

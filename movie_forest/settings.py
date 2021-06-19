@@ -31,6 +31,7 @@ DEBUG  = False
 ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "smacker-hacker-1-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
