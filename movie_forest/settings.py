@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY'] 
+SECRET_KEY = "django-insecure-*65y(m&u)cp4v@pn1fuwiib2%2oo29_&*djtyzt*a(&+5)vgve"
+# os.environ['SECRET_KEY'] 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG  = True
@@ -50,8 +51,8 @@ INSTALLED_APPS = [
 
 ]
 WEBPUSH_SETTINGS = {
-    "VAPID_PUBLIC_KEY": "BMAR3h1wo7xsuCHsGaervZ-XKebcEi1TR9YNZBjoFUzytN--0FmYP0c_S9MjcSy3GW6Xk5yDPFdYlkr-tF4qLDo",
-    "VAPID_PRIVATE_KEY":"FJYzjfYr-AM1-atIeetNu40M9neXL6HZxeyseImxPT4",
+    "VAPID_PUBLIC_KEY": "BJtONiMez_26DsFud8Ptpf57BHMkJmohEg61MhcmtibKMi3ltpwMTXN0SAnEaNpwg_Ol6roBTKh7-Yf-hPlRj6k",
+    "VAPID_PRIVATE_KEY":"4A79z7VP6g1VZYbWkW3ric3YIQ_MiiTnw5QrLRsFZiM",
     "VAPID_ADMIN_EMAIL": "gamingbomb911@gmail.com"
 }
 
