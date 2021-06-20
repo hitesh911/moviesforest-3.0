@@ -24,15 +24,17 @@ def send_notification(request):
         url =request.GET["url"]
     except Exception as e:
         problem = str(e)
-
-    # deciding for which group i want to send the notification 
-    group_name = "my_subscriber"
-    # making a data payload to send content in notification 
-    payload = {"head": heading, "body": body, 
-           "icon": icon_url, "url": url}
-    try:
-        send_group_notification(group_name=group_name, payload=payload, ttl=10000)
-    except:
+    if problem == None:
+        # deciding for which group i want to send the notification 
+        group_name = "my_subscriber"
+        # making a data payload to send content in notification 
+        payload = {"head": heading, "body": body, 
+            "icon": icon_url, "url": url}
+        try:
+            send_group_notification(group_name=group_name, payload=payload, ttl=10000)
+        except:
+            notification_send = False
+    else:
         notification_send = False
     
     # making a context 

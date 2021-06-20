@@ -1,3 +1,5 @@
+//Himanshu don and pryanshu don they both are kumars
+
 var isPushEnabled = false,
     registration,
     subBtn;
@@ -26,36 +28,36 @@ window.addEventListener('load', function() {
     }
     // If service worker not supported, show warning to the message box
     else {
-        showMessage('Movies Worker is not supported in your Browser!');
+        showMessage(gettext('Movies_forest Service workers are not supported in your browser.'));
     }
 
-    // Once the service worker is registered set the initial state  
+    // Once the service worker is registered set the initial state
     function initialiseState(reg) {
-        // Are Notifications supported in the service worker?  
+        // Are Notifications supported in the service worker?
         if (!(reg.showNotification)) {
             // Show a message and activate the button
-            subBtn.textContent = 'Subscribe to Push Messaging';
-            showMessage('Showing Notification is not suppoted in your browser');
+            subBtn.textContent = 'Subscribe';
+            showMessage(gettext('Showing notifications are not supported in your browser.'));
             return;
         }
 
-        // Check the current Notification permission.  
-        // If its denied, it's a permanent block until the  
-        // user changes the permission  
+        // Check the current Notification permission.
+        // If its denied, it's a permanent block until the
+        // user changes the permission
         if (Notification.permission === 'denied') {
             // Show a message and activate the button
-            subBtn.textContent = 'Subscribe to Push Messaging';
+            subBtn.textContent = gettext('Subscribe');
             subBtn.disabled = false;
-            showMessage('Notification is blocked from your browser.');
+            showMessage(gettext('Movies_forest notifications are blocked by your browser.'));
             return;
         }
 
-        // Check if push messaging is supported  
+        // Check if push messaging is supported
         if (!('PushManager' in window)) {
             // Show a message and activate the button
-            subBtn.textContent = 'Subscribe to moviesforest';
+            subBtn.textContent = 'Subscribe';
             subBtn.disabled = false;
-            showMessage('Notification is not available in the browser');
+            showMessage(gettext('notifications are not available in your browser.'));
             return;
         }
 
@@ -68,10 +70,10 @@ window.addEventListener('load', function() {
                             // Check the information is saved successfully into server
                             if (response.status === 201) {
                                 // Show unsubscribe button instead
-                                subBtn.textContent = 'Unsubscribe';
+                                subBtn.textContent = gettext('Unsubscribe');
                                 subBtn.disabled = false;
                                 isPushEnabled = true;
-                                showMessage('Successfully subscribed for moviesforest');
+                                showMessage(gettext('Successfully subscribed to Movies_forest notifications.'));
                             }
                         });
                 }
@@ -114,16 +116,16 @@ function subscribe(reg) {
                                 // Check the information is saved successfully into server
                                 if (response.status === 201) {
                                     // Show unsubscribe button instead
-                                    subBtn.textContent = 'Unsubscribe';
+                                    subBtn.textContent = gettext('Unsubscribe');
                                     subBtn.disabled = false;
                                     isPushEnabled = true;
-                                    showMessage('Successfully subscribed for moviesforest');
+                                    showMessage(gettext('Successfully subscribed to moviesforest notifications.'));
                                 }
                             });
                     })
                 .catch(
                     function() {
-                        console.log('Subscription error.', arguments)
+                        console.log(gettext('Error while subscribing to Moviesforest notifications.'), arguments)
                     })
         }
     );
@@ -155,7 +157,7 @@ function unsubscribe(reg) {
                     // No subscription object, so set the state
                     // to allow the user to subscribe to push
                     subBtn.disabled = false;
-                    showMessage('Subscription is not available');
+                    showMessage(gettext('Subscription is not available.'));
                     return;
                 }
                 postSubscribeObj('unsubscribe', subscription,
@@ -167,16 +169,16 @@ function unsubscribe(reg) {
                             subscription.unsubscribe()
                                 .then(
                                     function(successful) {
-                                        subBtn.textContent = 'Subscribe';
-                                        showMessage('Successfully');
+                                        subBtn.textContent = gettext('Subscribe');
+                                        showMessage(gettext('Successfully unsubscribed from moviesforest notifications.'));
                                         isPushEnabled = false;
                                         subBtn.disabled = false;
                                     }
                                 )
                                 .catch(
                                     function(error) {
-                                        subBtn.textContent = 'Unsubscribe';
-                                        showMessage('Error during unsubscribe');
+                                        subBtn.textContent = gettext('Unsubscribe');
+                                        showMessage(gettext('Error while unsubscribing from Moviesforest notifications.'));
                                         subBtn.disabled = false;
                                     }
                                 );
@@ -188,7 +190,7 @@ function unsubscribe(reg) {
 
 function postSubscribeObj(statusType, subscription, callback) {
     // Send the information to the server with fetch API.
-    // the type of the request, the name of the user subscribing, 
+    // the type of the request, the name of the user subscribing,
     // and the push subscription endpoint + key the server needs
     // to send push messages
 
