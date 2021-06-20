@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 WEBPUSH_SETTINGS = {
     "VAPID_PUBLIC_KEY": "BMAR3h1wo7xsuCHsGaervZ-XKebcEi1TR9YNZBjoFUzytN--0FmYP0c_S9MjcSy3GW6Xk5yDPFdYlkr-tF4qLDo",
     "VAPID_PRIVATE_KEY":"FJYzjfYr-AM1-atIeetNu40M9neXL6HZxeyseImxPT4",
-    "VAPID_ADMIN_EMAIL": "dharmendermahant591@gmail.com"
+    "VAPID_ADMIN_EMAIL": "gamingbomb911@gmail.com"
 }
 
 SITE_ID = 1
