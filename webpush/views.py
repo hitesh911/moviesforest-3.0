@@ -1,11 +1,9 @@
 import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST, require_GET
 from django.views.generic import TemplateView
-
 from .forms import WebPushForm, SubscriptionForm
-@require_POST
+
 @csrf_exempt
 def save_info(request):
     # Parse the  json object from post data. return 400 if the json encoding is wrong
