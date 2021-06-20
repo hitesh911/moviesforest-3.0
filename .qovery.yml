@@ -1,0 +1,11 @@
+---
+application:
+  name: "movies-forest"
+  project: "Movies_forest"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-movies-forest"
+  routes:
+  - application_name: "movies-forest"
+    paths:
+    - "/*"
