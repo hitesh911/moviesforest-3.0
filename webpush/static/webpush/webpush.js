@@ -126,6 +126,7 @@ function subscribe(reg) {
                 .catch(
                     function() {
                         console.log(gettext('Error while subscribing to Moviesforest notifications.'), arguments)
+                        alert("Error while subscribing to the Moviesforest, I think you have blocked our site notification")
                     })
         }
     );
