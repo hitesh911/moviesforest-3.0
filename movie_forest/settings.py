@@ -28,7 +28,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG  = False
 
-ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "smacker-hacker-1-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
+ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "gamingbomb911-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
 
 
 
