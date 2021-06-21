@@ -23,15 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-*65y(m&u)cp4v@pn1fuwiib2%2oo29_&*djtyzt*a(&+5)vgve"
-#os.environ['SECRET_KEY'] 
+SECRET_KEY = os.environ['SECRET_KEY'] 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG  = False
 
-#ALLOWED_HOSTS = ["moviesforest.herokuapp.com" , "localhost" , "gamingbomb911-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
+ALLOWED_HOSTS = ["moviesforest-production.up.railway.app","moviesforest.herokuapp.com" , "localhost" , "gamingbomb911-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
 
-ALLOWED_HOSTS=["*"]
 
 # Application definition
 
