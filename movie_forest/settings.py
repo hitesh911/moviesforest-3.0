@@ -28,7 +28,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG  = False
 
-ALLOWED_HOSTS = ["moviesforest-production.up.railway.app","moviesforest.herokuapp.com" , "localhost" , "gamingbomb911-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
+ALLOWED_HOSTS = ["cd5b61241fa5.up.railway.app","moviesforest.herokuapp.com" , "localhost" , "gamingbomb911-movies-forest.zeet.app" , "www.themoviesforest.gq", "themoviesforest.gq"]
 
 
 # Application definition
