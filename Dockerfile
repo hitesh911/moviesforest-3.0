@@ -1,4 +1,4 @@
-FROM node
-COPY app.js .
-EXPOSE 3333
-CMD [ "node", "app.js" ]
+
+
+
+CMD waitress-serve --port=8000 movie_forest.wsgi:application
