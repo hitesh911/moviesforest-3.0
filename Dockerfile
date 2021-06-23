@@ -1,4 +1,4 @@
-FROM python:3.8.0-alpine
+FROM python:3.9.2-alpine
 
 WORKDIR /usr/src/app
 
@@ -6,9 +6,5 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
-COPY example /usr/src/app/
-COPY entrypoint.sh /usr/src/app
 
-EXPOSE 8000
-
-ENTRYPOINT ["./entrypoint.sh"]
+CMD ["waitress-serve","--port=8000","movie_forest.wsgi:application"]
