@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
-{% comment %} this is social bar advertisement {% endcomment %}
-<script type='text/javascript' src='//pl16354840.effectiveperformancenetwork.com/69/c1/6c/69c16cb31428354eb761ff825111f521.js'></script>
-{% comment %} end advertisement {% endcomment %}
-
 {% comment %} filling metatags block {% endcomment %}
 {% block metatags %}
 <meta name = "discreption" property = "og:description" content = "{{post.content|slice:":10"}}">
 <meta name = "keywords" content = "{{post.keywords}}">
 <meta name = "author" content = "JUFFLER">
+
+{% comment %} this is social bar advertisement {% endcomment %}
+<script type='text/javascript' src='//pl16354840.effectiveperformancenetwork.com/69/c1/6c/69c16cb31428354eb761ff825111f521.js'></script>
+{% comment %} end advertisement {% endcomment %}
+
 {% endblock metatags %}
 {% comment %} filling title block  {% endcomment %}
 {% block title %}{{post.title}}{% endblock title %}
