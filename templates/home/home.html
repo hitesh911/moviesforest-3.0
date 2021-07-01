@@ -8,9 +8,11 @@
 {% comment %}this is advertisement{% endcomment %}
 {% comment %} loading couston javascript  {% endcomment %}
 <script src="{% static 'js/main.js' %}"></script>
-{% comment %}---------------------- this is the toast msg to ask people to subscribe ----------------------- {% endcomment %}
-<div class="position-fixed bottom-0 end-0 p-2 " style="z-index: 5">
-    {% webpush_button with_class=" btn btn-outline-danger" %}
+
+
+{% comment %}---------------------- this is the msg to ask people to subscribe ----------------------- {% endcomment %}
+<div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 5">
+    {% webpush_button with_class=" btn btn-danger" %}
 </div>
 
 
