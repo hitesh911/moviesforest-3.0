@@ -339,6 +339,12 @@ def make_post(request):
                 # checking if Label data contains lable already in database
                 if Label.objects.filter(categories__icontains=list_of_given_labels[i]):
                     pass
+                #If label is "notfound" note : IMDB glitch
+                if list_of_given_labels[i].lower() == "notfound":
+                    try:
+                        list_of_given_labels.remove("Notfound")
+                    except:
+                        pass     
                 # if lable is not in database so add it
                 else:
                     New_label = Label(categories=list_of_given_labels[i])
