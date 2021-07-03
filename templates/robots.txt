@@ -1,3 +1,10 @@
-User-Agent *
+Sitemap: http://themoviesforest.gq/sitemap.xml
+
+User-agent: Googlebot
 Disallow:
-Sitemap:https://themoviesforest.gq/sitemap.xml
+
+User-agent: AdsBot-Google
+Disallow:
+
+User-agent: Googlebot-Image
+Disallow:
