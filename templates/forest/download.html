@@ -20,6 +20,10 @@
    var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
    pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
 </script>
+{% comment %} --------------------oneclick add of propeller---------------- {% endcomment %}
+<script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',4349759,document.body||document.documentElement)</script>
+
+
 {% comment %}---------------------- this is the msg to ask people to subscribe ----------------------- {% endcomment %}
 <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 5">
     {% webpush_button with_class=" btn btn-danger" %}
