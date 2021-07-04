@@ -11,7 +11,8 @@
 {% load static %}
 {% load webpush_notifications %}
 {% block body %}
-
+{% comment %} -----------------including a javascript file to make copy link or other function---------------------- {% endcomment %}
+<script src="{% static 'js/main.js' %}"></script>
 {% comment %} this is popup advertisement of popcash.net {% endcomment %}
 <script type="text/javascript">
    var uid = '322055';
