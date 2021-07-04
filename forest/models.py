@@ -20,6 +20,8 @@ class Post(models.Model):
     content = models.TextField(default="this i isis fd jfl jfjsal dsj oif ds fdjfk dlkjdsfk dsjfkl dsdflk dslkdsjflk dlkjflkds flk jdsflkdsjflkjfoier jfd.,j fl dsjflkjsod")
     # field for download links 
     download_links = models.TextField(default= ' {"480":"https://480", "720":"https://720","1080":"https://1080"}')
+    # field for other links
+    other_links = models.TextField(default= ' {"480":"https://480", "720":"https://720","1080":"https://1080"}')
     # this is for trailers 
     trailer_link = models.TextField(default="https://tralerss")
     # this is for keyworlds 
