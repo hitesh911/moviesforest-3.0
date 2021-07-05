@@ -58,7 +58,6 @@
     <div class="album py-5 bg-light p-0 mt-1">
         <div class="container text-center">
             {% for main_item in main %}
-                {{main_item}}
                 {% if main_item == "tvseries" %}
                     <button class="text-capitalize btn btn-{{color_list|random}} shadow-sm mb-1 " value={{main_item}} name="label" type="submate"
                         form="for_categories">Webseries</button>
