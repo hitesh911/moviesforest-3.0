@@ -14,15 +14,16 @@
 {% comment %} -----------------including a javascript file to make copy link or other function---------------------- {% endcomment %}
 <script src="{% static 'js/main.js' %}"></script>
 {% comment %} this is popup advertisement of popcash.net {% endcomment %}
-<script type="text/javascript">
+{% comment %} <script type="text/javascript">
    var uid = '322055';
    var wid = '622796';
    var pop_fback = 'up';
    var pop_tag = document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);
    pop_tag.onerror = function() {pop_tag = document.createElement('script');pop_tag.src='//cdn2.popcash.net/show.js';document.body.appendChild(pop_tag)};
 </script>
+{% endcomment %}
 {% comment %} --------------------oneclick add of propeller---------------- {% endcomment %}
-<script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',4349759,document.body||document.documentElement)</script>
+{% comment %} <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com/tag.min.js',4349759,document.body||document.documentElement)</script> {% comment %}
 
 
 {% comment %}---------------------- this is the msg to ask people to subscribe ----------------------- {% endcomment %}
