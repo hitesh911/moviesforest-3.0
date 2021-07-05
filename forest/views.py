@@ -336,15 +336,14 @@ def make_post(request):
             list_of_given_labels = label.split(",")
             # iterating loop for each object in label list
             for i in range(len(list_of_given_labels)):
+                #If label is "notfound" note : IMDB glitch
+                if list_of_given_labels[i].lower() == "notfound":
+                    continue
+                else:
+                    pass     
                 # checking if Label data contains lable already in database
                 if Label.objects.filter(categories__icontains=list_of_given_labels[i]) or list_of_given_labels[i] in list_of_given_labels:
                     pass
-                #If label is "notfound" note : IMDB glitch
-                if list_of_given_labels[i].lower() == "notfound":
-                    try:
-                        list_of_given_labels.remove("NotFound")
-                    except:
-                        pass     
                 # if lable is not in database so add it
                 else:
                     New_label = Label(categories=list_of_given_labels[i])
