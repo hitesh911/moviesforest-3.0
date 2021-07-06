@@ -336,19 +336,23 @@ def make_post(request):
             list_of_given_labels = label.split(",")
             # iterating loop for each object in label list
             for i in range(len(list_of_given_labels)):
-                #If label is "notfound" note : IMDB glitch
-                if list_of_given_labels[i].lower() == "notfound":
-                    continue
-                else:
-                    pass     
                 # checking if Label data contains lable already in database
-                if Label.objects.filter(categories__icontains=list_of_given_labels[i]) or list_of_given_labels[i] in list_of_given_labels:
+                if Label.objects.filter(categories__icontains=list_of_given_labels[i]):
                     pass
                 # if lable is not in database so add it
                 else:
                     New_label = Label(categories=list_of_given_labels[i])
                     New_label.save()
                     new_label_added = True
+            #----------------- recheck if other extra label will not be created --------------
+            all_categories = Label.objects.all()
+            temp_label_list = []
+            for label_item in all_categories.iterator():
+                if label_item.categories in temp_label_list:
+                    label_item.categories.delete()
+                else:
+                    temp_label_list.append(label_item.categories)
+                
             # if each credentials are right so creating a post
             Create_new_post = Post(section=section, category=label, logo_link=logo_link,
                                     screen_shots=screen_shots, title=title, title_caption=title_caption,
