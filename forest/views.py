@@ -95,8 +95,13 @@ def forest_movies(request):
         if request.POST.get("label"):
             # getting lable name
             selected_label = request.POST["label"]
-            # getting a page id where user is now
-            page_id = request.session["page_id"]
+            # getting a page id where user is now if user is in download page so getting section from request perameter
+            
+            if request.POST.get("section_of_download_page"):
+                page_id = request.POST["section_of_download_page"]
+            else:
+                page_id = request.session["page_id"]
+                
             # updating content with related category and section
             all_movies_post = Post.objects.filter(
                 category__icontains=selected_label, section=page_id).order_by("sno").reverse()
