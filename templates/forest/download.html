@@ -172,6 +172,7 @@
     {% comment %} form for lables inside downlaod page  {% endcomment %}
     <form action="/forest/movies" id="for_categories" method="post">
         {% csrf_token %}
+        <input type="hidden" name="section_of_download_page" value="{{post.section}}"> 
     </form>
       {% comment %} ending tags section  {% endcomment %}
       {% comment %} making a fram for YouTube trailer  {% endcomment %}
