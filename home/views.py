@@ -165,7 +165,7 @@ class ZeroTwo(View):
         # getting size 
         size = request.POST["size"]
         # base url to request to zero_two 
-        base_url = 'http://maiis.pythonanywhere.com'
+        base_url = 'http://zerotwo.gq'
         # api key to excess the zero_two api 
         API_KEY = '898sdvi7rb3l34cv'
         # making a query to search in zero_two 
