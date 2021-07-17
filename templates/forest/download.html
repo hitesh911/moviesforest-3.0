@@ -120,10 +120,9 @@
             {% endfor %}
       <!-- Gallery -->
       {% comment %} ending screenshots grid  {% endcomment %}
-      {% comment %} ---------------banner add of flyer square---------{% endcomment %}
-      <div class="xc449bad4854773ff" data-zone="e7e5f9334a194a99993bda88f54fe9ce" style="width:320px;height:100px;display: inline-block;margin: 0 auto"></div>
       {% comment %} download links dropdown  {% endcomment %}
-          <div class="dropdown ">
+      <div class="d-flex flex-wrap justify-content-around">
+          <div class=" dropdown mb-3">
             <a class="btn btn-secondary dropdown-toggle" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
               Download links
             </a>
@@ -133,22 +132,39 @@
               <li><a class="dropdown-item" href={{download_link}}>{{quality}}</a></li>
               {% endfor %}
             </ul>
+          </div>
+          <div class=" dropdown mb-3">
             {% comment %} next dropdown for stream  {% endcomment %}
-            <a class="btn btn-secondary dropdown-toggle mx-2 me-0" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="btn btn-secondary dropdown-toggle " role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
               Watch Now
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
               {% for quality ,stream_link in stream_links_list.items %}
-              {% comment %} making a button to redirect into stream page  {% endcomment %}
+              {% comment %} making a buttons inside dropdown to redirect into stream page  {% endcomment %}
               <li><button class="dropdown-item" form = "for_stream_page" value={{stream_link}} name = "link">{{quality}}</button></li>
               {% endfor %}
             </ul>
           </div>
-          {% comment %} form for stream  {% endcomment %}
+          <div class="dropdown mb-3">
+            {% comment %} this is the dropdown for other download links  {% endcomment %}
+            <a class="btn btn-secondary dropdown-toggle" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              Direct links
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
+              {% for movie_print ,direct_links in other_links_list.items %}
+              <li><a class="dropdown-item" href={{direct_link}}>{{movie_print}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+          
+          {% comment %} form for stream page {% endcomment %}
           <form action="/forest/stream" id ="for_stream_page">
           </form>
           {% comment %} end stream form  {% endcomment %}
+      
       {% comment %} end dropdowns of download and stream  {% endcomment %}
       {% comment %} making tags section  {% endcomment %}
       <div class="album py-5 bg-light p-0 mt-1 bg-dark">

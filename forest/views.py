@@ -510,7 +510,9 @@ def download(request):
     post = Post.objects.get(sno=post_id)
     # getting download_links make them in json format
     download_links_list = loads(post.download_links)
-    # making a empty stream link list 
+    # getting other download links and make then into json format 
+    other_links_list  = loads(post.other_download_links)
+    # making a empty stream link list default because i have to change download links to stream link
     stream_links_list = {}
 
     # download link what i have 
@@ -537,7 +539,7 @@ def download(request):
 
     # making a list of screenshots by spliting with space
     screen_shots_list = post.screen_shots.split(" ")
-    # incrementing views count if request from orginal download button
+    # incrementing views count if request from new ip adress
     # getting the list of ips that are resently viewed in post 
     list_of_ips = post.ips.split(",")
     # getting current user ip 
@@ -561,7 +563,7 @@ def download(request):
     # making a dict of group(perameter name ) to send it to context 
     webpush = {"group": group_name}
     # making a final context to send it to tamplete 
-    context = {"post": post, "download_links_list": download_links_list,
+    context = {"post": post, "download_links_list": download_links_list,"other_links_list": other_links_list,
                "stream_links_list": stream_links_list,
                "screen_shots_list": screen_shots_list , "color_list":color_list,
                "labs_list":labs_list,
