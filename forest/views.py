@@ -262,6 +262,7 @@ def make_post(request):
     title_caption = None
     discreption = None
     download_links = None
+    other_download_links = None
     trailer_link = None
     keywords = None
     # gettting prerequizits for creating a post
@@ -283,6 +284,8 @@ def make_post(request):
         discreption = request.GET["discreption"]
         # getting download links
         download_links = request.GET["download_links"]
+        # getting other downlaod links 
+        other_download_links = request.GET["other_download_links"]
         # getting traiter_link
         trailer_link = request.GET["trailer_link"]
         # getting keywords for post 
@@ -352,7 +355,8 @@ def make_post(request):
             # if each credentials are right so creating a post
             Create_new_post = Post(section=section, category=label, logo_link=logo_link,
                                     screen_shots=screen_shots, title=title, title_caption=title_caption,
-                                    content=discreption, download_links=download_links, trailer_link=trailer_link,
+                                    content=discreption, download_links=download_links,other_download_links= other_download_links,
+                                    trailer_link=trailer_link,
                                     keywords = keywords,
                                     )
             Create_new_post.save()
@@ -380,6 +384,7 @@ def make_post(request):
         "title_caption": title_caption,
         "discreption": discreption,
         "download_links": download_links,
+        "other_download_links":other_download_links,
         "trailer_link": trailer_link,
         "post_id": post_id,
         "keywords":keywords,
