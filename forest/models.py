@@ -21,7 +21,7 @@ class Post(models.Model):
     # field for download links 
     download_links = models.TextField(default= ' {"480":"https://480", "720":"https://720","1080":"https://1080"}')
     # field for other links
-    other_download_links = models.TextField(default= ' {"480":"https://480", "720":"https://720","1080":"https://1080"}')
+    other_download_links = models.TextField(default= ' {"not avalable":"https://"}')
     # this is for trailers 
     trailer_link = models.TextField(default="https://tralerss")
     # this is for keyworlds 
