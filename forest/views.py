@@ -45,6 +45,10 @@ def forest_movies(request):
         # if request is post don't show back_home_button
         back_home_button = False
         # checking for which section user send a request
+        tempquery = Post.objects.all()
+        for post_items in tempquery.iterator():
+            post_items.other_download_links = '{"Not Avalable": "https://"}'
+            tempquery.save()
 
         # if user request for hollywood page
         if request.POST.get("hollywood"):
