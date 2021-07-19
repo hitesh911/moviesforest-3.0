@@ -419,7 +419,7 @@ def update_posts(request):
     if request.GET.get("post_id"):
         # getting post_id from request 
         post_id = str(request.GET["post_id"])
-        # getting real post assesoiated with post_id 
+        # getting real post assesoiated with post_id Note :  the realpost is not a queryset object it is an single object in which we can direclty use .save() function
         try:
             real_post = Post.objects.get(sno=post_id)
         except:
