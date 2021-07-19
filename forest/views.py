@@ -48,7 +48,7 @@ def forest_movies(request):
         tempquery = Post.objects.all()
         for post_items in tempquery.iterator():
             post_items.other_download_links = '{"Not Avalable": "https://"}'
-            tempquery.save()
+            post_items.save()
 
         # if user request for hollywood page
         if request.POST.get("hollywood"):
