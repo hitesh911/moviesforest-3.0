@@ -149,12 +149,12 @@
           <div class="dropdown mb-3">
             {% comment %} this is the dropdown for other download links  {% endcomment %}
             <a class="btn btn-secondary dropdown-toggle" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              Direct links
+              Other links
             </a>
 
             <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
               {% for movie_print ,direct_links in other_links_list.items %}
-              <li><a class="dropdown-item" href={{direct_link}}>{{movie_print}}</a></li>
+              <li><a class="dropdown-item" href={{direct_links}}>{{movie_print}}</a></li>
               {% endfor %}
             </ul>
           </div>
