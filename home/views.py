@@ -29,7 +29,7 @@ def send_notification(request):
         group_name = "my_subscriber"
         # making a data payload to send content in notification 
         payload = {"head": heading, "body": body, 
-            "icon": icon_url, "url": url}
+            "icon": "https://images.app.goo.gl/W8Wm3j11jVBkifF47", "url": url}
         try:
             send_group_notification(group_name=group_name, payload=payload, ttl=10000)
         except:
