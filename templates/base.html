@@ -33,6 +33,14 @@
     {% comment %} this is title blank {% endcomment %}
     <title>{% block title %}{% endblock title %}</title>
     <style>
+        .loadingbar{
+            border : 2px solid red;
+            height: 100%;
+            width : 100%;
+            position : absolute;
+            
+        
+        }
         .nav-item {
             margin-right: 1rem;
         }
@@ -236,7 +244,7 @@
                         <ul class=" navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row justify-content-between">
 
                             <li class="nav-item">
-                                <a class="nav-link {% block homeactive %}{% endblock homeactive %}" aria-current="page" href="/home">Home</a>
+                                <a class="nav-link {% block homeactive %}{% endblock homeactive %}" aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {% block aboutactive %}{% endblock aboutactive %}" href="/about">About</a>
