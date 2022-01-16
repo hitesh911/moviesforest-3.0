@@ -23,7 +23,7 @@ def forest_movies(request):
     # specific verables
     label_selected = False
     # making all section inactive as default
-    active_hollywood = None
+    active_hollywood =  None
     active_bollywood = None
     active_anima = None
     active_animation = None

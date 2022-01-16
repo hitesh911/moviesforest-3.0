@@ -94,16 +94,18 @@
             background: transparent;
             color: #fff;
             font-size: 1.5rem;
+            
         }
 
         .search-box:focus {
             outline: none;
+            
 
         }
 
         .search-button {
 
-
+            caret-color: transparent;
             display: block;
             position: absolute;
             right: 0;
@@ -190,7 +192,8 @@
 
 <body>
 
-
+    {% comment %} // for clicking automatically to hollywood button when load home  {% endcomment %}
+   
     {% comment %} writing a java script for search suggestion Note : this is inherit from jqery autocomplete {% endcomment %}
     <script>
         $(function() {
@@ -201,7 +204,7 @@
         });
     </script>
     {% comment %} navigation bar {% endcomment %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark this-is-temp">
         <div class="container-fluid">
             <!-- Button trigger for sections -->
             <button type="button" class=" me-3 btn text-success btn-link shadow" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -233,7 +236,7 @@
                         <ul class=" navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row justify-content-between">
 
                             <li class="nav-item">
-                                <a class="nav-link {% block homeactive %}{% endblock homeactive %}" aria-current="page" href="/">Home</a>
+                                <a class="nav-link {% block homeactive %}{% endblock homeactive %}" aria-current="page" href="/home">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {% block aboutactive %}{% endblock aboutactive %}" href="/about">About</a>
