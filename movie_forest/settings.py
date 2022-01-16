@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-*65y(m&u)cp4v@pn1fuwiib2%2oo29_&*djtyzt*a(&+5)vgve
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG  = True
 
-ALLOWED_HOSTS = ["*","localhost", "moviesforest.herokuapp.com" ,  "themoviesforest.herokuapp.com" , "www.themoviesforest.gq", "themoviesforest.gq" , "themoviesforest.com" , "www.themoviesforest.com"]
+ALLOWED_HOSTS = ["*" ,"moviesforest.herokuapp.com" ,  "themoviesforest.herokuapp.com" , "www.themoviesforest.gq", "themoviesforest.gq" , "themoviesforest.com" , "www.themoviesforest.com"]
 
 
 # Application definition
