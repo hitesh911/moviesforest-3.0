@@ -81,7 +81,7 @@
         <div class="card-body">
           <h5 class="card-title">{{post.title}}</h5>
           <p class=" text-start card-text">{{post.title_caption|safe}}</p>
-          <a href="#download_link_dropdown" class="btn btn-primary">Go to Download buttons</a>
+          <a href="#download_button" class="btn btn-primary">Go to Download buttons</a>
         </div>
       </div>
     </div>
@@ -89,12 +89,12 @@
 
     <main class="px-3 " id="download">
     {% comment %} for discreption  {% endcomment %}
-      <h1>About this content.</h1>
+      <h1>Story line.</h1>
       <p class="lead">{{post.content|safe}}</p>
       {% comment %} end discreption  {% endcomment %}
       {% comment %} making a grid to display screenshots  {% endcomment %}
       <!-- Gallery -->
-          <div class="row">
+          {% comment %} <div class="row">
             {% for screen_shots in screen_shots_list  %}
             <div class="col-lg-6 col-md-6 mb-4 mb-lg-0">
               <img
@@ -103,12 +103,29 @@
                 alt="screen_shots not avalable"
               />
             </div>
-            {% endfor %}
+            {% endfor %} {% endcomment %}
       <!-- Gallery -->
       {% comment %} ending screenshots grid  {% endcomment %}
       {% comment %} download links dropdown  {% endcomment %}
-      <div class="d-flex flex-wrap justify-content-around">
-          <div class=" dropdown mb-3">
+      <div class="d-flex flex-wrap justify-content-around container">
+        {% comment %} this is pryanshu button  {% endcomment %}
+        {% for movie_print ,direct_links in other_links_list.items %}
+            <a href="" class="button " id = "download_button" href ={{direct_links}}>
+                <ul>
+                    <li>{{movie_print}}</li>
+                  
+                </ul>
+                <div  >
+                  <svg  width="30" height="30" fill="currentColor" class="bi bi-download mt-2 " viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                  </svg>
+                </div>
+            </a>
+        {% endfor %}
+
+        
+          {% comment %} <div class=" dropdown mb-3">
             <a class="btn btn-secondary dropdown-toggle" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
               Download links
             </a>
@@ -118,23 +135,23 @@
               <li><a class="dropdown-item" href={{download_link}}>{{quality}}</a></li>
               {% endfor %}
             </ul>
-          </div>
-          <div class=" dropdown mb-3">
+          </div> {% endcomment %}
+          {% comment %} <div class=" dropdown mb-3"> {% endcomment %}
             {% comment %} next dropdown for stream  {% endcomment %}
-            <a class="btn btn-secondary dropdown-toggle " role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            {% comment %} <a class="btn btn-secondary dropdown-toggle " role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
               Watch Now
-            </a>
+            </a> {% endcomment %}
 
-            <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
-              {% for quality ,stream_link in stream_links_list.items %}
+            {% comment %} <ul class="dropdown-menu" aria-labelledby="download_link_dropdown">
+              {% for quality ,stream_link in stream_links_list.items %} {% endcomment %}
               {% comment %} making a buttons inside dropdown to redirect into stream page  {% endcomment %}
-              <li><button class="dropdown-item" form = "for_stream_page" value={{stream_link}} name = "link">{{quality}}</button></li>
-              {% endfor %}
-            </ul>
-          </div>
-          <div class="dropdown mb-3">
+              {% comment %} <li><button class="dropdown-item" form = "for_stream_page" value={{stream_link}} name = "link">{{quality}}</button></li>
+              {% endfor %} {% endcomment %}
+            {% comment %} </ul> {% endcomment %}
+          {% comment %} </div> {% endcomment %}
+          {% comment %} <div class="dropdown mb-3"> {% endcomment %}
             {% comment %} this is the dropdown for other download links  {% endcomment %}
-            <a class="btn btn-secondary dropdown-toggle" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            {% comment %} <a class="btn btn-secondary dropdown-toggle" role="button" id="download_link_dropdown" data-bs-toggle="dropdown" aria-expanded="false">
               Other links
             </a>
 
@@ -143,12 +160,12 @@
               <li><a class="dropdown-item" href={{direct_links}}>{{movie_print}}</a></li>
               {% endfor %}
             </ul>
-          </div>
+          </div> {% endcomment %}
         </div>
           
           {% comment %} form for stream page {% endcomment %}
-          <form action="/forest/stream" id ="for_stream_page">
-          </form>
+          {% comment %} <form action="/forest/stream" id ="for_stream_page">
+          </form> {% endcomment %}
           {% comment %} end stream form  {% endcomment %}
       
       {% comment %} end dropdowns of download and stream  {% endcomment %}
@@ -181,7 +198,6 @@
       {% comment %} ending tags section  {% endcomment %}
       {% comment %} making a fram for YouTube trailer  {% endcomment %}
       <!-- 21:9 aspect ratio -->
-      
         <h1 class = " mb -2 mt-4">Trailer</h1>
         <iframe class = "mb-2 btn-outline-success shadow border border-success rounded border-top-0 border-bottom-0" width="560" height="315" src="{{post.trailer_link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       {% comment %} end YouTube trailer fram  {% endcomment %}

@@ -6,10 +6,10 @@
 {% block title %}Hollywood {% endblock title %}
 {% block body %}
 {% comment %} making a container for containing all body {% endcomment %}
-<div class="container-xl pt-3">
+<div class="container-xl pt-3 ">
     {% comment %} checking if you are not in first page so don't show banner {% endcomment %}
     {% if show_banner %}
-    <hr>
+    <hr clear = "mt-5">
     {% comment %} making a string to get banner name in prefect format {% endcomment %}
     {% with "banners/"|add:banner|add:".jpg" as banner %}
     {% comment %} displaying a banner in section tag {% endcomment %}

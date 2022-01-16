@@ -27,4 +27,91 @@ html * {
     transform: rotate(180deg);
 }
 
+.button.dark-single {
+    --background: none;
+    --rectangle: #242836;
+    --success: #4BC793;
+}
+
+.button.white-single {
+    --background: none;
+    --rectangle: #F5F9FF;
+    --arrow: #275efe;
+    --success: #275efe;
+    --shadow: rgba(10, 22, 50, .1);
+}
+
+.button.dark {
+    --background: #242836;
+    --rectangle: #1C212E;
+    --arrow: #F5F9FF;
+    --text: #F5F9FF;
+    --success: #2F3545;
+}
+
+.button {
+
+    --background: #275efe;
+    --rectangle: #184fee;
+    --success: #4672f1;
+    --text: #fff;
+    --arrow: #fff;
+    --checkmark: #fff;
+    --shadow: rgba(10, 22, 50, .24);
+    margin: 1em;
+    display: flex;
+    overflow: hidden;
+    text-decoration: none;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    background: var(--background);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px -1px var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px -1px var(--shadow);
+}
+
+.button ul {
+    margin: 0;
+    padding: 16px 40px;
+    list-style: none;
+    text-align: center;
+    position: relative;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 28px;
+    color: var(--text);
+}
+
+.button ul li:not(:first-child) {
+    top: 16px;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+.button ul li:nth-child(2) {
+    top: 76px;
+}
+
+.button ul li:nth-child(3) {
+    top: 136px;
+}
+
+.button>div {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: var(--rectangle);
+    color: white;
+}
+
+
+
+
 /* ending this css is only for navbar togger button  */
