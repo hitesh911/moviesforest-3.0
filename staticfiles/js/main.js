@@ -1,5 +1,5 @@
 // making a function for copying the url 
-console.log("i am there")
+
 function copyUrl() {
     // if unable to get window 
     if (!window.getSelection) {
@@ -64,7 +64,7 @@ $('.search-button').click(function(){
 
 // for clicking automatically to hollywood button when load home 
 
-console.log(window.location.pathname)
+// console.log(window.location.pathname)
   if(window.location.pathname == "/"){
       var clickbutton  = document.getElementById("clickhere_home_button")
       if (clickbutton != null){

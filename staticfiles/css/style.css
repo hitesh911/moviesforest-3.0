@@ -1,0 +1,374 @@
+/* making every thing right as default  */
+body * {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* apllying font in whole site */
+html * {
+    font-family: 'Baloo Bhai 2', cursive;
+
+}
+
+/* this css is only for navbar togger button  note : for arrow_icon*/
+#checkbox_for_arrow {
+    display: none;
+}
+
+.arrow_icon {
+
+    transition: all 0.2s 0.2s;
+    transform: rotate(0);
+}
+
+#checkbox_for_arrow:checked+.arrow_icon {
+    transform: rotate(180deg);
+}
+
+
+/* ending this css is only for navbar togger button  */
+/* this is for download button in download page  */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    line-height: 3rem;
+    background: linear-gradient(to right, rgba(255, 46, 0, 1) 0%, rgba(252, 0, 143, 1) 100%);
+    text-align: center;
+    padding: 0px 25px;
+    min-width: 2rem;
+    border-radius: 6px;
+    color: #FFF;
+    text-decoration: none;
+    transition: all .3s ease;
+
+    position: relative;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.button:hover {
+    background: linear-gradient(to right, #00ff62 1%, #00fffa 100%);
+    text-decoration: none;
+    color: black;
+}
+
+
+.button--hvr_bounce {
+    z-index: 999;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* some more css  */
+.trailer-iframe-tag {
+    width: 100%;
+}
+
+/* loading container home page  */
+
+.container-for-loading {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    filter: url('#goo');
+    animation: rotate-move 2s ease-in-out infinite;
+}
+
+.dot {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.dot-3 {
+    background-color: #f74d75;
+    animation: dot-3-move 2s ease infinite, index 6s ease infinite;
+}
+
+.dot-2 {
+    background-color: #10beae;
+    animation: dot-2-move 2s ease infinite, index 6s -4s ease infinite;
+}
+
+.dot-1 {
+    background-color: #ffe386;
+    animation: dot-1-move 2s ease infinite, index 6s -2s ease infinite;
+}
+
+@keyframes dot-3-move {
+    20% {
+        transform: scale(1)
+    }
+
+    45% {
+        transform: translateY(-18px) scale(.45)
+    }
+
+    60% {
+        transform: translateY(-90px) scale(.45)
+    }
+
+    80% {
+        transform: translateY(-90px) scale(.45)
+    }
+
+    100% {
+        transform: translateY(0px) scale(1)
+    }
+}
+
+@keyframes dot-2-move {
+    20% {
+        transform: scale(1)
+    }
+
+    45% {
+        transform: translate(-16px, 12px) scale(.45)
+    }
+
+    60% {
+        transform: translate(-80px, 60px) scale(.45)
+    }
+
+    80% {
+        transform: translate(-80px, 60px) scale(.45)
+    }
+
+    100% {
+        transform: translateY(0px) scale(1)
+    }
+}
+
+@keyframes dot-1-move {
+    20% {
+        transform: scale(1)
+    }
+
+    45% {
+        transform: translate(16px, 12px) scale(.45)
+    }
+
+    60% {
+        transform: translate(80px, 60px) scale(.45)
+    }
+
+    80% {
+        transform: translate(80px, 60px) scale(.45)
+    }
+
+    100% {
+        transform: translateY(0px) scale(1)
+    }
+}
+
+@keyframes rotate-move {
+    55% {
+        transform: translate(-50%, -50%) rotate(0deg)
+    }
+
+    80% {
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+}
+
+@keyframes index {
+
+    0%,
+    100% {
+        z-index: 3
+    }
+
+    33.3% {
+        z-index: 2
+    }
+
+    66.6% {
+        z-index: 1
+    }
+}
+
+.loadingbar {
+
+    height: 100%;
+    width: 100%;
+    position: absolute;
+
+
+}
+
+.nav-item {
+    margin-right: 1rem;
+}
+
+.search-submate-button {
+    display: none;
+
+}
+
+.open .search-submate-button {
+    display: block;
+}
+
+
+
+.search {
+
+    /* width: 35vh; */
+    height: 100%;
+
+    background-color: #242628;
+    position: relative;
+    transition: all 0.5s ease;
+
+}
+
+
+
+.search:before {
+    content: "";
+    display: block;
+    width: 0.1rem;
+    height: 100%;
+    position: relative;
+    background-color: #00FEDE;
+    transition: all 0.5s ease-in-out;
+    right: 0;
+    margin-right: 1.5rem;
+}
+
+.search.open {
+
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.search.open:before {
+    height: 2rem;
+
+
+}
+
+.search-box {
+    width: 100%;
+    display: none;
+    height: 100%;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 1.5rem;
+
+}
+
+.search-box:focus {
+    outline: none;
+
+
+}
+
+.search-button {
+
+    caret-color: transparent;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    cursor: pointer;
+}
+
+.search-icon {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 9vh;
+    border: 3px solid #00FEDE;
+    display: block;
+    position: relative;
+
+    transition: all 0.5s ease-in-out;
+}
+
+.search-icon:before {
+    content: "";
+    width: 0.1rem;
+    height: 0.7rem;
+    position: absolute;
+    right: -0.2em;
+    top: 0.4em;
+    display: block;
+    background-color: #00FEDE;
+    transform: rotate(-45deg);
+    transition: all 0.5s ease-in-out;
+}
+
+.search-icon:after {
+    content: "";
+    width: .1rem;
+    height: 0.7em;
+    position: absolute;
+    right: -0.7rem;
+    top: 0.9rem;
+    display: block;
+    background-color: #00FEDE;
+    transform: rotate(-45deg);
+    transition: all 0.5s ease;
+}
+
+.open .search-box {
+    display: block;
+}
+
+.open .search-icon {
+    margin: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 60px;
+}
+
+.open .search-box {
+    display: unset;
+
+    margin-left: 0.5rem;
+}
+
+.open .search-icon:before {
+    transform: rotate(52deg);
+    right: 0.7rem;
+    top: -0.1rem;
+    height: 1.7rem;
+}
+
+.open .search-icon:after {
+    transform: rotate(-230deg);
+    top: -0.1rem;
+    height: 1.5rem;
+    right: 0.5rem;
+}
+
+.open .search-button {
+    position: relative;
+}
