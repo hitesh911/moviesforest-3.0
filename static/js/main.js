@@ -1,5 +1,5 @@
 // making a function for copying the url 
-
+console.log("yes")
 function copyUrl() {
     // if unable to get window 
     if (!window.getSelection) {
@@ -30,6 +30,7 @@ $(document).ready(function() {
 
 // this is for search button 
 $('.search-button').click(function(){
+    console.log("open added")
     $(this).parent().toggleClass('open');
 
     
@@ -64,7 +65,7 @@ $('.search-button').click(function(){
 
 // for clicking automatically to hollywood button when load home 
 
-// console.log(window.location.pathname)
+
   if(window.location.pathname == "/"){
       var clickbutton  = document.getElementById("clickhere_home_button")
       if (clickbutton != null){
@@ -73,3 +74,23 @@ $('.search-button').click(function(){
       }
   }
 
+// function to show loading screen 
+
+// $('.loading_button').click(function(){
+//     console.log("clicked")
+//     $(".loadingbar").show()
+    
+// })
+document.onreadystatechange = function(){
+    if(document.readyState !== "complete"){
+        // document.querySelector("body").style.background ="transparent";
+        $("body").addClass("body-while-loading")
+        document.querySelector(".loadingbar").style.visibility ="visible";
+        
+        
+    }else{
+        $("body").removeClass("body-while-loading")
+        document.querySelector(".loadingbar").style.visibility ="hidden";
+    
+    }
+}

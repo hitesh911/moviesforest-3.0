@@ -5,23 +5,7 @@
 {% load static %}
 {% load webpush_notifications %}
 {% block body %}
-{% comment %} loading bar  {% endcomment %}
-<div class="loadingbar ">
-  <div class="container-for-loading">
-    <div class="dot dot-1"></div>
-    <div class="dot dot-2"></div>
-    <div class="dot dot-3"></div>
-  </div>
-  
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-    <defs>
-      <filter id="goo">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7"/>
-      </filter>
-    </defs>
-  </svg>
-</div>
+
 
 {% comment %}---------------------- this is the msg to ask people to subscribe ----------------------- {% endcomment %}
 <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 5">
@@ -88,7 +72,7 @@
             <p class="card-text mb-auto mt-3">We provide every new movies with best resolution. If you are looking for
               best
               movie downloading site on internet you are in right place </p>
-            <button id = "clickhere_home_button" class="stretched-link btn btn-outline-secondary my-3" form="movies_page_request" value="hollywood"
+            <button id = "clickhere_home_button" class=" stretched-link btn btn-outline-secondary my-3" form="movies_page_request" value="hollywood"
               name="hollywood" type="submate">Click here..</button>
           </div>
           <div class="col-auto d-none d-lg-block">

@@ -32,12 +32,30 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% comment %} this is title blank {% endcomment %}
     <title>{% block title %}{% endblock title %}</title>
+   
+    
     
 </head>
 
 <body>
-
-    {% comment %} // for clicking automatically to hollywood button when load home  {% endcomment %}
+    {% comment %} loading bar  {% endcomment %}
+    <div class="loadingbar " >
+        <div class="container-for-loading">
+        <div class="dot dot-1"></div>
+        <div class="dot dot-2"></div>
+        <div class="dot dot-3"></div>
+        </div>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7"/>
+            </filter>
+        </defs>
+        </svg>
+    </div>
+    
    
     {% comment %} writing a java script for search suggestion Note : this is inherit from jqery autocomplete {% endcomment %}
     <script>
@@ -48,6 +66,7 @@
             });
         });
     </script>
+    
     {% comment %} navigation bar {% endcomment %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark this-is-temp">
         <div class="container-fluid">
@@ -74,7 +93,7 @@
                     </svg>
                 </label>
             </button>
-            <div class=" show navbar-collapse mt-2 " id="navbarSupportedContent">
+            <div class="show navbar-collapse mt-2 " id="navbarSupportedContent">
                 <div class="container-lg d-flex justify-content-between " , style="height: 2rem">
                     {% comment %} search form {% endcomment %}
                     <div class="bro  " id="other-nav-items">
@@ -103,7 +122,7 @@
                                   </svg>
                             </button>
                             <input id="query_input" class="  search-box me-1" type="search" placeholder="Search" aria-label="search" name="search">
-                            <span class="search-button">
+                            <span class="search-button ">
                                 <span class="search-icon"></span>
                             </span>
                         {% comment %} </div> {% endcomment %}
@@ -187,6 +206,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %}
+    
     {% comment %} making a block for body {% endcomment %}
     {% block body %}{% endblock body %}
     {% comment %} this is footer {% endcomment %}

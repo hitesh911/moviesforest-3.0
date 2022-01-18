@@ -5,6 +5,7 @@
 {% load static %}
 {% block title %}Hollywood {% endblock title %}
 {% block body %}
+
 {% comment %} making a container for containing all body {% endcomment %}
 <div class="container-xl pt-3 ">
     {% comment %} checking if you are not in first page so don't show banner {% endcomment %}
@@ -106,7 +107,7 @@
                 <div class=" d-flex justify-content-between align-items-center">
                     {% comment %} making a button with the value of serial no of post {% endcomment %}
                     <div class="d-inline">
-                        <button class="stretched-link btn btn-outline-secondary " type=" submate" name="post_id"
+                        <button class="stretched-link btn btn-outline-secondary  " onclick = "loading_function()" type=" submate" name="post_id"
                             value={{posts.sno}} form="for_download_page">Open Post</button>
                     </div>
                 </div>
@@ -118,6 +119,7 @@
              Views : {{posts.views_count}}</small>
         </div>
     </div>
+    
     {% endfor %}
     {% endwith %}
     {% comment %} form for downlaod page request {% endcomment %}
@@ -171,4 +173,6 @@
 </form>
 
 </div>
+
+
 {% endblock body %}

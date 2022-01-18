@@ -216,19 +216,22 @@ html * {
     position: absolute;
 
 
+
+
 }
 
 .nav-item {
     margin-right: 1rem;
 }
 
+/* this is for search submate button  */
 .search-submate-button {
-    display: none;
+    display: none !important;
 
 }
 
 .open .search-submate-button {
-    display: block;
+    display: block !important;
 }
 
 
