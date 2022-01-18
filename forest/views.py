@@ -185,13 +185,13 @@ def forest_movies(request):
             other.append(lab.categories)
     # if someone refresh applying changes according to the page_id
     if page_id == "hollywood":
-        active_hollywood = " bg-success"
+        active_hollywood = "now-active"
     elif page_id == "bollywood":
-        active_bollywood = " bg-success"
+        active_bollywood = "now-active"
     elif page_id == "anima":
-        active_anima = " bg-success"
+        active_anima = "now-active"
     elif page_id == "animation":
-        active_animation = " bg-success"
+        active_animation = "now-active"
     else:
         pass
 

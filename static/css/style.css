@@ -12,6 +12,14 @@ html * {
 
 }
 
+/* css for movie page section button */
+.now-active {
+    background: linear-gradient(to right, #00ff62 1%, #00fffa 100%);
+    text-decoration: none;
+    color: black;
+
+}
+
 /* this css is only for navbar togger button  note : for arrow_icon*/
 #checkbox_for_arrow {
     display: none;
@@ -31,6 +39,7 @@ html * {
 /* ending this css is only for navbar togger button  */
 /* this is for download button in download page  */
 .button {
+    caret-color: transparent;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -223,6 +232,7 @@ html * {
     height: 100%;
     width: 100%;
     position: absolute;
+    z-index: 2;
 
 
 
