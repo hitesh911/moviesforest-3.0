@@ -6,6 +6,25 @@ from json import loads , dumps
 import requests 
 from random import choice
 # global verables 
+# getting all labels avalable in database
+labels = Label.objects.all()
+# making empty year list 
+year = []
+# making main for main categorey 
+main = []
+# making other labels list 
+other = []
+# for loop to filter the labels 
+for lab in labels.iterator():
+    # if categorery is in numbers so put it into year section 
+    if lab.categories.isdigit():
+        year.append(lab.categories)
+    # if category is language or main so put it into main 
+    elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
+        main.append(lab.categories)
+    # and put other categorey into others 
+    else:
+        other.append(lab.categories)
 # making color list to send it for template to use random color functianality 
 color_list = ["danger" , "warning" ,"primary" ,"secondary" , "success" , "info" ,"light" , "dark"  ]
 
@@ -98,6 +117,10 @@ def forest_movies(request):
             
             if request.POST.get("section_of_download_page"):
                 page_id = request.POST["section_of_download_page"]
+            elif "|" in selected_label:
+                l_and_s = selected_label.split("|")
+                selected_label = l_and_s[1]
+                page_id = l_and_s[0]
             else:
                 page_id = request.session["page_id"]
                 
@@ -164,25 +187,7 @@ def forest_movies(request):
             # showing back_home button instead of previous or next button's
             back_home_button = True
 
-    # getting all labels avalable in database
-    labels = Label.objects.all()
-    # making empty year list 
-    year = []
-    # making main for main categorey 
-    main = []
-    # making other labels list 
-    other = []
-    # for loop to filter the labels 
-    for lab in labels.iterator():
-        # if categorery is in numbers so put it into year section 
-        if lab.categories.isdigit():
-            year.append(lab.categories)
-        # if category is language or main so put it into main 
-        elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
-            main.append(lab.categories)
-        # and put other categorey into others 
-        else:
-            other.append(lab.categories)
+    
     # if someone refresh applying changes according to the page_id
     if page_id == "hollywood":
         active_hollywood = "now-active"
@@ -587,6 +592,7 @@ def download(request):
                "screen_shots_list": screen_shots_list , "color_list":color_list,
                "labs_list":labs_list,
                "webpush":webpush,
+               "year": year ,"main":main ,  "other":other
                }
     return render(request, "forest/download.html", context)
 
@@ -594,7 +600,7 @@ def download(request):
 def stream(request):
     # getting stream link
     link = request.GET["link"]
-    context = {"link": link}
+    context = {"link": link , "year": year ,"main":main ,  "other":other}
     return render(request, "forest/stream.html", context)
 
 

@@ -12,7 +12,7 @@
     {% webpush_header %}
     {% comment %} block for other metatags related to the posts {% endcomment %}
     {% block metatags %}{% endblock metatags%}
-    
+
     {% comment %}-------------------------------- this is css section -------------------------------------------------- {% endcomment %}
     {% comment %} linking coustom css {% endcomment %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -32,31 +32,68 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     {% comment %} this is title blank {% endcomment %}
     <title>{% block title %}{% endblock title %}</title>
-   
-    
-    
+    <style>
+        .section-button::before {
+            display: inline-block;
+            color: #0dcaf0 !important;
+            width: 1.25em;
+            /* content: url("{% static 'logo/arrow.svg' %}"); */
+            content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+            transition: transform .35s ease;
+            transform-origin: .5em 50%;
+
+        }
+
+        .section-button[aria-expanded="true"]::before {
+            transform: rotate(90deg) !important;
+        }
+
+        .labels-list {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+
+        .labels-list li {
+            margin-top: 1rem;
+
+        }
+
+        .section-button:hover,
+        .section-button:focus {
+
+            color: rgba(0, 0, 0, .65) !important;
+            background-color: #d2f4ea;
+        }
+
+        .section-label:hover,
+        .section-label:focus {
+
+            color: rgba(0, 0, 0, .65) !important;
+            background-color: #d2f4ea;
+        }
+    </style>
+
 </head>
 
 <body>
-    {% comment %} loading bar  {% endcomment %}
-    <div class="loadingbar " >
+    <div class="loadingbar ">
         <div class="container-for-loading">
-        <div class="dot dot-1"></div>
-        <div class="dot dot-2"></div>
-        <div class="dot dot-3"></div>
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+            <div class="dot dot-3"></div>
         </div>
-        
+
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <defs>
-            <filter id="goo">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7"/>
-            </filter>
-        </defs>
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7" />
+                </filter>
+            </defs>
         </svg>
     </div>
-    
-   
+
+
     {% comment %} writing a java script for search suggestion Note : this is inherit from jqery autocomplete {% endcomment %}
     <script>
         $(function() {
@@ -66,39 +103,144 @@
             });
         });
     </script>
-    
+    {% comment %} this is for slider {% endcomment %}
+    <div class="slider">
+
+        {% comment %} button to colapse right slider{% endcomment %}
+
+        <button id="slider-trigger-button" class="slider-button " type="button" data-bs-toggle="offcanvas" data-bs-target="#slider-menu" aria-controls="offcanvasExample">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-caret-right-fill slider-arrow" viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />
+            </svg>
+        </button>
+        <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="slider-menu" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header mb-4">
+                <button id="close-slider" type="button" class="btn-close text-reset d-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                {% comment %} thise are for sections {% endcomment %}
+                {% comment %} form to submate the slider allmovies label Request {% endcomment %}
+                <form action="/forest/movies" method="post" id="section">
+                    {% csrf_token %}
+                </form>
+                {% comment %} making a form for categorydropdown menus {% endcomment %}
+                <form action="/forest/movies" id="for_categories" method="post">
+                    {% csrf_token %}
+                </form>
+                {% comment %} end form {% endcomment %}
+                <div class="flex-shrink-0 p-3">
+                    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-light text-decoration-none border-bottom">
+                        <svg class="bi" width="30" height="24">
+                            <use xlink:href="#bootstrap"></use>
+                        </svg>
+                        <span class="fs-5 fw-semibold">MoviesForest</span>
+                    </a>
+                    <ul class="list-unstyled ps-0">
+                        <li class="mb-1">
+                            <button value="hollywood" class="btn section-button text-white align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Hollywood-collapse" aria-expanded="false">
+                                Hollywood
+                            </button>
+                            <div class="collapse" id="Hollywood-collapse">
+                                <ul class="list-unstyled fw-normal pb-1 small labels-list ">
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="hollywood" form="section" type="submate" name="hollywood">
+                                            AllMovies
+                                        </button>
+                                    </li>
+                                    {% for more in other %}
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="hollywood|{{more}}" name="label" type="submate" form="for_categories">
+                                            {{more}}
+                                        </button>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn section-button text-white align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Bollywood-collapse" aria-expanded="false">
+                                Bollywood
+                            </button>
+                            <div class="collapse" id="Bollywood-collapse">
+                                <ul class="list-unstyled fw-normal pb-1 small labels-list ">
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="bollywood" form="section" type="submate" name="bollywood">
+                                            AllMovies
+                                        </button>
+                                    </li>
+                                    {% for more in other %}
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="bollywood|{{more}}" name="label" type="submate" form="for_categories">
+                                            {{more}}
+                                        </button>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn section-button text-white align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Anime-collapse" aria-expanded="false">
+                                Anime
+                            </button>
+                            <div class="collapse" id="Anime-collapse">
+                                <ul class="list-unstyled fw-normal pb-1 small labels-list ">
+
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="anima" form="section" type="submate" name="anima">
+                                            AllMovies
+                                        </button>
+                                    </li>
+                                    {% for more in other %}
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="anima|{{more}}" name="label" type="submate" form="for_categories">
+                                            {{more}}
+                                        </button>
+                                    </li>
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="mb-1 border-bottom pb-3">
+                            <button class="btn section-button text-white align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#Animation-collapse" aria-expanded="false">
+                                Animation
+                            </button>
+                            <div class="collapse" id="Animation-collapse">
+                                <ul class="list-unstyled fw-normal pb-1 small labels-list ">
+
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="animation" form="section" type="submate" name="animation">
+                                            AllMovies
+                                        </button>
+                                    </li>
+                                    {% for more in other %}
+                                    <li>
+                                        <button class="section-label btn btn-link link-light rounded text-decoration-none " value="animation|{{more}}" name="label" type="submate" form="for_categories">
+                                            {{more}}
+                                        </button>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% comment %} navigation bar {% endcomment %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark this-is-temp">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-dark sticky-top">
         <div class="container-fluid">
-            <!-- Button trigger for sections -->
-            <button type="button" class=" me-3 btn button shadow" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                {% comment %} <svg xmlns="..." width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                </svg> {% endcomment %}
-                {{page_id}}
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                  </svg>
-            </button>
-            {% comment %} end button {% endcomment %}
-            {% comment %} <a class="navbar-brand" href="/forest">Movie_forest_logo</a> {% endcomment %}
             {% comment %} start logo {% endcomment %}
             <a href="/">
                 <img src="{% static 'logo/logo.jpg' %}" alt="Wait.." loading="lazy" width="55" height="40">
             </a>
             {% comment %} ending logo {% endcomment %}
-            {% comment %} button to colapse right navbar {% endcomment %}
-            <button class="navbar-toggler shadow btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                {% comment %} making a checkbox input to make it rotatable without java script {% endcomment %}
-                <label for="checkbox_for_arrow">
-                    <input type="checkbox" id="checkbox_for_arrow" style="display:none;">
-                    <svg class="arrow_icon  text-info" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
-                        <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z" />
-                    </svg>
-                </label>
-            </button>
+
             <div class="show navbar-collapse mt-2 " id="navbarSupportedContent">
-                <div class="container-lg d-flex justify-content-between " , style="height: 2rem">
+                <div class=" nav-half container-lg d-flex justify-content-between mb-2" , style="height: 2rem">
                     {% comment %} search form {% endcomment %}
                     <div class="bro  " id="other-nav-items">
                         <ul class=" navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row justify-content-between">
@@ -119,20 +261,21 @@
                         </ul>
                     </div>
                     <form method="get" action="/search" class="  search">
-                        
-                            <button class=" btn btn-outline-info rounded-circle search-submate-button me-2 py-1" type="submit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                  </svg>
-                            </button>
-                            <input id="query_input" class="  search-box me-1" type="search" placeholder="Search" aria-label="search" name="search">
-                            <span class="search-button ">
-                                <span class="search-icon"></span>
-                            </span>
-                        {% comment %} </div> {% endcomment %}
-                    </form>
-                </div>
+
+                        <button class=" btn btn-outline-info rounded-circle search-submate-button me-2 py-1" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>
+                        <input id="query_input" class="  search-box me-1" type="search" placeholder="Search" aria-label="search" name="search">
+                        <span class="search-button ">
+                            <span class="search-icon"></span>
+                        </span>
+                        {% comment %}
+                </div> {% endcomment %}
+                </form>
             </div>
+        </div>
         </div>
     </nav>
     {% comment %} end navigation bar {% endcomment %}
@@ -141,10 +284,7 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content text-white bg-dark">
-                {% comment %} form to submate the modal section data {% endcomment %}
-                <form action="/forest/movies" method="post" id="section">
-                    {% csrf_token %}
-                </form>
+
                 {% comment %} start of section {% endcomment %}
                 <div class="modal-header">
                     <a class="text-decoration-none text-white" href="/">
@@ -200,7 +340,7 @@
 
         </div>
     </div>
-    </div>
+
     {% comment %} end modal content {% endcomment %}
 
     {% comment %} this is for showing alerts {% endcomment %}
@@ -210,7 +350,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %}
-    
+
     {% comment %} making a block for body {% endcomment %}
     {% block body %}{% endblock body %}
     {% comment %} this is footer {% endcomment %}
@@ -232,7 +372,7 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-    {% comment %} coustom js  {% endcomment %}
+    {% comment %} coustom js {% endcomment %}
     <script src="{% static 'js/main.js' %}"></script>
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--

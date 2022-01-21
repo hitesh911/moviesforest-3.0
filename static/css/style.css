@@ -12,6 +12,37 @@ html * {
 
 }
 
+.active-now {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* navbar css  */
+.navbar {
+    opacity: 0.7;
+    z-index: 10;
+
+
+}
+
+
+
+
+.nav-link {
+    color: white !important;
+}
+
+.navbar-collapse {
+    flex-basis: unset !important;
+}
+
+.container-fluid {
+    flex-wrap: unset !important;
+}
+
+/* slider inside outside navbar  */
+
+
 /* css for movie page section button */
 .now-active {
     background: linear-gradient(to right, #00ff62 1%, #00fffa 100%);
@@ -34,6 +65,7 @@ html * {
 #checkbox_for_arrow:checked+.arrow_icon {
     transform: rotate(180deg);
 }
+
 
 
 /* ending this css is only for navbar togger button  */
@@ -257,7 +289,7 @@ html * {
 
 .search {
 
-    width: 2rem;
+
     height: 100%;
 
     background-color: #242628;
@@ -308,7 +340,9 @@ html * {
 
 .search-box:focus {
     outline: none;
+
 }
+
 
 .search-button {
 
@@ -391,4 +425,96 @@ html * {
 
 .open .search-button {
     position: relative;
+}
+
+
+.nav-half {
+    padding-left: 0 !important;
+}
+
+
+.offcanvas-start {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    /* border-radius: 6rem; */
+}
+
+.slider-arrow {
+    color: #00FEDE;
+    outline: none;
+
+
+
+}
+
+#slider-menu {
+    width: 25rem;
+
+
+}
+
+@media only screen and (max-width: 846px) {
+    #slider-menu {
+        width: 21rem;
+
+    }
+}
+
+@media only screen and (max-width: 712px) {
+    #slider-menu {
+        width: 16rem;
+
+    }
+}
+
+@media only screen and (max-width: 531px) {
+    #slider-menu {
+        width: 14rem;
+
+    }
+}
+
+@media only screen and (max-width: 431px) {
+    #slider-menu {
+        width: 16rem;
+
+    }
+}
+
+.slider {
+    position: fixed;
+    height: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    z-index: 10 !important;
+
+
+}
+
+
+.slider-button {
+    position: absolute;
+    height: 13rem;
+    width: 8px;
+    background-color: #373333;
+    border-top-right-radius: 4rem;
+    border-bottom-right-radius: 4rem;
+    border: none;
+    outline: none;
+
+}
+
+#ui-id-1 {
+    background: #70e1f5;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #00FEDE, #70e1f5);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #00FEDE, #70e1f5);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-top-left-radius: .5rem;
+    border-bottom-right-radius: 1.5rem;
+    z-index: 9999 !important;
+    outline: none;
+    position: fixed;
 }

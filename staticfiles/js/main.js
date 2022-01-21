@@ -83,11 +83,13 @@ $('.search-button').click(function(){
 // })
 document.onreadystatechange = function(){
     if(document.readyState !== "complete"){
-        document.querySelector("body").style.visibility ="hidden";
+        // document.querySelector("body").style.background ="transparent";
+        $("body").addClass("body-while-loading")
         document.querySelector(".loadingbar").style.visibility ="visible";
         
+        
     }else{
-        document.querySelector("body").style.visibility ="visible";
+        $("body").removeClass("body-while-loading")
         document.querySelector(".loadingbar").style.visibility ="hidden";
     
     }

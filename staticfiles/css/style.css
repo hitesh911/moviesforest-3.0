@@ -12,6 +12,47 @@ html * {
 
 }
 
+.active-now {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* navbar css  */
+.navbar {
+    opacity: 0.7;
+
+
+}
+
+
+
+
+.nav-link {
+    color: white !important;
+}
+
+.navbar-collapse {
+    flex-basis: unset !important;
+}
+
+.container-fluid {
+    flex-wrap: unset !important;
+}
+
+/* slider inside outside navbar  */
+.slider {
+
+    border: 2px solid rebeccapurple;
+}
+
+/* css for movie page section button */
+.now-active {
+    background: linear-gradient(to right, #00ff62 1%, #00fffa 100%);
+    text-decoration: none;
+    color: black;
+
+}
+
 /* this css is only for navbar togger button  note : for arrow_icon*/
 #checkbox_for_arrow {
     display: none;
@@ -28,9 +69,11 @@ html * {
 }
 
 
+
 /* ending this css is only for navbar togger button  */
 /* this is for download button in download page  */
 .button {
+    caret-color: transparent;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +114,16 @@ html * {
     width: 100%;
 }
 
-/* loading container home page  */
+/* loading   */
+/* making a temp class to add in body while loading  */
+.body-while-loading {
+    background-color: #0000;
+    color: #fff;
+    opacity: 0.7;
+
+
+
+}
 
 .container-for-loading {
     width: 200px;
@@ -214,6 +266,7 @@ html * {
     height: 100%;
     width: 100%;
     position: absolute;
+    z-index: 2;
 
 
 
@@ -238,7 +291,7 @@ html * {
 
 .search {
 
-    /* width: 35vh; */
+    width: 2rem;
     height: 100%;
 
     background-color: #242628;
@@ -270,10 +323,11 @@ html * {
 }
 
 .search.open:before {
-    height: 2rem;
-
-
+    /* height: 2rem; */
+    display: none;
 }
+
+
 
 .search-box {
     width: 100%;
@@ -284,13 +338,10 @@ html * {
     background: transparent;
     color: #fff;
     font-size: 1.5rem;
-
 }
 
 .search-box:focus {
     outline: none;
-
-
 }
 
 .search-button {
