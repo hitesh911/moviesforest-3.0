@@ -2,29 +2,46 @@
 {% block title %}about{% endblock title %}
 {% block aboutactive %}active active-now{% endblock aboutactive %}
 {% block body %}
-<p class = "text-center">
-    SITE DISCRIPTION :
-    <br>
-
-    Hey there, are you here for movies , bots or some amazing tools. Yes you are in right place. Here you can find any
-    Hollywood , Bollywood or anima movie or series that you want We are not pirating, We are providing
-    <br>
-
-    This is one of the best site for downloading movies or webseries here you will find all type of content that you
-    want also you can watch online if you want we provid you best service then other. You can also use our bots to get
-    movie if not available in this site or you can also contect us in contect us page you can join our telegram official
-    group where you can request your movie or webseries
-
-    <br>
-    ABOUT us:
-    <br>
-
-    About Us : MoviesForest Is Best Website/Platform For Bollywood / Anime And Hollywood HD Movies And Web-Series. We
-    provides you easy google drive download links. Here We Share Various Filesharing Sites Links For One Movie In Many
-    Quality Like Bluray, HDRip, BRRip, WeB-DL, etc. MoviesForest – Download And Watch Movies Online For Free Download
-    Dual/Multi Audio High-Quality Movies And Tv/Web Series Directly Without Any Popup Ads. We Are Providing English
-    Movies, Hollywood Dual Audio Movies, Bollywood Movies, Animation Movies, Tv/Web Series, Tv-Shows, Anime, And Many
-    More.
-    
-</p>
+{% load static %}
+{% comment %}------------------------------- banner section------------------------------------ {% endcomment %}
+<div class="d-flex h-100 text-center text-dark bg-white  mt-3">
+    <div class="container-xl">
+      <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark d-flex">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 fst-italic">Welcome to the MOVIES FOREST</h1>
+          <p class="lead my-3">Hey there, are you here for movies , bots or some amazing tools.
+            Yes you are in right place. Here you can find any Hollywood , Bollywood or anima movie that you want
+            We are not pirating, We are providing </p>
+          <p class="lead mb-0"><a class=" text-white fw-bold " data-bs-toggle="collapse" href="#collapseExample"
+              role="button" aria-expanded="false" aria-controls="collapseExample">
+              Read more
+            </a></p>
+          <div class="collapse" id="collapseExample">
+            <p class=" text-white">
+              SITE DISCRIPTION :
+  
+              ABOUT :
+              <br>
+              About Us : MoviesForest Is Best Website/Platform For Bollywood / Anime And Hollywood HD Movies And
+              Web-Series. We provides you easy google drive download links. Here We Share Various Filesharing Sites Links
+              For One Movie In Many Quality Like Bluray, HDRip, BRRip, WeB-DL, etc. MoviesForest – Download And Watch
+              Movies Online For Free Download Dual/Multi Audio High-Quality Movies And Tv/Web Series Directly Without Any
+              Popup Ads. We Are Providing English Movies, Hollywood Dual Audio Movies, Bollywood Movies, Animation Movies,
+              Tv/Web Series, Tv-Shows, Anime, And Many More.
+              <br>
+              <h3>Thanks for reading</h3>
+            </p>
+          </div>
+  
+        </div>
+        {% comment %} logo banner start {% endcomment %}
+        <div class=" col-md-6 px-0  mt-3 d-none d-lg-block d-lg-block d-xxl-block d-xl-block">
+          <div class="mt-5">
+            <img src="{% static 'logo/logo.jpg' %}" alt="Bootstrap" loading="lazy" width="200" height="125">
+          </div>
+        </div>
+        {% comment %} logo banner end {% endcomment %}
+      </div>
+    </div>
+  </div>
 {% endblock body %}

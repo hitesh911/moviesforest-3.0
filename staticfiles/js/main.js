@@ -62,12 +62,12 @@ $(".search-button").click(function () {
 
 // for clicking automatically to hollywood button when load home
 
-if (window.location.pathname == "/") {
-  var clickbutton = document.getElementById("clickhere_home_button");
-  if (clickbutton != null) {
-    clickbutton.click();
-  }
-}
+// if (window.location.pathname == "/") {
+//   var clickbutton = document.getElementById("clickhere_home_button");
+//   if (clickbutton != null) {
+//     clickbutton.click();
+//   }
+// }
 
 document.onreadystatechange = function () {
   if (document.readyState !== "complete") {

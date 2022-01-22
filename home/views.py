@@ -68,6 +68,8 @@ def send_notification(request):
 
 
 def home(request):
+    all_movies =  Post.objects.all().order_by("sno").reverse()
+
     # messages.success(request , "<a class = 'text-deco`ration-none' href = 'http://moviesforest.herokuapp.com'>Click here <a/>for better experince")
     # ---------------------this is the content related to the wepush notifications -----------------
     # deciding a goup name for my subscribers 
@@ -75,7 +77,7 @@ def home(request):
     # making a dict of group to send it to context 
     webpush = {"group": group_name}
     # making a context 
-    context = {"webpush":webpush, "year": year ,"main":main ,  "other":other}
+    context = {"all_movies":all_movies,"webpush":webpush, "year": year ,"main":main ,  "other":other}
     #-------------------------- returning the context with goup name for webpush --------------------------------
     return render(request , 'home/home.html', context)
 def contact(request):
@@ -106,6 +108,7 @@ def dmca(request):
 def disclaimer(request):
     context = {"year": year ,"main":main ,  "other":other,}
     return render(request , 'home/disclaimer.html' , context)
+
 
 def search(request):
     # checking if request is post and from our official site 
@@ -188,39 +191,31 @@ class ZeroTwo(View):
         movie_name = str(request.POST["movie"]).replace(" ", "+")
         # getting year 
         year = str(request.POST["year"]).replace(" ", "+")
-        # getting size 
-        size = request.POST["size"]
         # base url to request to zero_two 
         base_url = 'http://zerotwo.gq'
+        zerotwoid = "1068352349"
         # api key to excess the zero_two api 
-        API_KEY = '898sdvi7rb3l34cv'
+        key = '898sdvi7rb3l34cv'
         # making a query to search in zero_two 
         query = f"{movie_name}+{year}"
         # making a perfect url to make first request 
-        url1 = f'{base_url}/api/{API_KEY}/search_movie/{query}/size={size}'
+        url1 = f'{base_url}/search/movie?id={zerotwoid}&key={key}&movie_name={query}'
         # making a request to zero_two api 
         data1 = requests.get(url1).json()
         # sleeping for 5 second for second request 
         time.sleep(5)
+        movies_array = data1["links"]
         # if first request status is True so ony then make second request 
         if data1["status"]:
-            # making next url to request 
-            url2 = f'{base_url}/api/{API_KEY}/get_movie/{data1["key"]}'
-            # making next request 
-            data2 = requests.get(url2).json()
              # checking if zero_two get the movie 
-            if data2['status']:
-                name = data2["name"]
-                size = data2["size"]
-                link = data2["link"]
-                status = data2["status"]
-            # if zero_two did't get the movie so making status false 
+            if len(movies_array) != 0:
+                status = True
             else:
                 status = False
+               
         # if first request status is not true so making request status false 
         else:
             request_success = False
        
-        context = {"request_success":request_success, "status":status,"name":name,
-                    "size":size , "link":link , "query":query,"year": year ,"main":main ,  "other":other,}
+        context = {"movies_array":movies_array,"request_success":request_success, "status":status , "query":query,"year": year ,"main":main ,  "other":other,}
         return render(request , "home/zero_two.html" , context)

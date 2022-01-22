@@ -39,20 +39,22 @@
                 <hr>
             </div>
         {% else %}
-            <div class="container text-wrap">
-                <h1>Movie found :</h1>
-                <ul >
-                    <h3>File Name --></h3>
-                    <li>{{name}}</li>
-                    <br>
-                    <h3>Size --></h3>
-                    <li>{{size}}</li>
-                    <br>
-                    <h3>Thank us for --></h3>
-                    <li><a class = "text-decoration-none btn btn-success" href="{{link}}">Download link</a></li>
-                </ul>
-                <hr>
-            </div>
+            {% for movie in movies_array %}
+                <div class="container text-wrap">
+                    <h1>Movie found :</h1>
+                    <ul >
+                        <h3>File Name --></h3>
+                        <li>{{movie.name}}</li>
+                        <br>
+                        <h3>Size --></h3>
+                        <li>{{movie.size}}</li>
+                        <br>
+                        <h3>Thank us for --></h3>
+                        <li><a class = "text-decoration-none btn btn-success" href="{{movie.link}}">Download link</a></li>
+                    </ul>
+                    <hr>
+                </div>
+            {% endfor %}
         {% endif %}
     {% endif %}
 </div>
