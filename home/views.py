@@ -187,6 +187,7 @@ class ZeroTwo(View):
         link = None
         status = True
         request_success = True
+        movies_array = []
         # getting user define movie name 
         movie_name = str(request.POST["movie"]).replace(" ", "+")
         # getting year 
