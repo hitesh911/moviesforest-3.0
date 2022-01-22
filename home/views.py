@@ -193,15 +193,24 @@ class ZeroTwo(View):
         year = str(request.POST["year"]).replace(" ", "+")
         # base url to request to zero_two 
         base_url = 'http://zerotwo.gq'
-        zerotwoid = "1068352349"
+        # search path 
+        base_path = "/search/movie"
+        # api is to acess the zerotwo
+        api_id = "1068352349"
         # api key to excess the zero_two api 
-        key = '898sdvi7rb3l34cv'
+        api_key = 'DYw7jYeBB08nzz4rr7gUDpNoIuczSFzAr2ri0eVwRLY='
         # making a query to search in zero_two 
         query = f"{movie_name}+{year}"
         # making a perfect url to make first request 
-        url1 = f'{base_url}/search/movie?id={zerotwoid}&key={key}&movie_name={query}'
+        url1 = f'{base_url}{base_path}'
+        # headers for request
+        head = {
+            'id' : api_id,
+            'key' : api_key,
+            'movie_name' : query
+        }
         # making a request to zero_two api 
-        data1 = requests.get(url1).json()
+        data1 = requests.get(url1,headers=head).json()
         # sleeping for 5 second for second request 
         time.sleep(5)
         movies_array = data1["links"]
