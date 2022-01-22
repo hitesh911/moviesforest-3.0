@@ -213,9 +213,10 @@ class ZeroTwo(View):
         data1 = requests.get(url1,headers=head).json()
         # sleeping for 5 second for second request 
         time.sleep(5)
-        movies_array = data1["links"]
+        
         # if first request status is True so ony then make second request 
         if data1["status"]:
+            movies_array = data1['links']
              # checking if zero_two get the movie 
             if len(movies_array) != 0:
                 status = True

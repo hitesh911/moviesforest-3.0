@@ -70,7 +70,7 @@ $(".search-button").click(function () {
 // }
 
 document.onreadystatechange = function () {
-  if (document.readyState !== "complete") {
+  if (document.readyState !== "complete" && window.location.pathname != "/") {
     // document.querySelector("body").style.background ="transparent";
     $("body").addClass("body-while-loading");
     document.querySelector(".loadingbar").style.visibility = "visible";
