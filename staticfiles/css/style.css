@@ -289,7 +289,7 @@ html * {
 
 .search {
 
-
+    width: 1.5rem;
     height: 100%;
 
     background-color: #242628;
@@ -449,6 +449,7 @@ html * {
 
 #slider-menu {
     width: 25rem;
+    height: 100%;
 
 
 }
@@ -462,22 +463,26 @@ html * {
 
 @media only screen and (max-width: 712px) {
     #slider-menu {
-        width: 16rem;
+        width: 18rem;
 
     }
 }
 
 @media only screen and (max-width: 531px) {
     #slider-menu {
-        width: 14rem;
+        width: 16rem;
 
     }
 }
 
 @media only screen and (max-width: 431px) {
     #slider-menu {
-        width: 16rem;
+        width: 18rem;
 
+    }
+
+    #ui-id-1 {
+        max-width: 12rem;
     }
 }
 
@@ -506,6 +511,7 @@ html * {
 }
 
 #ui-id-1 {
+    word-wrap: break-word;
     background: #70e1f5;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #00FEDE, #70e1f5);
@@ -539,10 +545,7 @@ html * {
     margin-top: 1rem;
 }
 
-.labels-list li {
-    margin-top: 1rem;
 
-}
 
 .section-button:hover,
 .section-button:focus {
