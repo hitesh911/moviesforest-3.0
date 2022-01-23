@@ -5,26 +5,36 @@ from django.contrib import messages
 from json import loads , dumps
 import requests 
 from random import choice
+# global function for lables 
+def get_labels():
+    # initilizing labels_object 
+    labels_object = {"year": None , "main": None, "other": None}
+    # getting all labels avalable in database
+    labels = Label.objects.all()
+    # making empty year list 
+    year = []
+    # making main for main categorey 
+    main = []
+    # making other labels list 
+    other = []
+    # for loop to filter the labels 
+    for lab in labels.iterator():
+        # if categorery is in numbers so put it into year section 
+        if lab.categories.isdigit():
+            year.append(lab.categories)
+        # if category is language or main so put it into main 
+        elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
+            main.append(lab.categories)
+        # and put other categorey into others 
+        else:
+            other.append(lab.categories)
+    # adding all labels_list to lables_object 
+    labels_object["year"] = year
+    labels_object["main"] = main
+    labels_object["other"] = other
+    # returning labels_object 
+    return labels_object
 # global verables 
-# getting all labels avalable in database
-labels = Label.objects.all()
-# making empty year list 
-year = []
-# making main for main categorey 
-main = []
-# making other labels list 
-other = []
-# for loop to filter the labels 
-for lab in labels.iterator():
-    # if categorery is in numbers so put it into year section 
-    if lab.categories.isdigit():
-        year.append(lab.categories)
-    # if category is language or main so put it into main 
-    elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
-        main.append(lab.categories)
-    # and put other categorey into others 
-    else:
-        other.append(lab.categories)
 # making color list to send it for template to use random color functianality 
 color_list = ["danger" , "warning" ,"primary" ,"secondary" , "success" , "info" ,"light" , "dark"  ]
 
@@ -39,6 +49,8 @@ def get_client_ip(request):
 
 # main functions 
 def forest_movies(request):
+
+    
     # specific verables
     label_selected = False
     # making all section inactive as default
@@ -233,12 +245,15 @@ def forest_movies(request):
     # if "float len_page" is bigger then "int len_page" so changing it's value into plus one
     if int(len_pages) < len_pages:
         len_pages += 1
+
+    # getting labels from labels function 
+    label_object = get_labels()
     # making a context to send data to template
     context = {'all_movies_post': all_movies_post, "content_end": str(content_end),
                "content_start": str(content_start), "show_banner": show_banner, "at_page_no": at_page_no, "disable_next": disable_next,
                "disable_previous": disable_previous, "banner": page_id, "page_id": page_id, "back_home_button": back_home_button,
                "len_pages": int(len_pages), "active_hollywood": active_hollywood, "active_bollywood": active_bollywood, "active_anima": active_anima,
-               "active_animation": active_animation, "year": year ,"main":main ,  "other":other , "color_list":color_list }
+               "active_animation": active_animation, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] , "color_list":color_list }
     # returning a responce
     return render(request, 'forest/movies.html', context)
 # personal function for devlopers to create the posts
@@ -586,13 +601,15 @@ def download(request):
     group_name = "my_subscriber"
     # making a dict of group(perameter name ) to send it to context 
     webpush = {"group": group_name}
+    # making a request to get lables 
+    label_object = get_labels()
     # making a final context to send it to tamplete 
     context = {"post": post, "download_links_list": download_links_list,"other_links_list": other_links_list,
                "stream_links_list": stream_links_list,
                "screen_shots_list": screen_shots_list , "color_list":color_list,
                "labs_list":labs_list,
                "webpush":webpush,
-               "year": year ,"main":main ,  "other":other
+                "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,
                }
     return render(request, "forest/download.html", context)
 
@@ -600,7 +617,9 @@ def download(request):
 def stream(request):
     # getting stream link
     link = request.GET["link"]
-    context = {"link": link , "year": year ,"main":main ,  "other":other}
+    # getting a lablel object 
+    label_object = get_labels()
+    context = {"link": link ,  "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     return render(request, "forest/stream.html", context)
 
 

@@ -5,33 +5,12 @@ from home.models import Contact
 from django.contrib import messages
 from forest.models import Post
 from django.contrib.postgres.search import SearchVector , SearchRank , SearchQuery
-from forest.models import Label
+from forest.views import get_labels
 # importing get clint ip function for history function
 from forest.views import get_client_ip
 import requests , time
 # this is a function from webpush applocation 
 from webpush import send_group_notification
-
-# global verables 
-# getting all labels avalable in database
-labels = Label.objects.all()
-# making empty year list 
-year = []
-# making main for main categorey 
-main = []
-# making other labels list 
-other = []
-# for loop to filter the labels 
-for lab in labels.iterator():
-    # if categorery is in numbers so put it into year section 
-    if lab.categories.isdigit():
-        year.append(lab.categories)
-    # if category is language or main so put it into main 
-    elif lab.categories.lower() == "movie" or lab.categories.lower() == "tvseries" or lab.categories.lower() == "english" or lab.categories.lower() == "hindi" or lab.categories.lower() == "spanish" or lab.categories.lower() == "japanese":
-        main.append(lab.categories)
-    # and put other categorey into others 
-    else:
-        other.append(lab.categories)
 
 # this is the function for sending notifications to subscribers 
 def send_notification(request):
@@ -76,8 +55,10 @@ def home(request):
     group_name = "my_subscriber"
     # making a dict of group to send it to context 
     webpush = {"group": group_name}
+    # getting labels 
+    label_object = get_labels()
     # making a context 
-    context = {"all_movies":all_movies,"webpush":webpush, "year": year ,"main":main ,  "other":other}
+    context = {"all_movies":all_movies,"webpush":webpush,  "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     #-------------------------- returning the context with goup name for webpush --------------------------------
     return render(request , 'home/home.html', context)
 def contact(request):
@@ -97,16 +78,20 @@ def contact(request):
             contact = Contact(name = name , email = email , number = number , content = content)
             contact.save()
             messages.success(request , "You message has been send You will be replayed on you gmail")
-    context = {"year": year ,"main":main ,  "other":other,}
+    label_object = get_labels()
+    context = { "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     return render(request , 'home/contact.html'  , context)
 def about(request):
-    context = {"year": year ,"main":main ,  "other":other,}
+    label_object = get_labels()
+    context = { "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     return render(request , 'home/about.html' , context)
 def dmca(request):
-    context = {"year": year ,"main":main ,  "other":other,}
+    label_object = get_labels()
+    context = { "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     return render(request , 'home/dmca.html' , context)
 def disclaimer(request):
-    context = {"year": year ,"main":main ,  "other":other,}
+    label_object = get_labels()
+    context = { "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     return render(request , 'home/disclaimer.html' , context)
 
 
@@ -151,8 +136,10 @@ def search(request):
                 pass
         else:
             pass
+    # getting label 
+    label_object = get_labels()
     # seding context 
-    context = {"search_related_posts": search_related_posts , "query":query,"year": year ,"main":main ,  "other":other,}
+    context = {"search_related_posts": search_related_posts , "query":query, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     # render search.html if request is post means request is from our site  
     return render(request , "home/search.html" , context)
 # this is for search suggestions 
@@ -168,7 +155,9 @@ def history(request):
     messages.warning(request , "You'r history will deleted with ip change")
     current_user_ip = str(get_client_ip(request = request))
     history_related_posts = Post.objects.filter(ips__icontains = current_user_ip)
-    context = {"history_related_posts":history_related_posts,"year": year ,"main":main ,  "other":other,}
+    # getting labels 
+    label_object = get_labels()
+    context = {"history_related_posts":history_related_posts, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     return render(request , "home/history.html" , context)
 
 
@@ -177,7 +166,9 @@ def history(request):
 class ZeroTwo(View):
     def get(self , request):
         response = "You can't access ZeroTwo like this motherfucker!"
-        context = {"getresponce":response, "year": year ,"main":main ,  "other":other,}
+        # getting labels 
+        label_object = get_labels()
+        context = {"getresponce":response,  "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
         return render(request , "home/zero_two.html" , context)
     def post(self , request):
         messages.warning(request , "Zero_Two's content is not verifyed. It could be wrong")
@@ -228,6 +219,7 @@ class ZeroTwo(View):
                 pass
         else:
             pass
-       
-        context = {"movies_array":movies_array,"request_success":request_success, "status":status, "query":query,"year": year ,"main":main ,  "other":other,}
+        # getting labels 
+        label_object = get_labels()
+        context = {"movies_array":movies_array,"request_success":request_success, "status":status, "query":query, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
         return render(request , "home/zero_two.html" , context)
