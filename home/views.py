@@ -185,7 +185,7 @@ class ZeroTwo(View):
         name = None
         size = None
         link = None
-        status = True
+        status = False
         request_success = True
         movies_array = []
         # getting user define movie name 
@@ -211,22 +211,23 @@ class ZeroTwo(View):
             'movie_name' : query
         }
         # making a request to zero_two api 
-        data1 = requests.get(url1,headers=head).json()
+        try:
+            data1 = requests.get(url1,headers=head).json()
+        except:
+            request_success = False
+            
         # sleeping for 5 second for second request 
         time.sleep(5)
         
         # if first request status is True so ony then make second request 
-        if data1["status"]:
-            movies_array = data1['links']
-             # checking if zero_two get the movie 
-            if len(movies_array) != 0:
-                status = True
+        if request_success:
+            status = data1["status"]
+            if status:
+                movies_array = data1["links"]
             else:
-                status = False
-               
-        # if first request status is not true so making request status false 
+                pass
         else:
-            request_success = False
+            pass
        
-        context = {"movies_array":movies_array,"request_success":request_success, "status":status , "query":query,"year": year ,"main":main ,  "other":other,}
+        context = {"movies_array":movies_array,"request_success":request_success, "status":status, "query":query,"year": year ,"main":main ,  "other":other,}
         return render(request , "home/zero_two.html" , context)
