@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}error{% endblock title %}
+{% block body %}
+<div class="mx-3 container d-flex row  ">
+    <hr>
+    <h2>Can not process you'r request</h2>
+    <p>Bad request, it seems that you are not requesting with browser?</p>
+    suggestions :
+    <ul>
+        <li>Go back to home</li>
+        <li>Tell owners about this issue to fix using <a class = "text-decoration-none" href="/contact">contact us</a> form</li>
+        <li>Reopen the site by  <a class = "text-decoration-none" href="/">click here</a></li>
+    </ul>
+    <a href= "/" class="btn btn-dark">Go home</a>
+    <hr>
+</div>
+{% endblock body %}

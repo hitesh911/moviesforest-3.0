@@ -45,6 +45,24 @@ def send_notification(request):
     }
     return JsonResponse(context)
 
+# funcitons to handel kinds of erros 
+def error_500(request):
+    label_object = get_labels()
+    context = {"year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
+    return render(request, "errors/error_500.html" , context)
+def error_404(request , exception):
+    label_object = get_labels()
+    context = {"year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
+    return render(request, "errors/error_404.html" , context)
+def error_403(request , exception):
+    label_object = get_labels()
+    context = {"year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
+    return render(request, "errors/error_403.html" , context)
+def error_400(request , exception):
+    label_object = get_labels()
+    context = {"year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
+    return render(request, "errors/error_400.html" , context)
+
 
 def home(request):
     all_movies =  Post.objects.all().order_by("sno").reverse()
@@ -223,3 +241,5 @@ class ZeroTwo(View):
         label_object = get_labels()
         context = {"movies_array":movies_array,"request_success":request_success, "status":status, "query":query, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
         return render(request , "home/zero_two.html" , context)
+
+

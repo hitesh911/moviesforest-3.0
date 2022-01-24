@@ -34,3 +34,8 @@ urlpatterns = [
     # this is for weppush application 
     path("webpush", include("webpush.urls")),
 ]
+
+handler404 = "home.views.error_404"
+handler500 = "home.views.error_500"
+handler403 = "home.views.error_403"
+handler400 = "home.views.error_400"
