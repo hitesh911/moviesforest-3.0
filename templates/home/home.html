@@ -53,11 +53,12 @@
                     </div>
                 </div>
             </div>
-            {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
-            <small class="text-muted mx-3">{{posts.timestamp}}
-            {% comment %} displaying views  {% endcomment %}
-            <hr>
-             Views : {{posts.views_count}}</small>
+            <div class="d-flex justify-content-between timestamp">
+                {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
+                <small class="text-muted mx-3">{{posts.timestamp}}</small>
+                {% comment %} display views  {% endcomment %}
+                <small class="text-muted mx-3">Views : {{posts.views_count}}</small>
+            </div>
         </div>
     </div>
     {% endfor %}
@@ -82,7 +83,7 @@
         something like that you will get the content that will not satisfy you. So please search 
         only movie. And if you want any kind of series you can directly <a class = "text-decoration-none"href="/contact">
         request us</a>. Zero_Two need release year to be more accurate. So kindly provide 
-        year to her. <br> You can use ZeroTwo in other platforms like <a class = "text-decoration-none"href="#">Telegram</a>,<a class = "text-decoration-none"href="#">Whatsapp</a>
+        year to her. <br> You can use ZeroTwo in other platforms like <a class = "text-decoration-none"href="https://msng.link/o/?zero_two_movie_bot=tg">Telegram</a>,<a class = "text-decoration-none"href="#">Whatsapp</a>
         <br>
         <h3 class = "text-danger text-center">Warning :</h3>
             <p class = "text-center">

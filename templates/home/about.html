@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}about{% endblock title %}
+{% block title %}About{% endblock title %}
 {% block aboutactive %}active active-now{% endblock aboutactive %}
 {% block body %}
 {% load static %}
@@ -44,4 +44,15 @@
       </div>
     </div>
   </div>
+{% comment %} this is for creators credit  {% endcomment %}
+<div class="p-5 container d-flex row ">
+  <hr>
+  Creators :
+  <ul class = "ps-3 d-flex justify-content-between ">
+      <li> <a class="text-decoration-none" href="https://msng.link/o/?H4CK3R_5M4CK3R=tg"><img class="d-block img-fluid" src="{% static 'logo/pryanshu.jpg' %}" alt="5M4CK3R" width="56" height="204">5M4CK3R</a></li>
+      <li> <a class="text-decoration-none" href="https://msng.link/o/?pariharsingh61=tg"><img class="d-block img-fluid" src="{% static 'logo/parihar.jpg' %}" alt="PARIHAR" width="56" height="204">PARIHAR</a></li>
+      <li> <a class="text-decoration-none" href="https://msng.link/o/?juffler=tg"><video autoplay loop muted class="d-block img-fluid" src="{% static 'logo/juffler.mp4' %}" alt="JUFFLER" width="56" height="204"></video>JUFFLER</a></li>
+  </ul>
+      
+</div>
 {% endblock body %}
