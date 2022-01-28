@@ -114,12 +114,11 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between timestamp">
-                {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
-                <small class="text-muted mx-3">{{posts.timestamp}}</small>
-                {% comment %} display views  {% endcomment %}
-                <small class="text-muted mx-3">Views : {{posts.views_count}}</small>
-            </div>
+            {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
+            <small class="text-muted mx-3">{{posts.timestamp}}
+            {% comment %} display views  {% endcomment %}
+            <hr>
+             Views : {{posts.views_count}}</small>
         </div>
     </div>
     
