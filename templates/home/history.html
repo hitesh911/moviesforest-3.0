@@ -4,11 +4,15 @@
 {% comment %} making history active  {% endcomment %}
 {% block historyactive %}active active-now{% endblock historyactive %}
 {% comment %} main body content {% endcomment %}
+
 {% block body %}
+{% load split %}
+{% load make_json %}
+{% load get_yt_id %}
 
 {% comment %} checking if result is ZERO {% endcomment %}
 {% if history_related_posts|length == 0 %}
-<div class="mx-3">
+<div class="mx-3 extra-margin text-white">
     <hr>
     <h2>No resent posts found</h2>
     Suggestions :
@@ -20,36 +24,222 @@
 </div>
 {% else %}
 {% comment %} creating a heading for search using h1 tag {% endcomment %}
-<hr>
-<h1 class="mx-3"><b>Resent posts :</b></h1>
-<hr>
+<hr class = "extra-margin text-white">
+<h1 class="mx-3 text-white"><b>Resent posts :</b></h1>
+<hr class = " text-white">
 {% comment %} main div to show search result {% endcomment %}
 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 mt-1 mx-2">
     {% for posts in history_related_posts %}
     <div class="col mb-3">
-        <div class="card shadow-sm p-3">
+        <div class="card shadow posts-card">
             {% comment %} display logo with img tag {% endcomment %}
-            <img src="{{posts.logo_link}}" class="card-img-top" alt="Logo not avalable yet">
-            <div class="card-body">
-                {% comment %} display title using p tag {% endcomment %}
-                <p class="card-text">{{posts.title}}</p>
-                {% comment %} making a button for download page with a tag {% endcomment %}
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <button type="submate" name="post_id" value={{posts.sno}} form="for_download_page"
-                            class=" stretched-link btn btn-outline-secondary">Download</button>
+            <img src="{{posts.logo_link}}" class="card-img-top h-100 w-100 " alt="Logo not avalable yet">
+            {% comment %} making a button with the value of serial no of post {% endcomment %}
+            <button class="stretched-link section-download-button" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#postcanvasno{{posts.sno}}" aria-controls="offcanvasBottom"></button>
+            {% comment %} posts offcanver bottom {% endcomment %}
+            <div class="offcanvas offcanvas-bottom rounded-top bg-dark" tabindex="-1"
+                id="postcanvasno{{posts.sno}}" aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header  download-canvas-head">
+                    <img src="{{posts.logo_link}}" alt="..." width="99" , height="129" class="rounded">
+
+                    <div class="movie-details ">
+                        <div class="bottom-slider-movies-name">
+                            <h1>{{posts.title}} </h1>
+                        </div>
+                        <small class="text-muted bottom-slider-labels ">
+                            {% for movie_labels in posts.category|split:","%}
+                            <span>{{movie_labels}}</span>
+                            {% endfor %}
+                        </small>
+                        <p class="title-caption-of-bottom-slider"> {{posts.title_caption|safe}} </p>
                     </div>
+                    <button type="button" class="btn-close text-reset download-bottom-slider-close"
+                        data-bs-dismiss="offcanvas" aria-label="Close">
+                    </button>
+                </div>
+                <div class="offcanvas-body small  download-cancas-body">
+                    {% comment %} button for download {% endcomment %}
+                    {% comment %} {{movies.other_download_links|make_json}} {% endcomment %}
+                    {% with posts.other_download_links|make_json as json_dict %}
+                    {% for movie_print ,movie_link in json_dict.items %}
+                    {% if forloop.counter == 1%}
+                    <a class="btn btn-light home-download-button" href="{{movie_link}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22" fill="currentColor"
+                            class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                        </svg>
+                        Download
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endwith %}
+                    {% comment %} like dislike buttons {% endcomment %}
+                    <button class=" like-button  ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                        </svg>
+                    </button>
+                    <button class=" like-button ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z" />
+                        </svg>
+                    </button>
+                    {% comment %} link share button {% endcomment %}
+                    <div class="share-modal">
+                        <button type="button" class=" share-button" data-bs-toggle="modal"
+                            data-bs-target="#modalno{{posts.sno}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="21"
+                                fill="currentColor" class="bi bi-share " viewBox="0 0 16 16">
+                                <path
+                                    d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z">
+                                </path>
+                            </svg>
+                        </button>
+                        {% comment %} modal code start for share button {% endcomment %}
+                        <div class="modal fade" id="modalno{{posts.sno}}" data-bs-backdrop="static"
+                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Share</h5>
+                                        <button type="button" class="btn-close share-modal-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3">
+                                            <div class="col mb-3">
+                                                <button class=" clipboard btn btn-link"
+                                                    onclick="copypostUrl({{posts.sno}})">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                        height="40" fill="currentColor"
+                                                        class="bi bi-clipboard" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z">
+                                                        </path>
+                                                        <path
+                                                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-lite"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} modal end of share button {% endcomment %}
+                    </div>
+                    {% comment %} this is the button for trailer {% endcomment %}
+                    <a class=" trailer-button" href="https://youtu.be/{{posts.trailer_link|get_yt_id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path
+                                d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="more-details">
+                    <button class=" more-details-button" type="button" data-bs-toggle="modal"
+                        data-bs-target="#post-more-details-modalno{{posts.sno}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-info-circle mb-2" viewBox="0 0 16 16">
+                            <path
+                                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path
+                                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                        <h5>Episodes & More Details </h5>
+                    </button>
+                    {% comment %} more-details modal {% endcomment %}
+                    <div class="modal fade more-details-fullscreen-modal"
+                        id="post-more-details-modalno{{posts.sno}}" tabindex="-1"
+                        aria-labelledby="exampleModalFullscreenXxlLabel" style="display: none;"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-fullscreen-xxl-down">
+                            <div class="modal-content more-details-content bg-dark ">
+                                <div class="modal-header border-none">
+                                    <h5 class="modal-title h4" id="exampleModalFullscreenXxlLabel">Details &
+                                        Info
+                                    </h5>
+                                    <button type="button" class="btn more-details-close"
+                                        data-bs-dismiss="modal" aria-label="Close">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor"
+                                            class="bi bi-chevron-up  more-details-close-arrow"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% comment %} ifram tag for diaplay trailer {% endcomment %}
+                                    <iframe id="model-trailer"
+                                        class=" iframe-of-details-modal trailer-iframe-tag mb-2 btn-outline-success shadow border border-success rounded border-top-0 border-bottom-0"
+                                        width="560" height="315" src="{{posts.trailer_link}}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                    <div class="more-movie-details ">
+                                        <div class="">
+                                            <h1>{{posts.title}} </h1>
+                                        </div>
+                                        {% comment %} button for download {% endcomment %}
+                                        {% with posts.other_download_links|make_json as download_other_links%}
+                                        {% for moive_quality , movie_url in download_other_links.items %}
+                                        {% if forloop.counter == 1 %}
+                                        <div class="download-button-div-from-download-modal">
+                                            <a class="btn btn-light download-button-from-download-modal"
+                                                href="{{movie_url}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32"
+                                                    height="22" fill="currentColor"
+                                                    class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                                </svg>
+                                                Download
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endwith %}
+                                        <small class="text-muted ">
+                                            {% for movie_all_labels in posts.category|split:","%}
+                                            <span>{{movie_all_labels}}</span>
+                                            {% endfor %}
+                                        </small>
+                                        <p> {{posts.content}} </p>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-none">
+                                    <button type="button" class=" more-details-close-arrow"
+                                        data-bs-dismiss="modal">
+                                        close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} end of the more-deails modal {% endcomment %}
                 </div>
             </div>
-            {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
-            <small class="text-muted mx-3">{{posts.timestamp}}
-            {% comment %} displaying views  {% endcomment %}
-            <hr>
-             Views : {{posts.views_count}}</small>
         </div>
     </div>
     {% endfor %}
 </div>
+<hr class="text-white">
 {% comment %} form for downlaod page request {% endcomment %}
 <form action="/forest/download" id="for_download_page" method="get"></form>
 {% comment %} end form of downlaod page {% endcomment %}

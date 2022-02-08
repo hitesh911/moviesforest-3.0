@@ -4,14 +4,14 @@
 {% load static %}
 {% block body %}
 {% comment %} If request not send to the Zero_Two   {% endcomment %}
-<div class="container-xl pt-2">
+<div class="container-xl pt-2 extra-margin">
  {% comment %} displaying a banner in section tag {% endcomment %}
     <section
-        class="py-5 text-center d-flex flex-column-reverse mb-4  container-xxxl bg-image border border-3 border-dark rounded "
+        class="py-5 text-center d-flex flex-column-reverse mb-4  container-xxxl bg-image top-banner-bars rounded "
         style="background :url('{% static "banners/zero_two.jpg" %}') center /cover; height :40vh; background-repeat : no-repeat;">
     </section>
     {% if not request_success %}
-        <div class="mx-3">
+        <div class="mx-3 text-white">
                 <hr>
                 <h2>Sorry !</h2>
                 <p>Unable to communicate with Zero_Two</p>
@@ -25,7 +25,7 @@
             </div>
     {% else %}
         {% if not status %}
-            <div class="mx-3">
+            <div class="mx-3 text-white">
                 <hr>
                 <h2>No movie found !</h2>
                 <p>Query : {{query}}</p>
@@ -39,9 +39,9 @@
                 <hr>
             </div>
         {% else %}
-        <h3>Movie files found :</h3>
+        <h3 class="text-white">Movie files found :</h3>
             {% for movie in movies_array %}
-                <div class="container text-wrap">
+                <div class="container text-wrap text-white">
                     <ul >
                         <h5>File Name --></h5>
                         <li>{{movie.name}}</li>

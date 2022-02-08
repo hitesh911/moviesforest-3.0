@@ -23,6 +23,8 @@ html * {
     z-index: 10;
 
 
+
+
 }
 
 
@@ -454,6 +456,17 @@ html * {
 
 }
 
+@media only screen and (max-width: 999px) {
+    #slider-menu {
+        width: 21rem;
+
+    }
+
+    .creators-credit {
+        height: 6rem;
+    }
+}
+
 @media only screen and (max-width: 846px) {
     #slider-menu {
         width: 21rem;
@@ -466,16 +479,56 @@ html * {
         width: 18rem;
 
     }
+
+    .home-download-button {
+        width: 20vh !important;
+    }
 }
 
 @media only screen and (max-width: 531px) {
+    .title-caption-of-bottom-slider {
+        -webkit-line-clamp: 3 !important;
+    }
+
     #slider-menu {
         width: 16rem;
 
     }
+
+    .home-download-button {
+        width: 18vh !important;
+
+    }
+
+    .offcanvas-bottom {
+        height: 18rem !important;
+    }
+
+    .movie-details small {
+        font-size: .6rem !important;
+    }
+
+    .movie-details p {
+        font-size: .8rem;
+    }
 }
 
 @media only screen and (max-width: 431px) {
+    .creators-credit {
+        height: 5rem;
+    }
+
+    .offcanvas-bottom {
+        height: 18rem !important;
+    }
+
+    @media only screen and (max-width: 360px) {
+        .creators-credit {
+            height: 4rem;
+        }
+
+    }
+
     #slider-menu {
         width: 18rem;
 
@@ -559,4 +612,426 @@ html * {
 
     color: rgba(0, 0, 0, .65) !important;
     background-color: #d2f4ea;
+}
+
+
+/* moviesforest 3.0 version new css  */
+.posts-card {
+    background-color: transparent;
+    border-radius: 1rem;
+
+}
+
+.posts-card img {
+    border-radius: .5rem
+}
+
+.section-download-button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+
+}
+
+::-webkit-scrollbar {
+    width: .7em;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: darkgray;
+    border-radius: 1em;
+}
+
+.movies_carousel {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+.profectional-font {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.movies_carousel .carousel_inner {
+    transition: 450ms transform;
+    font-size: 0;
+    white-space: nowrap;
+    margin-bottom: 1rem;
+    padding-bottom: 4px;
+}
+
+.tile {
+    position: relative;
+    display: inline-block;
+    width: 8rem;
+    height: 11rem;
+    margin: .3rem .8rem 0 .8rem;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 450ms all;
+    transform-origin: center left;
+}
+
+.tile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: .4rem;
+}
+
+.tile__title {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+}
+
+.tile:hover {
+    transform: scale(1.1);
+    z-index: 5;
+}
+
+.tile .tile__media {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+.width-10-persent {
+    width: 10% !important;
+}
+
+.carousel-labs {
+    position: absolute;
+    bottom: -0.75rem;
+    padding-top: 1.25rem;
+    padding-bottom: 3.2rem;
+    color: #fff;
+    text-align: center;
+    right: 22%;
+    left: 8%;
+    width: 80%;
+    pointer-events: none;
+}
+
+.trending-yt-button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #dc3545;
+    height: 2.5rem;
+}
+
+
+
+
+.trending-info-button {
+
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 3.4rem;
+}
+
+
+.after-trending-labs {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.trending-carousel-labels {
+    color: white;
+    font-size: .857rem;
+    color: wheat;
+    text-shadow:
+        0.07em 0 black,
+        0 0.07em black,
+        -0.07em 0 black,
+        0 -0.07em black;
+}
+
+.creators-credit {
+    height: 15rem;
+}
+
+.main-tags-corner {
+    border-radius: 9px;
+    -webkit-box-shadow: 0 12px 30px -6px black;
+    -moz-box-shadow: 0 12px 30px -6px black;
+    box-shadow: 0 12px 30px -6px black;
+
+}
+
+.top-banner-bars {
+    -moz-box-shadow: 3px 3px 12px 6px #000;
+    -webkit-box-shadow: 3px 3px 12px 6px #000;
+    box-shadow: 3px 3px 12px 6px #000;
+
+}
+
+.trending-logo {
+    filter: brightness(60%)
+}
+
+.trending-carousel-inside {}
+
+.biggest-z-index {
+    z-index: 999999 !important;
+}
+
+.extra-margin {
+    margin-top: 5em !important;
+}
+
+.div-for-nave-space {
+    margin-bottom: 4rem;
+    visibility: hidden;
+}
+
+.iframe-of-details-modal {
+    max-height: 12rem;
+}
+
+.border-none {
+    border: none !important;
+}
+
+.more-details-close-arrow {
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+}
+
+.more-details-content {
+    background-color: #212529 !important;
+    color: white;
+}
+
+.share-button {
+    color: white;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.share-button:hover {
+    color: #0d6efd;
+}
+
+.download-cancas-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem !important;
+    max-height: 4rem;
+}
+
+.more-details {
+    height: 5rem;
+    width: 100%;
+
+}
+
+.movie-details-button:hover {
+    color: white !important;
+
+}
+
+.more-details-button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+}
+
+.more-details button h5 {
+    margin-left: 1vh;
+
+}
+
+.more-details::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: .1px;
+    background-color: white;
+    margin-top: .5rem;
+}
+
+.like-button {
+    color: white;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    outline: 0 !important;
+    border: none;
+    display: block;
+    background-color: transparent;
+
+}
+
+.like-button:hover {
+    color: #dc3545;
+    outline: 0 !important;
+}
+
+.like-button:focus {
+    outline: 0 !important;
+
+}
+
+.trailer-button {
+    color: #dc3545;
+    padding: .4rem .4rem;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+}
+
+.trailer-button:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.bottom-slider-movies-name h1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.bottom-slider-labels {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.title-caption-of-bottom-slider {
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-download-button {
+    width: 50vh;
+    height: 2.5rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.download-button-div-from-download-modal {
+    width: 100%;
+}
+
+.download-button-from-download-modal {
+    width: 100%;
+    height: 3rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+}
+
+.movie-details {
+    margin-left: .5rem;
+    color: white;
+    max-height: 8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.more-movies-details {
+    margin-left: .5rem;
+    color: white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.movie-details p {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.download-canvas-head {
+    padding: 1rem 1rem 0 1rem !important;
+}
+
+.movie-details h1 {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-weight: bolder;
+    margin: 0;
+    padding: 0;
+}
+
+.movie-details small {
+    margin: 0;
+    padding: 0;
+}
+
+.offcanvas-header {
+    align-items: unset;
+}
+
+.offcanvas-bottom {
+    height: 16rem;
+}
+
+.offcanvas-fire-button {
+    position: absolute;
+    /* z-index: -1; */
+    opacity: -.5;
+
+
+}
+
+.carousel {
+    height: 29rem;
+
+}
+
+.tranding-cell {
+    width: 100%;
+    height: 21rem;
+    margin-right: 10px;
+    border-radius: 5px;
+    counter-increment: gallery-cell;
+}
+
+.tranding-cell img {
+
+    height: 100%;
+    width: 100%;
+}
+
+/* cell number */
+.tranding-cell:before {
+    display: block;
+    text-align: center;
+    line-height: 200px;
+    font-size: 80px;
+    color: white;
 }

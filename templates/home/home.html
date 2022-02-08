@@ -3,6 +3,9 @@
 {% block homeactive %}active active-now{% endblock homeactive %}
 {% comment %} loading static files or others applications{% endcomment %}
 {% load static %}
+{% load split %}
+{% load make_json %}
+{% load get_yt_id %}
 {% load webpush_notifications %}
 {% block body %}
 
@@ -11,8 +14,10 @@
 <div class="position-fixed bottom-0 end-0 p-3 " style="z-index: 5">
     {% webpush_button with_class=" btn btn-danger" %}
     <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-bell text-danger" viewBox="0 0 16 16">
-            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+            class="bi bi-bell text-danger" viewBox="0 0 16 16">
+            <path
+                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
         </svg>
     </span>
 </div>
@@ -20,90 +25,772 @@
 {% comment %} making a main logic to display the content {% endcomment %}
 {% comment %} checking if result is ZERO {% endcomment %}
 {% if all_movies|length == 0 %}
-    <div class="mx-3">
-        <hr>
-        <h2>No content found?</h2>
-        <p>You need to try diffrent category. This category is not avalable for this section now.</p>
-        suggestions :
-        <ul>
-            <li>You can change you'r section</li>
-            <li>Try mannual search for better results</li>
-            <li>Try diffrent category or section combination</li>
-            <li>Please search on Zero_Two for all movies <a class = "text-decoration-none"href="#zero_two">below</a></li>
-        </ul>
-        <hr>
-    </div>
+<div class="mx-3 extra-margin bg-dark text-white">
+    <hr>
+    <h2>No content found?</h2>
+    <p>You need to try diffrent category. This category is not avalable for this section now.</p>
+    suggestions :
+    <ul>
+        <li>You can change you'r section</li>
+        <li>Try mannual search for better results</li>
+        <li>Try diffrent category or section combination</li>
+        <li>Please search on Zero_Two for all movies <a class="text-decoration-none" href="#zero_two">below</a></li>
+    </ul>
+    <hr>
+</div>
 {% else %}
 
-{% comment %} main div to show search result {% endcomment %}
-<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3 mt-1 mx-2">
-    {% for posts in all_movies %}
-    <div class="col mb-3">
-        <div class="card shadow-sm p-3">
-            {% comment %} display logo with img tag {% endcomment %}
-            <img src="{{posts.logo_link}}" class="card-img-top" alt="Logo not avalable yet">
-            <div class="card-body">
-                {% comment %} display title using p tag {% endcomment %}
-                <p class="card-text">{{posts.title}}</p>
-                {% comment %} making a button for download page with a tag {% endcomment %}
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <button type="submate" name="post_id" value={{posts.sno}} form="for_download_page"
-                            class=" stretched-link btn btn-outline-secondary">Download</button>
-                    </div>
+{% comment %} top carousel for trending items {% endcomment %}
+{% comment %} data-bs-ride="carousel" {% endcomment %}
+<div id="carousel-for-trending" class="carousel slide text-white bg-dark" data-bs-touch="false">
+    <div class="carousel-indicators">
+        {% for movie in trending_movies %}
+        {% if forloop.counter == 1 %}
+        <button type="button" data-bs-target="#carousel-for-trending" data-bs-slide-to="{{forloop.counter|add:-1}}"
+            class="active" aria-current="true" aria-label="Slide 1"></button>
+        {% else %}
+        <button type="button" data-bs-target="#carousel-for-trending" data-bs-slide-to="{{forloop.counter|add:-1}}"
+            class="" aria-current="true" aria-label="Slide 1"></button>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="carousel-inner h-100 trending-carousel-inside">
+        {% for movies in trending_movies %}
+        {% comment %} carousel items start {% endcomment %}
+        {% if forloop.counter == 1 %}
+        <div class="carousel-item active h-100">
+            <button class="h-100 w-100 offcanvas-fire-button" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#canvasno{{movies.sno}}" aria-controls="offcanvasBottom"></button>
+            <img src="{{movies.logo_link}}" class="d-block w-100 h-100" alt="...">
+            <div class="carousel-labs">
+
+                <div class=" container  d-flex justify-content-between ms-2 ">
+                    {% for labels in movies.category|split:','|slice:':4' %}
+                    <small class=" trending-carousel-labels">{{labels}}</small>
+                    {% endfor %}
+                </div>
+                <div class="after-trending-labs  mt-3">
+                    <button class=" trending-yt-button " type="button" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalFullscreenXxl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="62" height="35" fill="currentColor"
+                            class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path
+                                d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="btn  btn-light home-download-button shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22" fill="currentColor"
+                            class="bi bi-yin-yang" viewBox="0 0 16 16">
+                            <path d="M9.167 4.5a1.167 1.167 0 1 1-2.334 0 1.167 1.167 0 0 1 2.334 0Z" />
+                            <path
+                                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM1 8a7 7 0 0 1 7-7 3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 0 0 7 7 7 0 0 1-7-7Zm7 4.667a1.167 1.167 0 1 1 0-2.334 1.167 1.167 0 0 1 0 2.334Z" />
+                        </svg>
+                        Open
+                    </button>
+                    <button class="trending-info-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                            <path
+                                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+                            </path>
+                        </svg>
+                        Info
+                    </button>
                 </div>
             </div>
-            {% comment %} fetching timestamp form database and display with small tag {% endcomment %}
-            <small class="text-muted mx-3">{{posts.timestamp}}
-            {% comment %} display views  {% endcomment %}
-            <hr>
-             Views : {{posts.views_count}}</small>
+
+            <div class="offcanvas offcanvas-bottom rounded-top bg-dark" tabindex="-1" id="canvasno{{movies.sno}}"
+                aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header  download-canvas-head">
+                    <img src="{{movies.logo_link}}" alt="..." width="99" , height="129" class="rounded">
+
+                    <div class="movie-details ">
+                        <div class="bottom-slider-movies-name">
+                            <h1>{{movies.title}} </h1>
+                        </div>
+                        <small class="text-muted bottom-slider-labels ">
+                            {% for movie_labels in movies.category|split:","%}
+                            <span>{{movie_labels}}</span>
+                            {% endfor %}
+                        </small>
+                        <p class="title-caption-of-bottom-slider"> {{movies.title_caption|safe}} </p>
+                    </div>
+                    <button type="button" class="btn-close text-reset download-bottom-slider-close"
+                        data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body small  download-cancas-body">
+                    {% comment %} button for download {% endcomment %}
+                    {% comment %} {{movies.other_download_links|make_json}} {% endcomment %}
+                    {% with movies.other_download_links|make_json as json_dict %}
+                    {% for movie_print ,movie_link in json_dict.items %}
+                    {% if forloop.counter == 1%}
+                    <a class="btn btn-light home-download-button" href="{{movie_link}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22" fill="currentColor"
+                            class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                        </svg>
+                        Download
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endwith %}
+                    {% comment %} like dislike buttons {% endcomment %}
+                    <button class=" like-button  ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                        </svg>
+                    </button>
+                    <button class=" like-button ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z" />
+                        </svg>
+                    </button>
+                    {% comment %} link share button {% endcomment %}
+                    <div class="share-modal">
+                        <button type="button" class=" share-button" data-bs-toggle="modal"
+                            data-bs-target="#modalno{{movies.sno}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="21" fill="currentColor"
+                                class="bi bi-share " viewBox="0 0 16 16">
+                                <path
+                                    d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z">
+                                </path>
+                            </svg>
+                        </button>
+                        {% comment %} modal code start for share button {% endcomment %}
+                        <div class="modal fade" id="modalno{{movies.sno}}" data-bs-backdrop="static"
+                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Share</h5>
+                                        <button type="button" class="btn-close share-modal-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3">
+                                            <div class="col mb-3">
+                                                <button class=" clipboard btn btn-link"
+                                                    onclick="copypostUrl({{movies.sno}})">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z">
+                                                        </path>
+                                                        <path
+                                                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-lite"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} modal end of share button {% endcomment %}
+                    </div>
+                    {% comment %} this is the button for trailer {% endcomment %}
+                    <a class=" trailer-button" href="https://youtu.be/{{movies.trailer_link|get_yt_id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path
+                                d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="more-details">
+                    <button class=" more-details-button" type="button" data-bs-toggle="modal"
+                        data-bs-target="#more-details-modalno{{movies.sno}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-info-circle mb-2" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path
+                                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                        <h5>Episodes & More Details </h5>
+                    </button>
+                    {% comment %} more-details modal {% endcomment %}
+                    <div class="modal fade more-details-fullscreen-modal" id="more-details-modalno{{movies.sno}}"
+                        tabindex="-1" aria-labelledby="exampleModalFullscreenXxlLabel" style="display: none;"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-fullscreen-xxl-down">
+                            <div class="modal-content more-details-content bg-dark ">
+                                <div class="modal-header border-none">
+                                    <h5 class="modal-title h4" id="exampleModalFullscreenXxlLabel">Details & Info</h5>
+                                    <button type="button" class="btn more-details-close" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-chevron-up  more-details-close-arrow"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% comment %} ifram tag for diaplay trailer {% endcomment %}
+                                    <iframe id="model-trailer"
+                                        class=" iframe-of-details-modal trailer-iframe-tag mb-2 btn-outline-success shadow border border-success rounded border-top-0 border-bottom-0"
+                                        width="560" height="315" src="{{movies.trailer_link}}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                    <div class="more-movie-details ">
+                                        <div class="">
+                                            <h1>{{movies.title}} </h1>
+                                        </div>
+                                        {% comment %} button for download {% endcomment %}
+                                        {% with movies.other_download_links|make_json as download_other_links %}
+                                        {% for moive_quality , movie_url in download_other_links.items %}
+                                        {% if forloop.counter == 1 %}
+                                        <div class="download-button-div-from-download-modal">
+                                            <a class="btn btn-light download-button-from-download-modal"
+                                                href="{{movie_url}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22"
+                                                    fill="currentColor" class="bi bi-cloud-arrow-down-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                                </svg>
+                                                Download
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endwith %}
+                                        <small class="text-muted ">
+                                            {% for movie_all_labels in movies.category|split:","%}
+                                            <span>{{movie_all_labels}}</span>
+                                            {% endfor %}
+                                        </small>
+                                        <p> {{movies.content}} </p>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-none">
+                                    <button type="button" class=" more-details-close-arrow" data-bs-dismiss="modal">
+                                        close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} end of the more-deails modal {% endcomment %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="carousel-item  h-100">
+            <button class="h-100 w-100 offcanvas-fire-button" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#canvasno{{movies.sno}}" aria-controls="offcanvasBottom"></button>
+            <img src="{{movies.logo_link}}" class="d-block w-100 h-100" alt="...">
+            <div class="carousel-labs">
+                <div class=" container  d-flex justify-content-between ms-2 ">
+                    {% for labels in movies.category|split:','|slice:':4' %}
+                    <small class=" trending-carousel-labels">{{labels}}</small>
+                    {% endfor %}
+                </div>
+                <div class="after-trending-labs  mt-3">
+                    <button class=" trending-yt-button " type="button" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalFullscreenXxl">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="62" height="35" fill="currentColor"
+                            class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path
+                                d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z">
+                            </path>
+                        </svg>
+                    </button>
+                    <button class="btn  btn-light home-download-button shadow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22" fill="currentColor"
+                            class="bi bi-yin-yang" viewBox="0 0 16 16">
+                            <path d="M9.167 4.5a1.167 1.167 0 1 1-2.334 0 1.167 1.167 0 0 1 2.334 0Z" />
+                            <path
+                                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM1 8a7 7 0 0 1 7-7 3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 0 0 7 7 7 0 0 1-7-7Zm7 4.667a1.167 1.167 0 1 1 0-2.334 1.167 1.167 0 0 1 0 2.334Z" />
+                        </svg>
+                        Open
+                    </button>
+                    <button class="trending-info-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                            <path
+                                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+                            </path>
+                        </svg>
+                        Info
+                    </button>
+                </div>
+            </div>
+            {% comment %} this is bottom offcanvas {% endcomment %}
+            <div class="offcanvas offcanvas-bottom rounded-top bg-dark" tabindex="-1" id="canvasno{{movies.sno}}"
+                aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header  download-canvas-head">
+                    <img src="{{movies.logo_link}}" alt="..." width="99" , height="129" class="rounded">
+
+                    <div class="movie-details ">
+                        <div class="bottom-slider-movies-name">
+                            <h1>{{movies.title}} </h1>
+                        </div>
+                        <small class="text-muted bottom-slider-labels ">
+                            {% for movie_labels in movies.category|split:","%}
+                            <span>{{movie_labels}}</span>
+                            {% endfor %}
+                        </small>
+                        <p class="title-caption-of-bottom-slider"> {{movies.title_caption|safe}} </p>
+                    </div>
+                    <button type="button" class="btn-close text-reset download-bottom-slider-close"
+                        data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body small  download-cancas-body">
+                    {% comment %} button for download {% endcomment %}
+                    {% comment %} {{movies.other_download_links|make_json}} {% endcomment %}
+                    {% with movies.other_download_links|make_json as json_dict %}
+                    {% for movie_print ,movie_link in json_dict.items %}
+                    {% if forloop.counter == 1%}
+                    <a class="btn btn-light home-download-button" href="{{movie_link}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22" fill="currentColor"
+                            class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                        </svg>
+                        Download
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    {% endwith %}
+                    {% comment %} like dislike buttons {% endcomment %}
+                    <button class=" like-button  ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                        </svg>
+                    </button>
+                    <button class=" like-button ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z" />
+                        </svg>
+                    </button>
+                    {% comment %} link share button {% endcomment %}
+                    <div class="share-modal">
+                        <button type="button" class=" share-button" data-bs-toggle="modal"
+                            data-bs-target="#modalno{{movies.sno}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="21" fill="currentColor"
+                                class="bi bi-share " viewBox="0 0 16 16">
+                                <path
+                                    d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z">
+                                </path>
+                            </svg>
+                        </button>
+                        {% comment %} modal code start for share button {% endcomment %}
+                        <div class="modal fade" id="modalno{{movies.sno}}" data-bs-backdrop="static"
+                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Share</h5>
+                                        <button type="button" class="btn-close share-modal-close"
+                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3">
+                                            <div class="col mb-3">
+                                                <button class=" clipboard btn btn-link"
+                                                    onclick="copypostUrl({{movies.sno}})">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z">
+                                                        </path>
+                                                        <path
+                                                            d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-lite"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% comment %} modal end of share button {% endcomment %}
+                    </div>
+                    {% comment %} this is the button for trailer {% endcomment %}
+                    <a class=" trailer-button" href="https://youtu.be/{{movies.trailer_link|get_yt_id}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-youtube" viewBox="0 0 16 16">
+                            <path
+                                d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="more-details">
+                    <button class=" more-details-button" type="button" data-bs-toggle="modal"
+                        data-bs-target="#more-details-modalno{{movies.sno}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                            class="bi bi-info-circle mb-2" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                            <path
+                                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                        <h5>Episodes & More Details </h5>
+                    </button>
+                    {% comment %} more-details modal {% endcomment %}
+                    <div class="modal fade more-details-fullscreen-modal" id="more-details-modalno{{movies.sno}}"
+                        tabindex="-1" aria-labelledby="exampleModalFullscreenXxlLabel" style="display: none;"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-fullscreen-xxl-down">
+                            <div class="modal-content more-details-content bg-dark ">
+                                <div class="modal-header border-none">
+                                    <h5 class="modal-title h4" id="exampleModalFullscreenXxlLabel">Details & Info</h5>
+                                    <button type="button" class="btn more-details-close" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-chevron-up  more-details-close-arrow"
+                                            viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% comment %} ifram tag for diaplay trailer {% endcomment %}
+                                    <iframe id="model-trailer"
+                                        class=" iframe-of-details-modal trailer-iframe-tag mb-2 btn-outline-success shadow border border-success rounded border-top-0 border-bottom-0"
+                                        width="560" height="315" src="{{movies.trailer_link}}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                    <div class="more-movie-details ">
+                                        <div class="">
+                                            <h1>{{movies.title}} </h1>
+                                        </div>
+                                        {% comment %} button for download {% endcomment %}
+                                        {% with movies.other_download_links|make_json as download_other_links %}
+                                        {% for moive_quality , movie_url in download_other_links.items %}
+                                        {% if forloop.counter == 1 %}
+                                        <div class="download-button-div-from-download-modal">
+                                            <a class="btn btn-light download-button-from-download-modal"
+                                                href="{{movie_url}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22"
+                                                    fill="currentColor" class="bi bi-cloud-arrow-down-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                                </svg>
+                                                Download
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endwith %}
+                                        <small class="text-muted ">
+                                            {% for movie_all_labels in movies.category|split:","%}
+                                            <span>{{movie_all_labels}}</span>
+                                            {% endfor %}
+                                        </small>
+                                        <p> {{movies.content}} </p>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-none">
+                                    <button type="button" class=" more-details-close-arrow" data-bs-dismiss="modal">
+                                        close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% comment %} end of the more-deails modal {% endcomment %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% comment %} end all items {% endcomment %}
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev width-10-persent" type="button" data-bs-target="#carousel-for-trending"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next width-10-persent" type="button" data-bs-target="#carousel-for-trending"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+{% comment %} main div to show all posts {% endcomment %}
+
+<div class="disable-slider container-fluid bg-dark text-white">
+    {% for labs_name , query_set in categories_data.items %}
+    <h1 class="ms-3 mt-2 mb-1"><b class="profectional-font text-capitalize">{{labs_name}}</b></h1>
+    <div class="movies_carousel ">
+        <div class="carousel_inner">
+            {% for movs in query_set%}
+            <div class="tile disable-slider">
+                <button class="tile__media" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#postcanvasno{{movs.sno}}" aria-controls="offcanvasBottom">
+                    <img class="tile__img" src="{{movs.logo_link}}" alt="{%static 'logo/pryanshu.jpg'%}">
+                </button>
+            </div>
+            {% endfor %}
         </div>
     </div>
     {% endfor %}
 </div>
-<hr>
+{% comment %} this is for all bottom slider of posts {% endcomment %}
+{% for labs_name , query_set in categories_data.items %}
+{% for movs in query_set %}
+    {% comment %} posts offcanver bottom  {% endcomment %}
+    <div class="offcanvas offcanvas-bottom rounded-top bg-dark" tabindex="-1" id="postcanvasno{{movs.sno}}"
+        aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header  download-canvas-head">
+            <img src="{{movs.logo_link}}" alt="..." width="99" , height="129" class="rounded">
+
+            <div class="movie-details ">
+                <div class="bottom-slider-movies-name">
+                    <h1>{{movs.title}} </h1>
+                </div>
+                <small class="text-muted bottom-slider-labels ">
+                    {% for movie_labels in movs.category|split:","%}
+                    <span>{{movie_labels}}</span>
+                    {% endfor %}
+                </small>
+                <p class="title-caption-of-bottom-slider"> {{movs.title_caption|safe}} </p>
+            </div>
+            <button type="button" class="btn-close text-reset download-bottom-slider-close" data-bs-dismiss="offcanvas"
+                aria-label="Close">
+            </button>
+        </div>
+        <div class="offcanvas-body small  download-cancas-body">
+            {% comment %} button for download {% endcomment %}
+            {% comment %} {{movies.other_download_links|make_json}} {% endcomment %}
+            {% with movs.other_download_links|make_json as json_dict %}
+            {% for movie_print ,movie_link in json_dict.items %}
+            {% if forloop.counter == 1%}
+            <a class="btn btn-light home-download-button" href="{{movie_link}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22" fill="currentColor"
+                    class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                </svg>
+                Download
+            </a>
+            {% endif %}
+            {% endfor %}
+            {% endwith %}
+            {% comment %} like dislike buttons {% endcomment %}
+            <button class=" like-button  ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                    class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+                </svg>
+            </button>
+            <button class=" like-button ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                    class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z" />
+                </svg>
+            </button>
+            {% comment %} link share button {% endcomment %}
+            <div class="share-modal">
+                <button type="button" class=" share-button" data-bs-toggle="modal" data-bs-target="#modalno{{movs.sno}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="21" fill="currentColor" class="bi bi-share "
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z">
+                        </path>
+                    </svg>
+                </button>
+                {% comment %} modal code start for share button {% endcomment %}
+                <div class="modal fade" id="modalno{{movs.sno}}" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="offcanvas-title" id="offcanvasBottomLabel">Share</h5>
+                                <button type="button" class="btn-close share-modal-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 g-3">
+                                    <div class="col mb-3">
+                                        <button class=" clipboard btn btn-link" onclick="copypostUrl({{movs.sno}})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z">
+                                                </path>
+                                                <path
+                                                    d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-lite" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% comment %} modal end of share button {% endcomment %}
+            </div>
+            {% comment %} this is the button for trailer {% endcomment %}
+            <a class=" trailer-button" href="https://youtu.be/{{movs.trailer_link|get_yt_id}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor" class="bi bi-youtube"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                </svg>
+            </a>
+        </div>
+        <div class="more-details">
+            <button class=" more-details-button" type="button" data-bs-toggle="modal"
+                data-bs-target="#post-more-details-modalno{{movs.sno}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="25" fill="currentColor"
+                    class="bi bi-info-circle mb-2" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg>
+                <h5>Episodes & More Details </h5>
+            </button>
+            {% comment %} more-details modal {% endcomment %}
+            <div class="modal fade more-details-fullscreen-modal" id="post-more-details-modalno{{movs.sno}}" tabindex="-1"
+                aria-labelledby="exampleModalFullscreenXxlLabel" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen-xxl-down">
+                    <div class="modal-content more-details-content bg-dark ">
+                        <div class="modal-header border-none">
+                            <h5 class="modal-title h4" id="exampleModalFullscreenXxlLabel">Details & Info
+                            </h5>
+                            <button type="button" class="btn more-details-close" data-bs-dismiss="modal" aria-label="Close">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-chevron-up  more-details-close-arrow" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% comment %} ifram tag for diaplay trailer {% endcomment %}
+                            <iframe id="model-trailer"
+                                class=" iframe-of-details-modal trailer-iframe-tag mb-2 btn-outline-success shadow border border-success rounded border-top-0 border-bottom-0"
+                                width="560" height="315" src="{{movs.trailer_link}}" title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                            <div class="more-movie-details ">
+                                <div class="">
+                                    <h1>{{movs.title}} </h1>
+                                </div>
+                                {% comment %} button for download {% endcomment %}
+                                {% with movs.other_download_links|make_json as download_other_links %}
+                                {% for moive_quality , movie_url in download_other_links.items %}
+                                {% if forloop.counter == 1 %}
+                                <div class="download-button-div-from-download-modal">
+                                    <a class="btn btn-light download-button-from-download-modal" href="{{movie_url}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="22" fill="currentColor"
+                                            class="bi bi-cloud-arrow-down-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 6.854-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5a.5.5 0 0 1 1 0v3.793l1.146-1.147a.5.5 0 0 1 .708.708z" />
+                                        </svg>
+                                        Download
+                                    </a>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% endwith %}
+                                <small class="text-muted ">
+                                    {% for movie_all_labels in movs.category|split:","%}
+                                    <span>{{movie_all_labels}}</span>
+                                    {% endfor %}
+                                </small>
+                                <p> {{movs.content}} </p>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer border-none">
+                            <button type="button" class=" more-details-close-arrow" data-bs-dismiss="modal">
+                                close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %} end of the more-deails modal {% endcomment %}
+        </div>
+    </div>
+{% endfor %}
+{% endfor %}
+<hr class="text-white">
 
 {% comment %} form for downlaod page request {% endcomment %}
 <form action="/forest/download" id="for_download_page" method="get"></form>
 {% comment %} end form of downlaod page {% endcomment %}
 {% endif %}
 <div class="container mb-2 ">
-    <p class="lead mb-0 text-center"><a class=" fw-bold text-decoration-none" data-bs-toggle="collapse" href="#collapseExample"
-                role="button" aria-expanded="false" aria-controls="collapseExample">
-            What is ZeroTwo <span class = "text-danger">!</span>
-          </a></p>
-        <div class="collapse" id="collapseExample">
-        <p class="text-center">
-        Zero_Two is basically a bot which provide any content that you request to her.
-        She will find you'r content in wide internet area So, the posibility of getting 
-        you'r demanded content is 90% if you'r given details are right or close to it.
-        ZeroTwo is more accurate or competable with movies. but if you search for webseries or
-        something like that you will get the content that will not satisfy you. So please search 
-        only movie. And if you want any kind of series you can directly <a class = "text-decoration-none"href="/contact">
-        request us</a>. Zero_Two need release year to be more accurate. So kindly provide 
-        year to her. <br> You can use ZeroTwo in other platforms like <a class = "text-decoration-none"href="https://msng.link/o/?zero_two_movie_bot=tg">Telegram</a>,<a class = "text-decoration-none"href="#">Whatsapp</a>
-        <br>
-        <h3 class = "text-danger text-center">Warning :</h3>
-            <p class = "text-center">
+    <p class="lead mb-0 text-center"><a class=" fw-bold text-decoration-none" data-bs-toggle="collapse"
+            href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            What is ZeroTwo <span class="text-danger">!</span>
+        </a></p>
+    <div class="collapse" id="collapseExample">
+        <p class="text-center text-white">
+            Zero_Two is basically a bot which provide any content that you request to her.
+            She will find you'r content in wide internet area So, the posibility of getting
+            you'r demanded content is 90% if you'r given details are right or close to it.
+            ZeroTwo is more accurate or competable with movies. but if you search for webseries or
+            something like that you will get the content that will not satisfy you. So please search
+            only movie. And if you want any kind of series you can directly <a class="text-decoration-none"
+                href="/contact">
+                request us</a>. Zero_Two need release year to be more accurate. So kindly provide
+            year to her. <br> You can use ZeroTwo in other platforms like <a class="text-decoration-none"
+                href="https://msng.link/o/?zero_two_movie_bot=tg">Telegram</a>,<a class="text-decoration-none"
+                href="#">Whatsapp</a>
+            <br>
+        <h3 class="text-danger text-center">Warning :</h3>
+        <p class="text-center text-white">
             ZeroTwo provides singel click download. So be patient when you click on download button.
             It could take few seconds.
-            </p> 
-
         </p>
-        </div>
-<hr>
-<b> Search in Zero_two : </b>
-<form method = "post" action = "/ZeroTwo" >
-    {% csrf_token %}
-    <div class="d-flex">
-        <input autocomplete = "off" class="form-control me-2" type="search" placeholder="Movie name" aria-label="search" name = "movie" id = "zero_two">
-        <input maxlength="4" autocomplete = "off" class="form-control me-2" type="number" placeholder="Year" aria-label="search" name = "year" >
     </div>
-    <button class="btn btn-outline-success mt-4" type="submit" >Search</button>
-</form>
+    <hr class="text-white">
+    <b class="text-white"> Search in Zero_two : </b>
+    <form method="post" action="/ZeroTwo">
+        {% csrf_token %}
+        <div class="d-flex">
+            <input autocomplete="off" class="form-control me-2" type="search" placeholder="Movie name"
+                aria-label="search" name="movie" id="zero_two">
+            <input maxlength="4" autocomplete="off" class="form-control me-2" type="number" placeholder="Year"
+                aria-label="search" name="year">
+        </div>
+        <button class="btn btn-outline-success mt-4" type="submit">Search</button>
+    </form>
 </div>
-    <hr>
+<hr class="text-white">
 
 
 

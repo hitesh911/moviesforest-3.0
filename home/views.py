@@ -5,7 +5,7 @@ from home.models import Contact
 from django.contrib import messages
 from forest.models import Post
 from django.contrib.postgres.search import SearchVector , SearchRank , SearchQuery
-from forest.views import get_labels
+from forest.views import get_labels , color_list
 # importing get clint ip function for history function
 from forest.views import get_client_ip
 import requests , time
@@ -65,8 +65,10 @@ def error_400(request , exception):
 
 
 def home(request):
+    # logic for show trending movies 
+    trending_movies = Post.objects.all().order_by("views_count").reverse()[:4]
+    # getting the list of indexes 
     all_movies =  Post.objects.all().order_by("sno").reverse()
-
     # messages.success(request , "<a class = 'text-deco`ration-none' href = 'http://moviesforest.herokuapp.com'>Click here <a/>for better experince")
     # ---------------------this is the content related to the wepush notifications -----------------
     # deciding a goup name for my subscribers 
@@ -75,8 +77,18 @@ def home(request):
     webpush = {"group": group_name}
     # getting labels 
     label_object = get_labels()
+    # getting labels content 
+    # initilizing default categories_data dict
+    categories_data = {}
+    # getting list of other labels containing names
+    other = label_object["other"]
+    # making a categories_data object of name of label and its posts querset 
+    for cats in other:
+        cats_post = Post.objects.filter(category__icontains=cats).order_by("sno").reverse()
+        if len(cats_post) != 0:
+            categories_data[cats] = cats_post
     # making a context 
-    context = {"all_movies":all_movies,"webpush":webpush,  "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
+    context = {"categories_data":categories_data, "color_list": color_list,"trending_movies":trending_movies,"all_movies":all_movies,"webpush":webpush,  "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     #-------------------------- returning the context with goup name for webpush --------------------------------
     return render(request , 'home/home.html', context)
 def contact(request):
@@ -157,7 +169,7 @@ def search(request):
     # getting label 
     label_object = get_labels()
     # seding context 
-    context = {"search_related_posts": search_related_posts , "query":query, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
+    context = {"color_list": color_list,"search_related_posts": search_related_posts , "query":query, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     # render search.html if request is post means request is from our site  
     return render(request , "home/search.html" , context)
 # this is for search suggestions 
@@ -175,7 +187,7 @@ def history(request):
     history_related_posts = Post.objects.filter(ips__icontains = current_user_ip)
     # getting labels 
     label_object = get_labels()
-    context = {"history_related_posts":history_related_posts, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
+    context = {"color_list": color_list, "history_related_posts":history_related_posts, "year": label_object["year"] ,"main":label_object["main"] ,  "other":label_object["other"] ,}
     return render(request , "home/history.html" , context)
 
 
