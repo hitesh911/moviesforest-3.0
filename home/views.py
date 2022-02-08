@@ -81,7 +81,7 @@ def home(request):
     # initilizing default categories_data dict
     categories_data = {}
     # getting list of other labels containing names
-    other = label_object["other"]
+    other = label_object["main"]
     # making a categories_data object of name of label and its posts querset 
     for cats in other:
         cats_post = Post.objects.filter(category__icontains=cats).order_by("sno").reverse()
