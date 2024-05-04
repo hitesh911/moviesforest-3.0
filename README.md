@@ -1,91 +1,65 @@
 # MOVIES_FOREST 3.0
 This project has old versions [movies forest 2.0](https://github.com/hitesh911/moviesforest-2.0) , [movies forest](https://github.com/hitesh911/movies_forest)
-## Introduction
 
-The goal of this project is to provide  django project template with many added features that everyone can use.
+# CinemaHaven (Formerly MoviesForest)
 
-Template is written with django 3.2.1 and python 3 in mind.
+CinemaHaven is an ambitious web application that I developed using Django, a powerful Python web framework, along with the Jinja2 template engine. Originally named MoviesForest, this project aimed to provide users with a comprehensive platform for streaming movies and series. Please note that this project is no longer maintained or live due to ethical, moral, and legal considerations.
 
+## Key Features
 
-### Main features
+### Robust Django Framework
+CinemaHaven leverages the Django framework to ensure robustness, scalability, and maintainability. With Django's built-in features like ORM, authentication, and admin panel, the development process was streamlined, allowing for efficient implementation of various functionalities.
 
-* Separated dev and production settings
+### Responsive Design with Bootstrap
+I utilized Bootstrap to create a visually appealing and fully responsive user interface. The responsive design ensures that the platform is accessible and user-friendly across a wide range of devices, including desktops, tablets, and mobile phones.
 
-* Example app with custom user model
+### Content Archiving and Management
+As MoviesForest, this project served as an archive for a vast collection of movies and series. Users could browse, search, and stream content seamlessly, thanks to Django's powerful data management capabilities.
 
-* Bootstrap static files included
+### Iterative Development and Versioning
+The project repository includes multiple versions of CinemaHaven, showcasing iterative improvements and feature enhancements over time. Each version represents a milestone in the project's development, demonstrating my ability to iterate and refine a complex web application.
 
-* User registration and logging in as demo
+## Setup Instructions
 
-* Procfile for easy deployments
+To set up CinemaHaven on your local machine, follow these instructions:
 
-* Separated requirements files
+1. **Clone the Repository**: 
+   ```
+   git clone <repository_url>
+   ```
 
-* Push notification implemented already
+2. **Install Dependencies**:
+   ```
+   cd CinemaHaven
+   pip install -r requirements.txt
+   ```
 
-* Message framwork , Whitenoise and many more are already implemented
+3. **Database Setup**:
+   ```
+   python manage.py migrate
+   ```
 
-# Usage
+4. **Create Superuser** (Optional):
+   ```
+   python manage.py createsuperuser
+   ```
 
-To use this template to start your own project:
+5. **Run the Development Server**:
+   ```
+   python manage.py runserver
+   ```
 
-### Existing virtualenv
+6. **Access the Application**:
+   Open your web browser and navigate to `http://localhost:8000` to access CinemaHaven.
 
-If your project is already in an existing python3 virtualenv first install django by running
+## Screenshots
 
-    $ pip install django
-    
-And then run the `django-admin.py` command to start the new project:
+Below are screenshots showcasing different versions of the CinemaHaven project:
 
-    $ django-admin.py startproject \
-      --template=https://github.com/hitesh911/moviesforest-3.0 \
-      --extension=py,md \
-      <project_name>
-      
-### No virtualenv
+![Screenshot 1](screenshots/screenshot1.png)
+![Screenshot 2](screenshots/screenshot2.png)
+![Screenshot 3](screenshots/screenshot3.png)
 
-This assumes that `python3` is linked to valid installation of python 3 and that `pip` is installed and `pip3`is valid
-for installing python 3 packages.
+## Note
 
-Installing inside virtualenv is recommended, however you can start your project without virtualenv too.
-
-If you don't have django installed for python 3 then run:
-
-    $ pip3 install django
-    
-And then:
-
-    $ python3 -m django startproject \
-      --template=https://github.com/hitesh911/moviesforest-3.0.git \
-      --extension=py,md \
-      <project_name>
-      
-      
-After that just install the local dependencies, run migrations, and start the server.
-
-
-# MoviesForest
-
-# Getting Started
-
-First clone the repository from Github and switch to the new directory:
-
-    $ git clone https://github.com/hitesh911/moviesforest-3.0.git
-    $ cd movies_forest
-    
-Activate the virtualenv for your project.
-    
-Install project dependencies:
-
-    $ pip install -r requirements.txt
-    
-    
-Then simply apply the migrations:
-
-    $ python manage.py migrate
-    
-
-You can now run the development server:
-
-    $ python manage.py runserver
-
+While CinemaHaven is no longer maintained or live, it stands as a testament to my skills in web development, particularly in Django, frontend design using Bootstrap, and project management. It's important to acknowledge that the distribution of pirated content is illegal and unethical, and I do not condone or support such activities.
