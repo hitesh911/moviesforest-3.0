@@ -54,7 +54,7 @@ To set up CinemaHaven on your local machine, follow these instructions:
 
 ## Screenshots
 
-Below are screenshots showcasing different versions of the CinemaHaven project:
+Below are screenshots showcasing different pages with different versions of the CinemaHaven project:
 
 ![Screenshot 1](static/banners/1.png)
 ![Screenshot 2](static/banners/2.png)
