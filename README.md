@@ -25,7 +25,7 @@ To set up CinemaHaven on your local machine, follow these instructions:
 
 1. **Clone the Repository**: 
    ```
-   git clone <repository_url>
+   git clone https://github.com/hitesh911/moviesforest-3.0/edit/main
    ```
 
 2. **Install Dependencies**:
